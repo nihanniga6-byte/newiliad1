@@ -356,8 +356,12 @@
         if (!r) return '';
         return r.patient_phone || r.patientPhone || r.phone || '';
     }
+    // Last doctor bulk-sync stats (inspect via window.__apiSyncDoctorSync).
+    // If progressKeys/testKeys stay 0 while the user has data, the bulk GET
+    // is failing — check login session, API reachability, and OPcache.
+    var _docSync = { at: 0, progressRows: 0, progressKeys: 0, testRows: 0, testKeys: 0, waterKeys: 0 };
     function storeGroupedRows(rows, prefix, storeFn) {
-        if (!Array.isArray(rows)) return;
+        if (!Array.isArray(rows)) return 0;
         var groups = {};
         for (var i = 0; i < rows.length; i++) {
             var ph = phoneOfRow(rows[i]);
@@ -365,14 +369,23 @@
             if (!groups[ph]) groups[ph] = [];
             groups[ph].push(rows[i]);
         }
+        var n = 0, skipped = 0;
         for (var p in groups) {
             if (groups.hasOwnProperty(p)) {
-                try { storeFn(prefix + p, JSON.stringify(groups[p])); } catch (e) {}
+                try { if (storeFn(prefix + p, JSON.stringify(groups[p]))) n++; else skipped++; } catch (e) {}
             }
         }
+        // skipped > 0 means the outbox holds an unsynced local edit for that
+        // patient, so the server value was kept aside to avoid wiping it.
+        _docSync.skippedPending = skipped;
+        _docSync.at = Date.now();
+        if (prefix.indexOf('progress') >= 0) { _docSync.progressRows = rows.length; _docSync.progressKeys = n; }
+        else { _docSync.testRows = rows.length; _docSync.testKeys = n; }
+        return n;
     }
     function storeBulkWater(data, storeFn) {
-        if (!data) return;
+        if (!data) return 0;
+        var n = 0;
         // new bulk shape: { phone: { date: {count, glasses} } }
         for (var phone in data) {
             if (!data.hasOwnProperty(phone)) continue;
@@ -382,10 +395,13 @@
             // bulk value is an object whose values look like {count,...}
             for (var dateKey in byDate) {
                 if (byDate.hasOwnProperty(dateKey)) {
-                    try { storeFn('zohra_water_' + phone + '_' + dateKey, JSON.stringify(byDate[dateKey])); } catch (e) {}
+                    try { storeFn('zohra_water_' + phone + '_' + dateKey, JSON.stringify(byDate[dateKey])); n++; } catch (e) {}
                 }
             }
         }
+        _docSync.at = Date.now();
+        _docSync.waterKeys = n;
+        return n;
     }
     function getKnownPatientPhones() {
         var phones = [];
@@ -662,6 +678,7 @@
 
     setInterval(function() { flushOutbox(); }, 15000);
 
+    window.__apiSyncDoctorSync = function() { return _docSync; };
     window.__apiSyncReady = waitForReady;
     window.__apiSyncRefresh = refreshFromApi;
     window.__apiSyncFlush = flushOutbox;
