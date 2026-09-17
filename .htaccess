@@ -1,0 +1,38 @@
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php8_module>
+   php_value error_log "/home/h421704/logs/php.error.log"
+   php_flag log_errors On
+</IfModule>
+<IfModule lsapi_module>
+   php_value error_log "/home/h421704/logs/php.error.log"
+   php_flag log_errors On
+</IfModule>
+# END cPanel-generated php ini directives
+
+# Enable mod_rewrite
+RewriteEngine On
+
+# Canonical host: www -> apex. One host = one session + one cache.
+# Without this, logins on www. are invisible on the apex (and vice versa).
+RewriteCond %{HTTP_HOST} ^www\.zohrabiclinic\.ir$ [NC]
+RewriteRule ^(.*)$ https://zohrabiclinic.ir/$1 [R=301,L]
+
+# API routing - forward /api/* to api/index.php
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.*)$ /api/index.php [QSA,L]
+
+# Security - prevent access to sensitive files
+RewriteRule ^(config|core|app|cache|logs|uploads|v2)/ - [F,L]
+RewriteRule \.(sql|log|lock)$ - [F,L]
+
+# Sync script must never go stale: revalidate on every load.
+# (A 304 then always means "your copy is current", never a stuck old file.)
+<IfModule mod_headers.c>
+  <Files "api-sync.js">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </Files>
+</IfModule>

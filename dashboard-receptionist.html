@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل منشی — کلینیک  دکتر ظهرابی</title>
+<link rel="icon" href="/images/logo-rel.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--d:#0f172a;--d2:#1e293b;--p:#16a34a;--p2:#15803d;--p3:#22c55e;--s:#dcfce7;--mid:#2e86c1;--mid2:#3498db;--gold:#d97706;--w:#fff;--g:#f8fafc;--g2:#f1f5f9;--e:#334155;--m:#64748b;--br:#e2e8f0;--r:12px;--rr:16px;--rrr:20px;--sh2:0 4px 16px rgba(0,0,0,.08)}
+body{font-family:'Vazirmatn',system-ui,sans-serif;background:var(--g);color:var(--e);direction:rtl;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;min-width:280px;background:linear-gradient(180deg,var(--d),var(--d2));color:var(--w);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{flex:1;min-width:0}
+
+.sb-head{padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo{font-size:1.3rem;font-weight:900;display:flex;align-items:center;gap:.7rem}
+.sb-logo img{width:42px;height:42px;border-radius:12px;object-fit:cover}
+.sb-logo b{color:var(--gold)}
+.sb-nav{flex:1;padding:1rem}
+.sb-section{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1px;margin:1.25rem 0 .5rem;padding:0 .75rem}
+.sb-link{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;border-radius:var(--r);font-size:.88rem;font-weight:500;color:rgba(255,255,255,.5);transition:all .2s;cursor:pointer;margin-bottom:2px}
+.sb-link:hover{background:rgba(255,255,255,.06);color:var(--w)}
+.sb-link.active{background:rgba(217,119,6,.12);color:var(--gold)}
+.sb-link span{margin-right:auto;background:var(--p);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px}
+.sb-foot{padding:1rem;border-top:1px solid rgba(255,255,255,.06)}
+.sb-user{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:rgba(255,255,255,.04);border-radius:var(--r)}
+.sb-av{width:40px;height:40px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.sb-name{font-size:.85rem;font-weight:700}
+.sb-role{font-size:.7rem;color:rgba(255,255,255,.4)}
+
+.topbar{background:var(--w);border-bottom:1px solid var(--br);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:1.3rem;font-weight:800;color:var(--d)}
+.topbar-date{font-size:.8rem;color:var(--m)}
+.topbar-left{display:flex;gap:.5rem;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:var(--r);font-size:.82rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-p{background:linear-gradient(135deg,var(--p),var(--p2));color:var(--w)}
+.btn-p:hover{box-shadow:0 4px 12px rgba(22,163,74,.3)}
+.btn-g{background:linear-gradient(135deg,var(--gold),#b45309);color:var(--w)}
+.btn-g:hover{box-shadow:0 4px 12px rgba(217,119,6,.3)}
+.btn-o{background:var(--w);color:var(--e);border:1px solid var(--br)}
+.btn-o:hover{background:var(--g2)}
+
+.content{padding:1.5rem 2rem}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--w);border-radius:var(--rrr);padding:1.25rem;border:1px solid var(--br);transition:all .3s}
+.stat:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.stat-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.stat-ic.g{background:var(--s);color:var(--p)}
+.stat-ic.b{background:#dbeafe;color:var(--mid)}
+.stat-ic.a{background:#fef3c7;color:var(--gold)}
+.stat-ic.r{background:#ffe4e6;color:#e11d48}
+.stat-v{font-size:1.8rem;font-weight:900;color:var(--d);line-height:1;margin-bottom:.2rem}
+.stat-l{font-size:.78rem;color:var(--m)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.card{background:var(--w);border-radius:var(--rrr);border:1px solid var(--br);overflow:hidden;margin-bottom:1.25rem}
+.card-h{padding:1.15rem 1.25rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.card-h h3{font-size:.95rem;font-weight:700;color:var(--d)}
+.card-b{padding:1.25rem}
+
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--g)}
+th{padding:.75rem 1rem;text-align:right;font-size:.7rem;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--br);white-space:nowrap}
+td{padding:.75rem 1rem;font-size:.82rem;border-bottom:1px solid var(--br);white-space:nowrap}
+tbody tr:hover{background:var(--g)}
+.pc{display:flex;align-items:center;gap:.6rem}
+.pa{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.pa.g{background:var(--s);color:var(--p)}
+.pa.b{background:#dbeafe;color:var(--mid)}
+.pa.a{background:#fef3c7;color:var(--gold)}
+.pa.r{background:#ffe4e6;color:#e11d48}
+.pn{font-weight:600;color:var(--d)}
+.pp{font-size:.75rem;color:var(--m);direction:ltr;text-align:right}
+.sb{padding:.2rem .55rem;border-radius:100px;font-size:.68rem;font-weight:600}
+.sb.ok{background:var(--s);color:var(--p)}
+.sb.nw{background:#dbeafe;color:var(--mid)}
+.sb.ur{background:#fee2e2;color:#dc2626}
+.sb.dn{background:var(--g2);color:var(--m)}
+.ab{display:flex;gap:.25rem}
+.ab button{width:32px;height:32px;border-radius:8px;border:1px solid var(--br);background:var(--w);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s}
+.ab button:hover{background:var(--g2)}
+
+.sbox{display:flex;gap:.5rem;align-items:center}
+.sinput{padding:.5rem .85rem;border:1.5px solid var(--br);border-radius:var(--r);font-size:.82rem;font-family:inherit;width:250px;outline:none;transition:all .3s;background:var(--g)}
+.sinput:focus{border-color:var(--gold);background:var(--w)}
+select.fi{cursor:pointer}
+
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mo.show{display:flex}
+.mo-box{background:var(--w);border-radius:var(--rrr);width:92%;max-width:540px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.mo-h{padding:1.25rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.mo-h h3{font-size:1rem;font-weight:800}
+.mo-x{width:34px;height:34px;border-radius:8px;border:1px solid var(--br);background:var(--w);cursor:pointer;font-size:.9rem}
+.mo-x:hover{background:var(--g2)}
+.mo-b{padding:1.25rem}
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.78rem;font-weight:600;color:var(--e);margin-bottom:.3rem}
+.fi{width:100%;padding:.65rem .9rem;border:1.5px solid var(--br);border-radius:var(--r);font-size:.85rem;font-family:inherit;outline:none;transition:all .3s}
+.fi:focus{border-color:var(--gold)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+textarea.fi{resize:vertical;min-height:70px}
+
+/* Timeline */
+.tl-item{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--br)}
+.tl-item:last-child{border:none}
+.tl-time{flex-shrink:0;width:60px;text-align:center;padding:.5rem;background:var(--s);border-radius:var(--r);font-size:.78rem;font-weight:700;color:var(--p);line-height:1.4}
+.tl-info{flex:1}
+.tl-info h4{font-size:.88rem;font-weight:600;color:var(--d)}
+.tl-info p{font-size:.78rem;color:var(--m)}
+.tl-status{margin-right:auto;padding:.25rem .6rem;border-radius:100px;font-size:.68rem;font-weight:600}
+
+/* Quick slots */
+.slot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.slot{padding:.5rem;border:1.5px solid var(--br);border-radius:var(--r);text-align:center;font-size:.78rem;cursor:pointer;transition:all .2s}
+.slot:hover{border-color:var(--gold);background:#fef3c7}
+.slot.booked{background:var(--s);color:var(--p);border-color:var(--s2);cursor:default}
+.slot.current{background:var(--gold);color:var(--w);border-color:var(--gold);font-weight:700}
+
+.mob{display:none;position:fixed;top:.75rem;right:.75rem;z-index:200;width:42px;height:42px;background:var(--d);border:none;border-radius:var(--r);color:var(--w);font-size:1.1rem;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--sh2)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:140}
+.overlay.show{display:block}
+
+@media(max-width:900px){
+  .sidebar{position:fixed;right:-290px;top:0;z-index:150;transition:right .3s;width:280px;min-width:280px}
+  .sidebar.open{right:0}
+  .main{margin-right:0}
+  .mob{display:flex}
+  .topbar{padding:.75rem 1rem}
+  .content{padding:1rem}
+  .stats{grid-template-columns:1fr 1fr;gap:.75rem}
+  .stat{padding:1rem}
+  .stat-v{font-size:1.4rem}
+  .g2{grid-template-columns:1fr}
+  .slot-grid{grid-template-columns:repeat(3,1fr)}
+  .sbox{width:100%}
+  .sinput{width:100%}
+}
+</style>
+</head>
+<body>
+
+<button class="mob" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<p>لطفا برای ایجاد یک نوبت جدید. روز و ساعت را دوباره و کامل در قسمت توضیحات بیمار بنویسید. یا به بیمار زنگ بزنین</p>
+<!-- Add Appointment Modal -->
+<div class="mo" id="aptMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3>📅 ثبت نوبت جدید</h3><button class="mo-x" onclick="closeMo('aptMo')">✕</button></div>
+    <div class="mo-b">
+      <form id="aptForm" onsubmit="addAppointment(event)">
+        <div class="fg"><label>انتخاب بیمار</label><select class="fi" id="aptPatient" required></select></div>
+        <div class="fr"><div class="fg"><label>ماه (۱-۱۲)</label><input type="number" class="fi" id="aptMonth" min="1" max="12" placeholder="مثلاً ۴" required></div><div class="fg"><label>روز (۱-۳۱)</label><input type="number" class="fi" id="aptDay" min="1" max="31" placeholder="مثلاً ۲۶" required></div></div>
+        <div class="fr"><div class="fg"><label>ساعت</label><select class="fi" id="aptTime" required><option value="">انتخاب...</option><option>۰۸:۰۰</option><option>۰۸:۳۰</option><option>۰۹:۰۰</option><option>۰۹:۳۰</option><option>۱۰:۰۰</option><option>۱۰:۳۰</option><option>۱۱:۰۰</option><option>۱۱:۳۰</option><option>۱۲:۰۰</option><option>۱۲:۳۰</option><option>۱۳:۰۰</option><option>۱۳:۳۰</option><option>۱۴:۰۰</option><option>۱۴:۳۰</option><option>۱۵:۰۰</option><option>۱۵:۳۰</option><option>۱۶:۰۰</option><option>۱۶:۳۰</option><option>۱۷:۰۰</option><option>۱۷:۳۰</option><option>۱۸:۰۰</option></select></div><div class="fg"><label>نوع مشاوره</label><select class="fi" id="aptType"><option>مشاوره تغذیه</option><option>پیگیری برنامه</option><option>آزمایش خون</option><option>مشاوره ورزشی</option><option>کنترل دیابت</option><option>مشاوره اولیه</option></select></div></div>
+        <div class="fg"><label>توضیحات</label><textarea class="fi" id="aptNotes" rows="2" placeholder="توضیحات اختیاری..."></textarea></div>
+      </form>
+    </div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn btn-o" onclick="closeMo('aptMo')">انصراف</button>
+      <button class="btn btn-g" onclick="document.getElementById('aptForm').requestSubmit()">ثبت نوبت</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head"><div class="sb-logo"><img src="images/logo.png" alt="لوگو">کلینیک <b> دکتر ظهرابی</b></div></div>
+    <nav class="sb-nav">
+      <div class="sb-section">منو</div>
+      <div class="sb-link active" onclick="go('dash',this)">🏠 داشبورد</div>
+      <div class="sb-link" onclick="go('today',this)">🕐 نوبت‌های امروز <span id="todayBadge" style="display:none">جدید</span></div>
+      <div class="sb-link" onclick="go('all',this)">📋 تمام نوبت‌ها</div>
+      <div class="sb-section">بیماران</div>
+      <div class="sb-link" onclick="go('pats',this)">👥 لیست بیماران</div>
+      <div style="height:1px;background:rgba(255,255,255,.06);margin:.75rem 0"></div>
+      <div class="sb-link" onclick="logout()">🚪 خروج</div>
+    </nav>
+    <div class="sb-foot"><div class="sb-user"><div class="sb-av">س</div><div><div class="sb-name" id="sbName">منشی</div><div class="sb-role">هماهنگ‌کننده نوبت‌ها</div></div></div></div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div><h1 id="pageTitle">داشبورد منشی</h1><div class="topbar-date" id="todayDate"></div></div>
+      <div class="topbar-left">
+        <button class="btn btn-g" onclick="openMo('aptMo')">+ نوبت جدید</button>
+        <a href="index.html" class="btn btn-o">🌐 سایت</a>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="content" id="p-dash">
+      <div class="stats">
+        <div class="stat"><div class="stat-top"><div class="stat-ic a">📅</div></div><div class="stat-v" id="statToday">۰</div><div class="stat-l">نوبت امروز</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic g">✅</div></div><div class="stat-v" id="statConfirmed">۰</div><div class="stat-l">تأیید شده</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic b">⏳</div></div><div class="stat-v" id="statPending">۰</div><div class="stat-l">در انتظار</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic r">👥</div></div><div class="stat-v" id="statPats">۰</div><div class="stat-l">کل بیماران</div></div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-h"><h3>🕐 نوبت‌های امروز</h3></div>
+          <div class="card-b" id="todayApts"><div style="text-align:center;padding:2rem;color:var(--m)">نوبتی ثبت نشده</div></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>⏰ ساعات خالی امروز</h3></div>
+          <div class="card-b"><div class="slot-grid" id="freeSlots"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>📅 آخرین نوبت‌ها</h3></div>
+        <div class="tw"><table><thead><tr><th>بیمار</th><th>شماره</th><th>تاریخ</th><th>ساعت</th><th>نوع</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="recentApts"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- TODAY -->
+    <div class="content" id="p-today" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🕐 نوبت‌های امروز — <span id="todayFullDate"></span></h3><button class="btn btn-g" onclick="openMo('aptMo')">+ نوبت جدید</button></div>
+        <div class="card-b" id="todayFullApts"><div style="text-align:center;padding:2rem;color:var(--m)">نوبتی ثبت نشده</div></div>
+      </div>
+    </div>
+
+    <!-- ALL APPOINTMENTS -->
+    <div class="content" id="p-all" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>📋 تمام نوبت‌ها</h3><div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap"><select class="fi" id="filterStatus" onchange="renderAllApts()" style="width:auto;padding:.4rem .75rem;font-size:.8rem"><option value="">همه</option><option value="pending">در انتظار</option><option value="confirmed">تأیید شده</option><option value="cancelled">لغو شده</option></select><input class="sinput" placeholder="🔍 جستجو..." id="searchApt" oninput="renderAllApts()"><button class="btn btn-d" style="font-size:.75rem;padding:.35rem .7rem" onclick="clearAllAppointments()">🗑️ پاک کردن همه</button></div></div>
+        <div class="tw"><table><thead><tr><th>بیمار</th><th>شماره</th><th>تاریخ</th><th>ساعت</th><th>نوع</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="allAptsBody"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- PATIENTS -->
+    <div class="content" id="p-pats" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>👥 لیست بیماران</h3><div class="sbox"><input class="sinput" placeholder="🔍 جستجو..." id="searchPat" oninput="renderPatsList()"></div></div>
+        <div class="tw"><table><thead><tr><th>بیمار</th><th>شماره</th><th>سن</th><th>جنسیت</th><th>عملیات</th></tr></thead><tbody id="patsBody"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="api-sync.js?v=4"></script>
+<script>
+var user=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!user||user.role!=='receptionist'){window.location.href='login.html';throw 'not logged in';}
+var patients=[];
+
+document.getElementById('todayDate').textContent='📅 '+new Intl.DateTimeFormat('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+document.getElementById('todayFullDate').textContent=new Intl.DateTimeFormat('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+
+const colors=['g','b','a','r'];
+
+let appointments=[];
+
+function go(id,el){
+  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('p-'+id).style.display='block';
+  if(el)el.classList.add('active');
+  const t={dash:'داشبورد منشی',today:'نوبت‌های امروز',all:'تمام نوبت‌ها',pats:'لیست بیماران'};
+  document.getElementById('pageTitle').textContent=t[id]||'داشبورد';
+  if(id==='today')renderTodayFull();
+  if(id==='all')renderAllApts();
+  if(id==='pats')renderPatsList();
+  if(window.innerWidth<=900)toggleSidebar();
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+function openMo(id){document.getElementById(id).classList.add('show');}
+function closeMo(id){document.getElementById(id).classList.remove('show');}
+
+// Populate patient select
+function populatePatients(){
+  const opts=patients.map(p=>'<option value="'+p.phone+'">'+p.name+' ('+p.phone+')</option>').join('');
+  document.getElementById('aptPatient').innerHTML='<option value="">انتخاب بیمار...</option>'+opts;
+}
+
+// Persian Date
+const persianMonths=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+function gregorianToPersian(gy,gm,gd){
+  const g_d_m=[0,31,59,90,120,151,181,212,243,273,304,334];
+  const gy2=(gm>2)?gy+1:gy;
+  const days=365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+g_d_m[gm-1]+gd;
+  let jp=days-79;
+  const jy0=975;
+  let jy=jy0;
+  const dayCount=days-1103515504;
+  jy+=33*Math.floor(dayCount/12053);
+  let remain=dayCount%12053;
+  jy+=4*Math.floor(remain/1461);
+  remain%=1461;
+  if(remain>=366){jy+=Math.floor((remain-1)/365);remain=(remain-1)%365;}
+  const jm=remain<186?1+Math.floor(remain/31):7+Math.floor((remain-186)/30);
+  const jd=(jm<7)?((jm-1)*31)+remain+1:((jm-7)*30)+remain+187+1;
+  return{year:jy,month:jm,day:jd};
+}
+
+function persianToGregorian(py,pm,pd){
+  const jp=(pm<7)?(pm-1)*31+pd:((pm-7)*30)+pd+186;
+  const jy=py-979;
+  const dayCount=1103515504+365*jy+Math.floor((jy+3)/4)-Math.floor((jy+99)/100)+Math.floor((jy+399)/400)+jp-1;
+  const g_d_j=[0,0,31,59,90,120,151,181,212,243,273,304,334];
+  let gy=1600+400*Math.floor(dayCount/146097);
+  let remain=dayCount%146097;
+  let jump=true;
+  while(jump){
+    const daysInYear=(gy%4===0&&gy%100!==0)||(gy%400===0)?366:365;
+    if(remain>=daysInYear){remain-=daysInYear;gy++;}
+    else jump=false;
+  }
+  let gm;
+  for(gm=1;gm<=12;gm++){
+    if(remain<g_d_j[gm])break;
+  }
+  const gd=remain-g_d_j[gm-1]+1;
+  return{year:gy,month:gm,day:gd};
+}
+
+let currentPersianYear=new Date().getFullYear();
+// Convert current Gregorian year to Persian
+(function(){
+  const now=new Date();
+  const p=gregorianToPersian(now.getFullYear(),now.getMonth()+1,now.getDate());
+  currentPersianYear=p.year;
+})();
+
+function getPersianDate(){
+  const m=document.getElementById('aptMonth').value;
+  const d=document.getElementById('aptDay').value;
+  if(!m||!d)return'';
+  return currentPersianYear+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+}
+
+// Add appointment
+function addAppointment(e){
+  e.preventDefault();
+  const phone=document.getElementById('aptPatient').value;
+  const date=getPersianDate();
+  const time=document.getElementById('aptTime').value;
+  const type=document.getElementById('aptType').value;
+  const notes=document.getElementById('aptNotes').value;
+  if(!phone||!date||!time){alert('لطفاً فیلدها را کامل پر کنید');return;}
+
+  // Check for duplicate
+  const exists=appointments.find(a=>a.date===date&&a.time===time&&a.status!=='cancelled');
+  if(exists){alert('این ساعت قبلاً رزرو شده!');return;}
+
+  const pname=patients.find(p=>p.phone===phone)?.name||'';
+  const apt={id:Date.now(),patientPhone:phone,patientName:pname,date:date,time,time,type:type,notes:notes,status:'pending',createdAt:new Date().toISOString()};
+  appointments.unshift(apt);
+  localStorage.setItem('zohra_appointments',JSON.stringify(appointments));
+  closeMo('aptMo');
+  document.getElementById('aptForm').reset();
+  renderDashboard();
+}
+
+// Cancel appointment
+function cancelApt(id){
+  if(!confirm('آیا از لغو نوبت مطمئن هستید؟'))return;
+  const apt=appointments.find(a=>a.id===id);
+  if(apt){apt.status='cancelled';}
+  localStorage.setItem('zohra_appointments',JSON.stringify(appointments));
+  renderDashboard();
+  renderAllApts();
+}
+
+// Confirm appointment
+function confirmApt(id){
+  const apt=appointments.find(a=>a.id===id);
+  if(apt){apt.status='confirmed';}
+  localStorage.setItem('zohra_appointments',JSON.stringify(appointments));
+  renderDashboard();
+  renderAllApts();
+}
+
+// Format date to Persian
+function formatDate(d){
+  if(!d)return'';
+  const parts=d.split('-');
+  if(parts.length!==3)return d;
+  const greg=gregorianToPersian(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+  return greg.day.toLocaleString('fa-IR')+' '+persianMonths[greg.month-1];
+}
+
+// Render dashboard
+function renderDashboard(){
+  const today=new Date().toISOString().split('T')[0];
+  const todayApts=appointments.filter(a=>a.date===today&&a.status!=='cancelled');
+  const confirmed=appointments.filter(a=>a.status==='confirmed');
+  const pending=appointments.filter(a=>a.status==='pending');
+
+  document.getElementById('statToday').textContent=todayApts.length.toLocaleString('fa-IR');
+  document.getElementById('statConfirmed').textContent=confirmed.length.toLocaleString('fa-IR');
+  document.getElementById('statPending').textContent=pending.length.toLocaleString('fa-IR');
+  document.getElementById('statPats').textContent=patients.length.toLocaleString('fa-IR');
+
+  // Today's appointments
+  const todayContainer=document.getElementById('todayApts');
+  if(todayApts.length){
+    todayContainer.innerHTML=todayApts.sort((a,b)=>a.time.localeCompare(b.time)).map(a=>'<div class="tl-item"><div class="tl-time">'+a.time+'</div><div class="tl-info"><h4>'+a.patientName+'</h4><p>'+a.type+(a.notes?' — '+a.notes:'')+'</p></div><span class="tl-status '+(a.status==='confirmed'?'sb ok':a.status==='cancelled'?'sb dn':'sb nw')+'">'+(a.status==='confirmed'?'تأیید شده':a.status==='cancelled'?'لغو شده':'در انتظار')+'</span><div class="ab"><button onclick="confirmApt('+a.id+')" title="تأیید" style="color:var(--p);border-color:var(--s)">✓</button><button onclick="cancelApt('+a.id+')" title="لغو" style="color:#dc2626;border-color:#fecaca">✕</button></div></div>').join('');
+    document.getElementById('todayBadge').style.display='inline';
+    document.getElementById('todayBadge').textContent=todayApts.length;
+  }else{
+    todayContainer.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">نوبتی ثبت نشده</div>';
+    document.getElementById('todayBadge').style.display='none';
+  }
+
+  // Free slots
+  const slots=['۰۸:۰۰','۰۸:۳۰','۰۹:۰۰','۰۹:۳۰','۱۰:۰۰','۱۰:۳۰','۱۱:۰۰','۱۱:۳۰','۱۲:۰۰','۱۲:۳۰','۱۳:۰۰','۱۳:۳۰','۱۴:۰۰','۱۴:۳۰','۱۵:۰۰','۱۵:۳۰','۱۶:۰۰','۱۶:۳۰','۱۷:۰۰','۱۷:۳۰','۱۸:۰۰'];
+  const bookedSlots=todayApts.map(a=>a.time);
+  document.getElementById('freeSlots').innerHTML=slots.map(s=>'<div class="slot '+(bookedSlots.includes(s)?'booked':'')+'">'+s+'</div>').join('');
+
+  // Recent appointments
+  const recent=appointments.slice(0,10);
+  document.getElementById('recentApts').innerHTML=recent.length?recent.map((a,i)=>'<tr><td><div class="pc"><div class="pa '+colors[i%4]+'">'+a.patientName[0]+'</div><span class="pn">'+a.patientName+'</span></div></td><td class="pp">'+a.patientPhone+'</td><td>'+formatDate(a.date)+'</td><td style="font-weight:700;color:var(--p)">'+a.time+'</td><td>'+a.type+'</td><td><span class="sb '+(a.status==='confirmed'?'ok':a.status==='cancelled'?'dn':'nw')+'">'+(a.status==='confirmed'?'تأیید':a.status==='cancelled'?'لغو':'در انتظار')+'</span></td><td><div class="ab"><button onclick="confirmApt('+a.id+')" style="color:var(--p);border-color:var(--s)">✓</button><button onclick="cancelApt('+a.id+')" style="color:#dc2626;border-color:#fecaca">✕</button></div></td></tr>').join(''):'<tr><td colspan="7" style="text-align:center;color:var(--m);padding:2rem">نوبتی ثبت نشده</td></tr>';
+}
+
+// Today full
+function renderTodayFull(){
+  const today=new Date().toISOString().split('T')[0];
+  const todayApts=appointments.filter(a=>a.date===today).sort((a,b)=>a.time.localeCompare(b.time));
+  const container=document.getElementById('todayFullApts');
+
+  if(!todayApts.length){
+    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">نوبتی برای امروز ثبت نشده</div>';
+    return;
+  }
+
+  container.innerHTML=todayApts.map(a=>'<div class="tl-item"><div class="tl-time">'+a.time+'</div><div class="tl-info"><h4>'+a.patientName+'</h4><p>'+a.type+(a.notes?' — '+a.notes:'')+'</p></div><span class="tl-status '+(a.status==='confirmed'?'sb ok':a.status==='cancelled'?'sb dn':'sb nw')+'">'+(a.status==='confirmed'?'تأیید شده':a.status==='cancelled'?'لغو شده':'در انتظار')+'</span><div class="ab"><button onclick="confirmApt('+a.id+')" title="تأیید" style="color:var(--p);border-color:var(--s)">✓</button><button onclick="cancelApt('+a.id+')" title="لغو" style="color:#dc2626;border-color:#fecaca">✕</button></div></div>').join('');
+}
+
+// All appointments
+function renderAllApts(){
+  const filter=document.getElementById('filterStatus').value;
+  const search=(document.getElementById('searchApt').value||'').trim();
+  let list=appointments;
+  if(filter)list=list.filter(a=>a.status===filter);
+  if(search)list=list.filter(a=>a.patientName.includes(search)||a.patientPhone.includes(search)||a.type.includes(search));
+
+  document.getElementById('allAptsBody').innerHTML=list.length?list.map((a,i)=>'<tr><td><div class="pc"><div class="pa '+colors[i%4]+'">'+a.patientName[0]+'</div><span class="pn">'+a.patientName+'</span></div></td><td class="pp">'+a.patientPhone+'</td><td>'+formatDate(a.date)+'</td><td style="font-weight:700;color:var(--p)">'+a.time+'</td><td>'+a.type+'</td><td><span class="sb '+(a.status==='confirmed'?'ok':a.status==='cancelled'?'dn':'nw')+'">'+(a.status==='confirmed'?'تأیید':a.status==='cancelled'?'لغو':'در انتظار')+'</span></td><td><div class="ab"><button onclick="confirmApt('+a.id+')" style="color:var(--p);border-color:var(--s)">✓</button><button onclick="cancelApt('+a.id+')" style="color:#dc2626;border-color:#fecaca">✕</button></div></td></tr>').join(''):'<tr><td colspan="7" style="text-align:center;color:var(--m);padding:2rem">نوبتی یافت نشد</td></tr>';
+}
+
+// Patients list
+function renderPatsList(){
+  const search=(document.getElementById('searchPat').value||'').trim();
+  let list=patients;
+  if(search)list=list.filter(p=>p.name.includes(search)||p.phone.includes(search));
+
+  document.getElementById('patsBody').innerHTML=list.length?list.map((p,i)=>'<tr><td><div class="pc"><div class="pa '+colors[i%4]+'">'+p.name[0]+'</div><span class="pn">'+p.name+'</span></div></td><td class="pp">'+p.phone+'</td><td>'+(p.age||'—')+' سال</td><td>'+(p.gender==='female'?'👩 زن':p.gender==='male'?'👨 مرد':'—')+'</td><td><div class="ab"><button class="btn btn-g" style="font-size:.7rem;padding:.3rem .6rem" onclick="quickApt(\''+p.phone+'\',\''+p.name+'\')">📅 نوبت</button></div></td></tr>').join(''):'<tr><td colspan="5" style="text-align:center;color:var(--m);padding:2rem">بیماری یافت نشد</td></tr>';
+}
+
+function quickApt(phone,name){
+  document.getElementById('aptPatient').value=phone;
+  openMo('aptMo');
+}
+
+function clearAllAppointments(){
+  if(!confirm('آیا از حذف تمام نوبت‌ها مطمئن هستید؟ این عمل قابل بازگشت نیست.'))return;
+  if(!confirm('تمام نوبت‌های ثبت شده حذف خواهند شد. ادامه می‌دهید؟'))return;
+  appointments=[];
+  localStorage.setItem('zohra_appointments',JSON.stringify(appointments));
+  renderDashboard();
+  renderAllApts();
+}
+
+function logout(){fetch('/api/index.php?action=auth/logout',{credentials:'include'}).finally(()=>{localStorage.removeItem('zohra_user');window.location.href='login.html';});}
+
+window.__apiSyncReady(function(){
+const u=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!u||u.role!=='receptionist'){localStorage.removeItem('zohra_user');window.location.href='login.html';return;}
+user=u;
+patients=JSON.parse(localStorage.getItem('zohra_users')||'[]').filter(u=>u.role==='user');
+appointments=JSON.parse(localStorage.getItem('zohra_appointments')||'[]');
+document.getElementById('sbName').textContent=user.name||'منشی';
+populatePatients();renderDashboard();
+});
+</script>
+</body>
+</html>

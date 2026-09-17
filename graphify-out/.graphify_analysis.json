@@ -1,0 +1,732 @@
+{
+  "communities": {
+    "0": [
+      "v2_app_controllers_admin_dashboardcontroller_admindashboardcontroller_index",
+      "v2_app_controllers_admin_settingscontroller",
+      "v2_app_controllers_admin_settingscontroller_settingscontroller",
+      "v2_app_controllers_admin_settingscontroller_settingscontroller_clearcache",
+      "v2_app_controllers_admin_settingscontroller_settingscontroller_construct",
+      "v2_app_controllers_admin_settingscontroller_settingscontroller_index",
+      "v2_app_controllers_admin_settingscontroller_settingscontroller_update",
+      "v2_app_controllers_admin_usercontroller",
+      "v2_app_controllers_admin_usercontroller_usercontroller",
+      "v2_app_controllers_admin_usercontroller_usercontroller_create",
+      "v2_app_controllers_admin_usercontroller_usercontroller_delete",
+      "v2_app_controllers_admin_usercontroller_usercontroller_edit",
+      "v2_app_controllers_admin_usercontroller_usercontroller_index",
+      "v2_app_controllers_admin_usercontroller_usercontroller_search",
+      "v2_app_controllers_admin_usercontroller_usercontroller_store",
+      "v2_app_controllers_admin_usercontroller_usercontroller_togglestatus",
+      "v2_app_controllers_admin_usercontroller_usercontroller_update",
+      "v2_app_controllers_authcontroller",
+      "v2_app_controllers_authcontroller_authcontroller",
+      "v2_app_controllers_authcontroller_authcontroller_construct",
+      "v2_app_controllers_authcontroller_authcontroller_forgotpassword",
+      "v2_app_controllers_authcontroller_authcontroller_forgotpasswordform",
+      "v2_app_controllers_authcontroller_authcontroller_login",
+      "v2_app_controllers_authcontroller_authcontroller_loginform",
+      "v2_app_controllers_authcontroller_authcontroller_logout",
+      "v2_app_controllers_authcontroller_authcontroller_register",
+      "v2_app_controllers_authcontroller_authcontroller_registerform",
+      "v2_app_controllers_authcontroller_authcontroller_resetpassword",
+      "v2_app_controllers_authcontroller_authcontroller_resetpasswordform",
+      "v2_app_controllers_dashboardcontroller",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_changepassword",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_index",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_password",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_profile",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_updateprofile",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_uploadavatar",
+      "v2_app_controllers_downloadcontroller_downloadcontroller_file",
+      "v2_app_helpers_functions_current_user",
+      "v2_app_helpers_functions_e",
+      "v2_app_helpers_functions_redirect",
+      "v2_app_models_session",
+      "v2_app_models_session_session",
+      "v2_app_models_session_session_deleteexpired",
+      "v2_app_models_session_session_deletesession",
+      "v2_app_models_session_session_deleteusersessions",
+      "v2_app_models_session_session_getactivecount",
+      "v2_app_models_session_session_getactiveusercount",
+      "v2_app_models_session_session_getusersessions",
+      "v2_app_models_session_session_updateactivity",
+      "v2_core_activitylogger",
+      "v2_core_activitylogger_activitylogger"
+    ],
+    "1": [
+      "api_sync",
+      "api_sync_buildpayload",
+      "api_sync_checkready",
+      "api_sync_dequeueoutbox",
+      "api_sync_enqueueoutbox",
+      "api_sync_flushoutbox",
+      "api_sync_ispending",
+      "api_sync_loadfromapi",
+      "api_sync_loadfromapi_done",
+      "api_sync_loadfromapi_load",
+      "api_sync_phonefromprefixedkey",
+      "api_sync_postpayload",
+      "api_sync_postpayloadwithdone",
+      "api_sync_rationale_209",
+      "api_sync_readoutbox",
+      "api_sync_realdel",
+      "api_sync_realget",
+      "api_sync_realset",
+      "api_sync_refreshfromapi",
+      "api_sync_refreshfromapi_done",
+      "api_sync_refreshfromapi_load",
+      "api_sync_scheduleflush",
+      "api_sync_storage_removeitem",
+      "api_sync_storage_setitem",
+      "api_sync_storeservervalue",
+      "api_sync_storeservervaluepersist",
+      "api_sync_syncremovetoapi",
+      "api_sync_synctoapi",
+      "api_sync_waitforready",
+      "api_sync_writeoutbox",
+      "api_sync_xhrdelete",
+      "api_sync_xhrdelete_finish",
+      "api_sync_xhrget",
+      "api_sync_xhrget_finish",
+      "api_sync_xhrpost",
+      "api_sync_xhrpost_finish"
+    ],
+    "2": [
+      "v2_app_helpers_functions",
+      "v2_app_helpers_functions_base_url",
+      "v2_app_helpers_functions_csrf_field",
+      "v2_app_helpers_functions_csrf_token",
+      "v2_app_helpers_functions_format_date",
+      "v2_app_helpers_functions_format_size",
+      "v2_app_helpers_functions_generate_uuid",
+      "v2_app_helpers_functions_get_flash",
+      "v2_app_helpers_functions_is_admin",
+      "v2_app_helpers_functions_requires_auth",
+      "v2_app_helpers_functions_sanitize",
+      "v2_app_helpers_functions_set_flash",
+      "v2_app_helpers_functions_time_ago",
+      "v2_app_helpers_functions_truncate",
+      "v2_app_models_session_session_createsession",
+      "v2_core_middleware_csrfmiddleware",
+      "v2_core_middleware_csrfmiddleware_csrfmiddleware",
+      "v2_core_middleware_csrfmiddleware_csrfmiddleware_handle",
+      "v2_core_security",
+      "v2_core_security_security",
+      "v2_core_security_security_csrffield",
+      "v2_core_security_security_csrfmiddleware",
+      "v2_core_security_security_csrftoken",
+      "v2_core_security_security_decrypt",
+      "v2_core_security_security_encrypt",
+      "v2_core_security_security_escape",
+      "v2_core_security_security_generatecsrftoken",
+      "v2_core_security_security_generaterandomstring",
+      "v2_core_security_security_getclientip",
+      "v2_core_security_security_isajax",
+      "v2_core_security_security_sanitize",
+      "v2_core_security_security_sanitizeemail",
+      "v2_core_security_security_sanitizefloat",
+      "v2_core_security_security_sanitizeint",
+      "v2_core_security_security_validatepassword",
+      "v2_core_security_security_verifycsrftoken"
+    ],
+    "3": [
+      "v2_app_controllers_admin_usercontroller_usercontroller_construct",
+      "v2_app_controllers_dashboardcontroller_dashboardcontroller_construct",
+      "v2_app_models_user",
+      "v2_app_models_user_user",
+      "v2_app_models_user_user_changepassword",
+      "v2_app_models_user_user_createuser",
+      "v2_app_models_user_user_deleteuser",
+      "v2_app_models_user_user_findbyemail",
+      "v2_app_models_user_user_getcountbyrole",
+      "v2_app_models_user_user_getcountbystatus",
+      "v2_app_models_user_user_getdashboardstats",
+      "v2_app_models_user_user_getrecent",
+      "v2_app_models_user_user_getusers",
+      "v2_app_models_user_user_search",
+      "v2_app_models_user_user_updatelastlogin",
+      "v2_app_models_user_user_updateuser",
+      "v2_app_models_user_user_verifyemail",
+      "v2_app_models_userprofile",
+      "v2_app_models_userprofile_userprofile",
+      "v2_app_models_userprofile_userprofile_deleteprofile",
+      "v2_app_models_userprofile_userprofile_getbyuserid",
+      "v2_app_models_userprofile_userprofile_save",
+      "v2_app_models_userprofile_userprofile_updateavatar"
+    ],
+    "4": [
+      "pdo",
+      "self",
+      "v2_core_database",
+      "v2_core_database_database",
+      "v2_core_database_database_begintransaction",
+      "v2_core_database_database_clone",
+      "v2_core_database_database_commit",
+      "v2_core_database_database_construct",
+      "v2_core_database_database_count",
+      "v2_core_database_database_delete",
+      "v2_core_database_database_exists",
+      "v2_core_database_database_fetchall",
+      "v2_core_database_database_fetchone",
+      "v2_core_database_database_getconnection",
+      "v2_core_database_database_getinstance",
+      "v2_core_database_database_getlasterror",
+      "v2_core_database_database_getquerycount",
+      "v2_core_database_database_insert",
+      "v2_core_database_database_query",
+      "v2_core_database_database_rollback",
+      "v2_core_database_database_update",
+      "v2_core_database_php_pdostatement"
+    ],
+    "5": [
+      "v2_app_models_sitesetting",
+      "v2_app_models_sitesetting_sitesetting",
+      "v2_app_models_sitesetting_sitesetting_delete",
+      "v2_app_models_sitesetting_sitesetting_exists",
+      "v2_app_models_sitesetting_sitesetting_get",
+      "v2_app_models_sitesetting_sitesetting_getall",
+      "v2_app_models_sitesetting_sitesetting_getsitename",
+      "v2_app_models_sitesetting_sitesetting_ismaintenancemode",
+      "v2_app_models_sitesetting_sitesetting_set",
+      "v2_core_cache",
+      "v2_core_cache_cache",
+      "v2_core_cache_cache_clear",
+      "v2_core_cache_cache_construct",
+      "v2_core_cache_cache_delete",
+      "v2_core_cache_cache_gc",
+      "v2_core_cache_cache_get",
+      "v2_core_cache_cache_getcachepath",
+      "v2_core_cache_cache_getstats",
+      "v2_core_cache_cache_has",
+      "v2_core_cache_cache_remember",
+      "v2_core_cache_cache_set"
+    ],
+    "6": [
+      "v2_app_controllers_downloadcontroller",
+      "v2_app_controllers_downloadcontroller_downloadcontroller",
+      "v2_app_controllers_homecontroller",
+      "v2_app_controllers_homecontroller_homecontroller",
+      "v2_app_controllers_homecontroller_homecontroller_index",
+      "v2_core_controller",
+      "v2_core_controller_controller",
+      "v2_core_controller_controller_construct",
+      "v2_core_controller_controller_flash",
+      "v2_core_controller_controller_haserrors",
+      "v2_core_controller_controller_input",
+      "v2_core_controller_controller_json",
+      "v2_core_controller_controller_model",
+      "v2_core_controller_controller_query",
+      "v2_core_controller_controller_redirect",
+      "v2_core_controller_controller_segment",
+      "v2_core_controller_controller_validate",
+      "v2_core_controller_controller_view",
+      "v2_core_controller_controller_viewpartial"
+    ],
+    "7": [
+      "v2_core_session",
+      "v2_core_session_session",
+      "v2_core_session_session_checktimeout",
+      "v2_core_session_session_clearrememberme",
+      "v2_core_session_session_destroy",
+      "v2_core_session_session_flash",
+      "v2_core_session_session_get",
+      "v2_core_session_session_getflash",
+      "v2_core_session_session_getrememberme",
+      "v2_core_session_session_has",
+      "v2_core_session_session_init",
+      "v2_core_session_session_isadmin",
+      "v2_core_session_session_isloggedin",
+      "v2_core_session_session_regenerate",
+      "v2_core_session_session_remove",
+      "v2_core_session_session_set",
+      "v2_core_session_session_setrememberme",
+      "v2_core_session_session_userid"
+    ],
+    "8": [
+      "api_index",
+      "api_index_authlogin",
+      "api_index_authlogout",
+      "api_index_authme",
+      "api_index_authregister",
+      "api_index_dbtojs",
+      "api_index_handlecrud",
+      "api_index_handledebug",
+      "api_index_handledeletebyid",
+      "api_index_handlenotifications",
+      "api_index_handlewater",
+      "api_index_ismissingtable",
+      "api_index_jsonresponse",
+      "api_index_jstodb",
+      "api_index_seedadminaccounts",
+      "api_index_setuptables"
+    ],
+    "9": [
+      "v2_core_auth",
+      "v2_core_auth_auth",
+      "v2_core_auth_auth_check",
+      "v2_core_auth_auth_construct",
+      "v2_core_auth_auth_createresettoken",
+      "v2_core_auth_auth_getprofile",
+      "v2_core_auth_auth_logactivity",
+      "v2_core_auth_auth_login",
+      "v2_core_auth_auth_logout",
+      "v2_core_auth_auth_register",
+      "v2_core_auth_auth_requireadmin",
+      "v2_core_auth_auth_requireauth",
+      "v2_core_auth_auth_tryrememberme",
+      "v2_core_auth_auth_updateprofile",
+      "v2_core_auth_auth_updateprofiledetails",
+      "v2_core_auth_auth_user"
+    ],
+    "10": [
+      "v2_core_model",
+      "v2_core_model_model",
+      "v2_core_model_model_all",
+      "v2_core_model_model_construct",
+      "v2_core_model_model_count",
+      "v2_core_model_model_create",
+      "v2_core_model_model_delete",
+      "v2_core_model_model_exists",
+      "v2_core_model_model_find",
+      "v2_core_model_model_findby",
+      "v2_core_model_model_findoneby",
+      "v2_core_model_model_paginate",
+      "v2_core_model_model_query",
+      "v2_core_model_model_search",
+      "v2_core_model_model_update",
+      "v2_core_model_php_pdostatement"
+    ],
+    "11": [
+      "v2_core_auth_auth_changepassword",
+      "v2_core_auth_auth_resetpassword",
+      "v2_core_auth_auth_verifyemail",
+      "v2_core_logger",
+      "v2_core_logger_logger",
+      "v2_core_logger_logger_clear",
+      "v2_core_logger_logger_debug",
+      "v2_core_logger_logger_error",
+      "v2_core_logger_logger_getfilesize",
+      "v2_core_logger_logger_getrecent",
+      "v2_core_logger_logger_info",
+      "v2_core_logger_logger_init",
+      "v2_core_logger_logger_rotateifneeded",
+      "v2_core_logger_logger_warning",
+      "v2_core_logger_logger_write"
+    ],
+    "12": [
+      "v2_app_controllers_admin_dashboardcontroller",
+      "v2_app_controllers_admin_dashboardcontroller_admindashboardcontroller",
+      "v2_app_controllers_admin_dashboardcontroller_admindashboardcontroller_construct",
+      "v2_app_controllers_admin_dashboardcontroller_admindashboardcontroller_getstats",
+      "v2_app_models_activitylog",
+      "v2_app_models_activitylog_activitylog",
+      "v2_app_models_activitylog_activitylog_clearold",
+      "v2_app_models_activitylog_activitylog_getcountbyuser",
+      "v2_app_models_activitylog_activitylog_getdailystats",
+      "v2_app_models_activitylog_activitylog_getrecent",
+      "v2_app_models_activitylog_activitylog_gettopactions",
+      "v2_app_models_activitylog_activitylog_log",
+      "v2_core_activitylogger_activitylogger_log"
+    ],
+    "13": [
+      "v2_public_assets_js_app",
+      "v2_public_assets_js_app_debounce",
+      "v2_public_assets_js_app_deleteuser",
+      "v2_public_assets_js_app_formatfilesize",
+      "v2_public_assets_js_app_initconfirmdialogs",
+      "v2_public_assets_js_app_initformvalidation",
+      "v2_public_assets_js_app_initsidebar",
+      "v2_public_assets_js_app_inittooltips",
+      "v2_public_assets_js_app_previewavatar",
+      "v2_public_assets_js_app_searchusers",
+      "v2_public_assets_js_app_showtoast",
+      "v2_public_assets_js_app_toggleuserstatus"
+    ],
+    "14": [
+      "v2_composer",
+      "v2_composer_description",
+      "v2_composer_name",
+      "v2_composer_require",
+      "v2_composer_require_ext_mbstring",
+      "v2_composer_require_ext_pdo",
+      "v2_composer_require_ext_pdo_mysql",
+      "v2_composer_require_php",
+      "v2_composer_scripts",
+      "v2_composer_scripts_post_root_package_install",
+      "v2_composer_type"
+    ],
+    "15": [
+      "v2_core_filehandler",
+      "v2_core_filehandler_filehandler",
+      "v2_core_filehandler_filehandler_delete",
+      "v2_core_filehandler_filehandler_generatefilename",
+      "v2_core_filehandler_filehandler_geterrormessage",
+      "v2_core_filehandler_filehandler_geterrors",
+      "v2_core_filehandler_filehandler_getfileinfo",
+      "v2_core_filehandler_filehandler_getuploadedfile",
+      "v2_core_filehandler_filehandler_resizeimage",
+      "v2_core_filehandler_filehandler_upload"
+    ],
+    "16": [
+      "composer",
+      "composer_description",
+      "composer_name",
+      "composer_require",
+      "composer_require_ext_json",
+      "composer_require_ext_mbstring",
+      "composer_require_ext_pdo",
+      "composer_require_ext_pdo_mysql",
+      "composer_require_php"
+    ],
+    "17": [
+      "throwable",
+      "v2_core_errorhandler",
+      "v2_core_errorhandler_errorhandler",
+      "v2_core_errorhandler_errorhandler_handleerror",
+      "v2_core_errorhandler_errorhandler_handleexception",
+      "v2_core_errorhandler_errorhandler_handleshutdown",
+      "v2_core_errorhandler_errorhandler_init",
+      "v2_core_errorhandler_errorhandler_logerror",
+      "v2_core_errorhandler_errorhandler_showerror"
+    ],
+    "18": [
+      "v2_core_router",
+      "v2_core_router_router",
+      "v2_core_router_router_dispatch",
+      "v2_core_router_router_executeroute",
+      "v2_core_router_router_get",
+      "v2_core_router_router_handle404",
+      "v2_core_router_router_matchpattern",
+      "v2_core_router_router_post"
+    ],
+    "19": [
+      "v2_core_validation",
+      "v2_core_validation_validation",
+      "v2_core_validation_validation_applyrule",
+      "v2_core_validation_validation_geterror",
+      "v2_core_validation_validation_geterrors",
+      "v2_core_validation_validation_getfirsterror",
+      "v2_core_validation_validation_haserrors",
+      "v2_core_validation_validation_validate"
+    ],
+    "20": [
+      "tests_local_test",
+      "tests_local_test_api",
+      "tests_local_test_check",
+      "tests_local_test_stack_down",
+      "tests_local_test_stack_up"
+    ],
+    "21": [
+      "v2_core_middleware_adminmiddleware",
+      "v2_core_middleware_adminmiddleware_adminmiddleware",
+      "v2_core_middleware_adminmiddleware_adminmiddleware_handle"
+    ],
+    "22": [
+      "v2_core_middleware_authmiddleware",
+      "v2_core_middleware_authmiddleware_authmiddleware",
+      "v2_core_middleware_authmiddleware_authmiddleware_handle"
+    ],
+    "23": [
+      "v2_core_autoloader",
+      "v2_core_autoloader_loadcoreclasses"
+    ],
+    "24": [
+      "v2_public_test_auth",
+      "v2_public_test_auth_test"
+    ],
+    "25": [
+      "api_sync_storage_getitem"
+    ],
+    "26": [
+      "check_config"
+    ],
+    "27": [
+      "check_deploy"
+    ],
+    "28": [
+      "router"
+    ],
+    "29": [
+      "sync_test"
+    ],
+    "30": [
+      "test_db"
+    ],
+    "31": [
+      "v2_app_views_admin_create_user"
+    ],
+    "32": [
+      "v2_app_views_admin_dashboard"
+    ],
+    "33": [
+      "v2_app_views_admin_edit_user"
+    ],
+    "34": [
+      "v2_app_views_admin_settings"
+    ],
+    "35": [
+      "v2_app_views_admin_users"
+    ],
+    "36": [
+      "v2_app_views_auth_forgot_password"
+    ],
+    "37": [
+      "v2_app_views_auth_login"
+    ],
+    "38": [
+      "v2_app_views_auth_register"
+    ],
+    "39": [
+      "v2_app_views_auth_reset_password"
+    ],
+    "40": [
+      "v2_app_views_dashboard_index"
+    ],
+    "41": [
+      "v2_app_views_dashboard_password"
+    ],
+    "42": [
+      "v2_app_views_dashboard_profile"
+    ],
+    "43": [
+      "v2_app_views_errors_404"
+    ],
+    "44": [
+      "v2_app_views_errors_500"
+    ],
+    "45": [
+      "v2_app_views_home_index"
+    ],
+    "46": [
+      "v2_app_views_layouts_main"
+    ],
+    "47": [
+      "v2_app_views_partials_admin_sidebar"
+    ],
+    "48": [
+      "v2_app_views_partials_navbar"
+    ],
+    "49": [
+      "v2_app_views_partials_sidebar"
+    ],
+    "50": [
+      "v2_config_config"
+    ],
+    "51": [
+      "v2_cron"
+    ],
+    "52": [
+      "v2_install"
+    ],
+    "53": [
+      "v2_public_index"
+    ],
+    "54": [
+      "v2_public_setup_db"
+    ]
+  },
+  "cohesion": {
+    "0": 0.08295625942684766,
+    "1": 0.12857142857142856,
+    "2": 0.06031746031746032,
+    "3": 0.09881422924901186,
+    "4": 0.12987012987012986,
+    "5": 0.15714285714285714,
+    "6": 0.10526315789473684,
+    "7": 0.1111111111111111,
+    "8": 0.275,
+    "9": 0.15,
+    "10": 0.14166666666666666,
+    "11": 0.13333333333333333,
+    "12": 0.15384615384615385,
+    "13": 0.19696969696969696,
+    "14": 0.18181818181818182,
+    "15": 0.24444444444444444,
+    "16": 0.2222222222222222,
+    "17": 0.2222222222222222,
+    "18": 0.39285714285714285,
+    "19": 0.2857142857142857,
+    "20": 0.4,
+    "21": 0.6666666666666666,
+    "22": 0.6666666666666666,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0
+  },
+  "gods": [
+    {
+      "id": "v2_app_models_session_session",
+      "label": "Session",
+      "degree": 38
+    },
+    {
+      "id": "v2_core_session_session",
+      "label": "Session",
+      "degree": 30
+    },
+    {
+      "id": "v2_core_logger_logger",
+      "label": "Logger",
+      "degree": 29
+    },
+    {
+      "id": "v2_core_auth_auth",
+      "label": "Auth",
+      "degree": 27
+    },
+    {
+      "id": "v2_core_security_security",
+      "label": "Security",
+      "degree": 26
+    },
+    {
+      "id": "v2_core_database_database",
+      "label": "Database",
+      "degree": 22
+    },
+    {
+      "id": "v2_core_controller_controller",
+      "label": "Controller",
+      "degree": 21
+    },
+    {
+      "id": "v2_core_model_model",
+      "label": "Model",
+      "degree": 20
+    },
+    {
+      "id": "v2_app_helpers_functions_current_user",
+      "label": "current_user()",
+      "degree": 20
+    },
+    {
+      "id": "v2_app_models_user_user",
+      "label": "User",
+      "degree": 19
+    }
+  ],
+  "surprises": [
+    {
+      "source": "get_flash()",
+      "target": "Session",
+      "source_files": [
+        "v2/app/helpers/functions.php",
+        "v2/app/models/Session.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities; peripheral node `get_flash()` unexpectedly reaches hub `Session`"
+    },
+    {
+      "source": "is_admin()",
+      "target": "Session",
+      "source_files": [
+        "v2/app/helpers/functions.php",
+        "v2/app/models/Session.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities; peripheral node `is_admin()` unexpectedly reaches hub `Session`"
+    },
+    {
+      "source": "set_flash()",
+      "target": "Session",
+      "source_files": [
+        "v2/app/helpers/functions.php",
+        "v2/app/models/Session.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities; peripheral node `set_flash()` unexpectedly reaches hub `Session`"
+    },
+    {
+      "source": "csrf_field()",
+      "target": "Security",
+      "source_files": [
+        "v2/app/helpers/functions.php",
+        "v2/core/Security.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `csrf_field()` unexpectedly reaches hub `Security`"
+    },
+    {
+      "source": "csrf_token()",
+      "target": "Security",
+      "source_files": [
+        "v2/app/helpers/functions.php",
+        "v2/core/Security.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `csrf_token()` unexpectedly reaches hub `Security`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Model` connect `Model` to `Session`, `User`, `Database`, `Cache`, `ActivityLog`?",
+      "why": "High betweenness centrality (0.117) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Logger` connect `Logger` to `Session`, `Security`, `Database`, `Controller`, `Auth`, `ActivityLog`, `FileHandler`, `ErrorHandler`, `Router`?",
+      "why": "High betweenness centrality (0.110) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Session` connect `Session` to `Security`, `Model`, `ActivityLog`?",
+      "why": "High betweenness centrality (0.102) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 28 inferred relationships involving `Session` (e.g. with `.__construct()` and `.index()`) actually correct?",
+      "why": "`Session` has 28 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 13 inferred relationships involving `Session` (e.g. with `.check()` and `.login()`) actually correct?",
+      "why": "`Session` has 13 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 18 inferred relationships involving `Logger` (e.g. with `.file()` and `.log()`) actually correct?",
+      "why": "`Logger` has 18 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 8 inferred relationships involving `Auth` (e.g. with `.login()` and `.loginForm()`) actually correct?",
+      "why": "`Auth` has 8 INFERRED edges - model-reasoned connections that need verification."
+    }
+  ]
+}

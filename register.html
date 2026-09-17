@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثبت‌نام — کلینیک  دکتر ظهرابی</title>
+<link rel="icon" href="/images/logo-rel.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--d:#0f172a;--p:#16a34a;--p2:#15803d;--s:#dcfce7;--mid:#2e86c1;--w:#fff;--g:#f8fafc;--e:#334155;--m:#64748b;--br:#e2e8f0;--r:12px;--rr:16px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Vazirmatn',system-ui,sans-serif;background:var(--g);min-height:100vh;display:flex;direction:rtl}
+.reg-side{flex:1;background:linear-gradient(135deg,#0f172a 0%,#1a5276 50%,#16a34a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;color:var(--w);position:relative;overflow:hidden}
+.reg-side::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%);border-radius:50%;top:-100px;right:-100px}
+.reg-brand{font-size:2rem;font-weight:900;margin-bottom:.5rem;position:relative;z-index:1}
+.reg-brand span{color:#86efac}
+.reg-desc{font-size:.95rem;opacity:.7;max-width:320px;text-align:center;line-height:1.8;position:relative;z-index:1}
+.reg-steps{margin-top:3rem;display:flex;flex-direction:column;gap:1.25rem;position:relative;z-index:1}
+.reg-step{display:flex;align-items:center;gap:.75rem;font-size:.88rem;opacity:.8}
+.reg-step-num{width:32px;height:32px;background:rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0}
+.reg-form-side{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
+.reg-card{width:100%;max-width:440px}
+.reg-card h2{font-size:1.6rem;font-weight:800;color:var(--d);margin-bottom:.5rem}
+.reg-card>p{color:var(--m);font-size:.88rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--e);margin-bottom:.35rem}
+.form-input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--br);border-radius:var(--r);font-size:.88rem;font-family:inherit;color:var(--e);background:var(--w);outline:none;transition:border-color .3s,box-shadow .3s}
+.form-input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
+.form-input::placeholder{color:#94a3b8}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.85rem;border-radius:var(--r);font-size:.92rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .3s}
+.btn-p{background:var(--p);color:var(--w);box-shadow:0 4px 14px rgba(22,163,74,.25)}
+.btn-p:hover{background:var(--p2);transform:translateY(-1px)}
+.btn-o{background:transparent;color:var(--p);border:1.5px solid var(--p);margin-top:.75rem}
+.btn-o:hover{background:var(--s)}
+.form-divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:var(--m);font-size:.8rem}
+.form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--br)}
+.reg-footer{text-align:center;margin-top:1.5rem;font-size:.82rem;color:var(--m)}
+.reg-footer a{color:var(--p);font-weight:600}
+.alert{padding:.75rem 1rem;border-radius:var(--r);font-size:.82rem;margin-bottom:1rem;display:none}
+.alert-err{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.alert-ok{background:var(--s);color:var(--p);border:1px solid #bbf7d0}
+.password-strength{display:flex;gap:4px;margin-top:.4rem}
+.str-bar{flex:1;height:4px;border-radius:4px;background:var(--br);transition:background .3s}
+.str-bar.active{background:#dc2626}
+.str-bar.medium{background:#f59e0b}
+.str-bar.strong{background:var(--p)}
+.checkbox-group{display:flex;align-items:flex-start;gap:.5rem;margin:1rem 0}
+.checkbox-group input[type="checkbox"]{margin-top:3px;accent-color:var(--p)}
+.checkbox-group label{font-size:.8rem;color:var(--m);line-height:1.6}
+.checkbox-group label a{color:var(--p);font-weight:600}
+@media(max-width:768px){
+  body{flex-direction:column}
+  .reg-side{padding:2rem 1.5rem;min-height:auto}
+  .reg-steps{display:none}
+  .reg-form-side{padding:1.5rem}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="reg-side">
+  <div class="reg-brand">کلینیک <span> دکتر ظهرابی</span></div>
+  <p class="reg-desc">با ثبت‌نام در کلینیک، به خدمات تغذیه تخصصی دسترسی پیدا کنید.</p>
+  <div class="reg-steps">
+    <div class="reg-step"><div class="reg-step-num">۱</div>ثبت‌نام و تکمیل پروفایل</div>
+    <div class="reg-step"><div class="reg-step-num">۲</div>دریافت برنامه غذایی اختصاصی</div>
+    <div class="reg-step"><div class="reg-step-num">۳</div>پیگیری پیشرفت و نوبت‌دهی</div>
+  </div>
+</div>
+
+<div class="reg-form-side">
+  <div class="reg-card">
+    <h2>ساخت حساب کاربری</h2>
+    <p>اطلاعات خود را برای ثبت‌نام وارد کنید</p>
+
+    <div class="alert alert-err" id="alert-err"></div>
+    <div class="alert alert-ok" id="alert-ok"></div>
+
+    <form id="reg-form" onsubmit="handleRegister(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>نام</label>
+          <input type="text" class="form-input" id="r-first" placeholder="نام" required>
+        </div>
+        <div class="form-group">
+          <label>نام خانوادگی</label>
+          <input type="text" class="form-input" id="r-last" placeholder="نام خانوادگی" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>شماره موبایل</label>
+        <input type="tel" class="form-input" id="r-phone" placeholder="09123456789" required maxlength="11" pattern="09[0-9]{9}">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>سن</label>
+          <input type="number" class="form-input" id="r-age" placeholder="سال" min="1" max="120">
+        </div>
+        <div class="form-group">
+          <label>جنسیت</label>
+          <select class="form-input" id="r-gender">
+            <option value="female">زن</option>
+            <option value="male">مرد</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>قد (سانتی‌متر)</label>
+          <input type="number" class="form-input" id="r-height" placeholder="مثال: ۱۷۰" min="100" max="250">
+        </div>
+        <div class="form-group">
+          <label>وزن فعلی (کیلوگرم)</label>
+          <input type="number" class="form-input" id="r-weight" placeholder="مثال: ۷۰" step="0.1" min="30" max="300">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> رمز عبور</label>
+        <input type="password" class="form-input" id="r-pass" placeholder="حداقل ۸ کاراکتر" required minlength="8" oninput="checkStrength()">
+        <div class="password-strength">
+          <div class="str-bar" id="str1"></div>
+          <div class="str-bar" id="str2"></div>
+          <div class="str-bar" id="str3"></div>
+          <div class="str-bar" id="str4"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>تکرار رمز عبور</label>
+        <input type="password" class="form-input" id="r-pass2" placeholder="رمز عبور را دوباره وارد کنید" required>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="r-terms" required>
+        <label for="r-terms"><a href="#">قوانین و مقررات</a> و <a href="#">حریم خصوصی</a> کلینیک را مطالعه کرده و می‌پذیرم.</label>
+      </div>
+
+      <button type="submit" class="btn btn-p">ثبت‌نام</button>
+    </form>
+
+    <div class="reg-footer">
+      قبلاً ثبت‌نام کرده‌اید؟ <a href="login.html">وارد شوید</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function hideAlerts(){document.getElementById('alert-err').style.display='none';document.getElementById('alert-ok').style.display='none'}
+
+function checkStrength(){
+  const pass=document.getElementById('r-pass').value;
+  let score=0;
+  if(pass.length>=8)score++;
+  if(pass.length>=12)score++;
+  if(/[A-Z]/.test(pass)&&/[a-z]/.test(pass))score++;
+  if(/[0-9]/.test(pass))score++;
+  if(/[^A-Za-z0-9]/.test(pass))score++;
+
+  const bars=[document.getElementById('str1'),document.getElementById('str2'),document.getElementById('str3'),document.getElementById('str4')];
+  bars.forEach((b,i)=>{
+    b.className='str-bar';
+    if(i<Math.min(score,4)){
+      if(score<=1)b.classList.add('active');
+      else if(score<=2)b.classList.add('medium');
+      else b.classList.add('strong');
+    }
+  });
+}
+
+async function handleRegister(e){
+  e.preventDefault();
+  hideAlerts();
+
+  const first=document.getElementById('r-first').value.trim();
+  const last=document.getElementById('r-last').value.trim();
+  const phone=document.getElementById('r-phone').value;
+  const age=document.getElementById('r-age').value;
+  const gender=document.getElementById('r-gender').value;
+  const height=document.getElementById('r-height').value;
+  const weight=document.getElementById('r-weight').value;
+  const pass=document.getElementById('r-pass').value;
+  const pass2=document.getElementById('r-pass2').value;
+  const terms=document.getElementById('r-terms').checked;
+
+  if(!first||!last){showErr('نام و نام خانوادگی الزامی است');return;}
+  if(phone.length!==11||!phone.startsWith('09')){showErr('شماره موبایل معتبر نیست');return;}
+  if(pass.length<8){showErr('رمز عبور باید حداقل ۸ کاراکتر باشد');return;}
+  if(pass!==pass2){showErr('رمز عبور و تکرار آن مطابقت ندارند');return;}
+  if(!terms){showErr('باید قوانین و مقررات را بپذیرید');return;}
+
+  try{
+    const resp=await fetch('/api/index.php?action=auth/register',{
+      method:'POST',
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({first,last,phone,age:parseInt(age)||0,gender,height:parseInt(height)||0,weight:parseFloat(weight)||0,password:pass})
+    });
+    const data=await resp.json();
+
+    if(!data.success){
+      showErr(data.message||'خطا در ثبت‌نام');
+      return;
+    }
+
+    localStorage.setItem('zohra_user',JSON.stringify(data.data));
+    showOk('ثبت‌نام با موفقیت انجام شد!');
+    setTimeout(()=>{window.location.href='dashboard-user.html';},1500);
+
+  }catch(err){
+    showErr('خطا در اتصال به سرور');
+  }
+}
+
+function showErr(msg){
+  document.getElementById('alert-err').textContent=msg;
+  document.getElementById('alert-err').style.display='block';
+}
+function showOk(msg){
+  document.getElementById('alert-ok').textContent=msg;
+  document.getElementById('alert-ok').style.display='block';
+}
+
+(async function(){
+  try{
+    const resp=await fetch('/api/index.php?action=auth/me',{credentials:'include'});
+    const data=await resp.json();
+    if(data.success&&data.user&&data.user.role==='user'){
+      window.location.href='dashboard-user.html';
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

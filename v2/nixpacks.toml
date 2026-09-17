@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["php", "phpExtensions.pdo_mysql", "phpExtensions.mbstring"]
+
+[phases.build]
+cmds = ["cp -r * /app/", "cp -r /app/public /app/public"]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT -t /app/public /app/public/index.php"

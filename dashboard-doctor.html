@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل پزشک — کلینیک دکتر ظهرابی</title>
+<link rel="icon" href="/images/logo-rel.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--d:#0f172a;--d2:#1e293b;--p:#16a34a;--p2:#15803d;--p3:#22c55e;--s:#dcfce7;--mid:#2e86c1;--w:#fff;--g:#f8fafc;--g2:#f1f5f9;--e:#334155;--m:#64748b;--br:#e2e8f0;--r:12px;--rr:16px;--rrr:20px;--sh2:0 4px 16px rgba(0,0,0,.08)}
+body{font-family:'Vazirmatn',system-ui,sans-serif;background:var(--g);color:var(--e);direction:rtl}
+
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;min-width:280px;background:linear-gradient(180deg,var(--d),var(--d2));color:var(--w);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{flex:1;min-width:0}
+
+.sb-head{padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo{font-size:1.3rem;font-weight:900;display:flex;align-items:center;gap:.7rem}
+.sb-logo img{width:42px;height:42px;border-radius:12px;object-fit:cover}
+.sb-logo b{color:var(--mid)}
+.sb-nav{flex:1;padding:1rem}
+.sb-section{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1px;margin:1.25rem 0 .5rem;padding:0 .75rem}
+.sb-link{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;border-radius:var(--r);font-size:.88rem;font-weight:500;color:rgba(255,255,255,.5);transition:all .2s;cursor:pointer;margin-bottom:2px}
+.sb-link:hover{background:rgba(255,255,255,.06);color:var(--w)}
+.sb-link.active{background:rgba(46,134,193,.12);color:#60a5fa}
+.sb-link span{margin-right:auto;background:var(--p);color:var(--w);font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:100px}
+.sb-foot{padding:1rem;border-top:1px solid rgba(255,255,255,.06)}
+.sb-user{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:rgba(255,255,255,.04);border-radius:var(--r)}
+.sb-av{width:40px;height:40px;background:linear-gradient(135deg,var(--mid),#3498db);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.sb-name{font-size:.85rem;font-weight:700}
+.sb-role{font-size:.7rem;color:rgba(255,255,255,.4)}
+
+.topbar{background:var(--w);border-bottom:1px solid var(--br);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:1.3rem;font-weight:800;color:var(--d)}
+.topbar-date{font-size:.8rem;color:var(--m)}
+.topbar-left{display:flex;gap:.5rem;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:var(--r);font-size:.82rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-p{background:var(--p);color:var(--w)}
+.btn-p:hover{background:var(--p2)}
+.btn-o{background:var(--w);color:var(--e);border:1px solid var(--br)}
+.btn-o:hover{background:var(--g2)}
+.topbar-btn{width:38px;height:38px;border-radius:var(--r);border:1px solid var(--br);background:var(--w);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;position:relative}
+.topbar-btn .b{position:absolute;top:-3px;left:-3px;width:16px;height:16px;background:var(--p);color:var(--w);font-size:.55rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--w)}
+
+.content{padding:1.5rem 2rem}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--w);border-radius:var(--rrr);padding:1.25rem;border:1px solid var(--br);transition:all .3s}
+.stat:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.stat-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.stat-ic.g{background:var(--s);color:var(--p)}
+.stat-ic.b{background:#dbeafe;color:var(--mid)}
+.stat-ic.a{background:#fef3c7;color:#d97706}
+.stat-ic.r{background:#ffe4e6;color:#e11d48}
+.stat-ch{font-size:.68rem;font-weight:600;padding:.15rem .45rem;border-radius:100px}
+.stat-ch.up{background:var(--s);color:var(--p)}
+.stat-ch.dn{background:#fee2e2;color:#dc2626}
+.stat-v{font-size:1.8rem;font-weight:900;color:var(--d);line-height:1;margin-bottom:.2rem}
+.stat-l{font-size:.78rem;color:var(--m)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.card{background:var(--w);border-radius:var(--rrr);border:1px solid var(--br);overflow:hidden;margin-bottom:1.25rem}
+.card-h{padding:1.15rem 1.25rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.card-h h3{font-size:.95rem;font-weight:700;color:var(--d)}
+.card-b{padding:1.25rem}
+
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--g)}
+th{padding:.75rem 1rem;text-align:right;font-size:.7rem;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--br);white-space:nowrap}
+td{padding:.75rem 1rem;font-size:.82rem;border-bottom:1px solid var(--br);white-space:nowrap}
+tbody tr:hover{background:var(--g)}
+.pc{display:flex;align-items:center;gap:.6rem}
+.pa{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.pa.g{background:var(--s);color:var(--p)}
+.pa.b{background:#dbeafe;color:var(--mid)}
+.pa.a{background:#fef3c7;color:#d97706}
+.pa.r{background:#ffe4e6;color:#e11d48}
+.pn{font-weight:600;color:var(--d)}
+.pp{font-size:.75rem;color:var(--m);direction:ltr;text-align:right}
+.sb{padding:.2rem .55rem;border-radius:100px;font-size:.68rem;font-weight:600}
+.sb.ok{background:var(--s);color:var(--p)}
+.sb.nw{background:#dbeafe;color:var(--mid)}
+.sb.ur{background:#fee2e2;color:#dc2626}
+.sb.dn{background:var(--g2);color:var(--m)}
+.ab{display:flex;gap:.25rem}
+.ab button{width:32px;height:32px;border-radius:8px;border:1px solid var(--br);background:var(--w);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s}
+.ab button:hover{background:var(--g2)}
+.ab .call{color:var(--p);border-color:var(--s)}
+.ab .call:hover{background:var(--s)}
+.ab .view{color:var(--mid);border-color:#bfdbfe}
+.ab .view:hover{background:#dbeafe}
+.ab .del{color:#dc2626}
+.ab .del:hover{background:#fee2e2}
+
+.sbox{display:flex;gap:.5rem;align-items:center}
+.sinput{padding:.5rem .85rem;border:1.5px solid var(--br);border-radius:var(--r);font-size:.82rem;font-family:inherit;width:250px;outline:none;transition:all .3s;background:var(--g)}
+.sinput:focus{border-color:var(--p);background:var(--w)}
+
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.qc{padding:1.1rem;background:var(--g);border-radius:var(--rr);text-align:center;cursor:pointer;transition:all .3s;border:1.5px solid transparent}
+.qc:hover{background:var(--w);border-color:var(--mid);box-shadow:var(--sh2);transform:translateY(-2px)}
+.qc-i{font-size:1.6rem;margin-bottom:.4rem}
+.qc-t{font-size:.8rem;font-weight:700;color:var(--d)}
+
+.ch{height:160px;display:flex;align-items:flex-end;justify-content:space-around;padding:.75rem;gap:.4rem;background:linear-gradient(180deg,var(--s),var(--w));border-radius:var(--r)}
+.ch-b{flex:1;border-radius:5px 5px 0 0;min-height:12px;position:relative;transition:height .5s}
+.ch-b.g{background:linear-gradient(180deg,var(--p),var(--p2))}
+.ch-b.b{background:linear-gradient(180deg,var(--mid),#3b82f6)}
+.ch-b::after{content:attr(data-v);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:700;color:var(--m);white-space:nowrap}
+.ch-l{display:flex;justify-content:space-around;padding:.4rem 0;font-size:.65rem;color:var(--m)}
+
+/* Modal */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mo.show{display:flex}
+.mo-box{background:var(--w);border-radius:var(--rrr);width:92%;max-width:540px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.mo-h{padding:1.25rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.mo-h h3{font-size:1rem;font-weight:800}
+.mo-x{width:34px;height:34px;border-radius:8px;border:1px solid var(--br);background:var(--w);cursor:pointer;font-size:.9rem}
+.mo-x:hover{background:var(--g2)}
+.mo-b{padding:1.25rem}
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.78rem;font-weight:600;color:var(--e);margin-bottom:.3rem}
+.fi{width:100%;padding:.65rem .9rem;border:1.5px solid var(--br);border-radius:var(--r);font-size:.85rem;font-family:inherit;outline:none;transition:all .3s}
+.fi:focus{border-color:var(--p)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+textarea.fi{resize:vertical;min-height:70px}
+
+.mob{display:none;position:fixed;top:.75rem;right:.75rem;z-index:200;width:42px;height:42px;background:var(--d);border:none;border-radius:var(--r);color:var(--w);font-size:1.1rem;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--sh2)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:140}
+.overlay.show{display:block}
+
+/* Notif Panel */
+.notif-panel{display:none;position:absolute;top:100%;left:0;width:380px;background:var(--w);border-radius:var(--r);box-shadow:0 10px 40px rgba(0,0,0,.15);border:1px solid var(--br);z-index:50;margin-top:.5rem;max-height:450px;overflow-y:auto}
+.notif-panel-header{padding:1rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center}
+.notif-panel-header span{font-weight:700;color:var(--d)}
+.notif-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-bottom:1px solid var(--br);cursor:pointer;transition:background .2s}
+.notif-item:hover{background:var(--g)}
+.notif-item .ni-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.notif-item .ni-text{flex:1;font-size:.82rem;color:var(--d)}
+.notif-item .ni-text strong{display:block;font-weight:600}
+.notif-item .ni-date{font-size:.7rem;color:var(--m)}
+.notif-item.unread{background:var(--s)}
+.notif-empty{text-align:center;padding:2rem;color:var(--m);font-size:.85rem}
+
+/* Patient Search Dropdown */
+.patient-search-wrap{position:relative;flex:1;min-width:200px}
+.patient-search-wrap .fi{padding-left:2.2rem}
+.patient-search-results{position:absolute;top:100%;right:0;left:0;background:var(--w);border:1px solid var(--br);border-radius:var(--r);max-height:250px;overflow-y:auto;z-index:100;display:none;box-shadow:var(--sh2)}
+.patient-search-results .ps-item{padding:.6rem .9rem;cursor:pointer;border-bottom:1px solid var(--br);font-size:.82rem;display:flex;justify-content:space-between;align-items:center}
+.patient-search-results .ps-item:hover{background:var(--g2)}
+.patient-search-results .ps-item .ps-name{font-weight:600;color:var(--d)}
+.patient-search-results .ps-item .ps-phone{font-size:.7rem;color:var(--m)}
+.patient-search-results .ps-empty{padding:1rem;text-align:center;color:var(--m);font-size:.82rem}
+
+@media(max-width:900px){
+  .sidebar{position:fixed;right:-290px;top:0;z-index:150;transition:right .3s;width:280px;min-width:280px}
+  .sidebar.open{right:0}
+  .main{margin-right:0}
+  .mob{display:flex}
+  .topbar{padding:.75rem 1rem}
+  .content{padding:1rem}
+  .stats{grid-template-columns:1fr 1fr;gap:.75rem}
+  .stat{padding:1rem}
+  .stat-v{font-size:1.4rem}
+  .g2{grid-template-columns:1fr}
+  .qg{grid-template-columns:1fr 1fr}
+  .sbox{width:100%}
+  .sinput{width:100%}
+  .notif-panel{width:calc(100vw - 2rem);left:-1rem}
+  .patient-search-wrap{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<button class="mob" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- Add Modal -->
+<div class="mo" id="addMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3>➕ بیمار جدید</h3><button class="mo-x" onclick="closeMo('addMo')">✕</button></div>
+    <div class="mo-b">
+      <form id="addForm" onsubmit="addPatient(event)">
+        <div class="fr"><div class="fg"><label>نام</label><input class="fi" id="pName" required></div><div class="fg"><label>شماره</label><input class="fi" id="pPhone" placeholder="09..." required maxlength="11"></div></div>
+        <div class="fr"><div class="fg"><label>سن</label><input class="fi" id="pAge" type="number" min="1"></div><div class="fg"><label>وزن (کیلو)</label><input class="fi" id="pWeight" type="number" step="0.1"></div></div>
+        <div class="fr"><div class="fg"><label>قد (سانتی)</label><input class="fi" id="pHeight" type="number"></div><div class="fg"><label>مشکل</label><select class="fi" id="pIssue"><option>لاغری</option><option>چاقی</option><option>دیابت</option><option>فشار خون</option><option>گوارشی</option><option>تغذیه ورزشی</option></select></div></div>
+        <div class="fg"><label>توضیحات</label><textarea class="fi" id="pNotes" rows="2"></textarea></div>
+      </form>
+    </div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn btn-o" onclick="closeMo('addMo')">انصراف</button>
+      <button class="btn btn-p" onclick="document.getElementById('addForm').requestSubmit()">افزودن</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Patient BMI Modal -->
+<div class="mo" id="editBmiMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3>📐 ویرایش BMI بیمار</h3><button class="mo-x" onclick="closeMo('editBmiMo')">✕</button></div>
+    <div class="mo-b">
+      <div id="editBmiName" style="font-weight:700;color:var(--d);margin-bottom:1rem"></div>
+      <div class="fr">
+        <div class="fg"><label>وزن فعلی (کیلوگرم)</label><input class="fi" id="editWeight" type="number" step="0.1" min="30" max="300" oninput="calcEditBmi()"></div>
+        <div class="fg"><label>قد (سانتی‌متر)</label><input class="fi" id="editHeight" type="number" min="100" max="250" oninput="calcEditBmi()"></div>
+      </div>
+      <div id="editBmiResult" style="margin-top:1rem;text-align:center;display:none">
+        <div style="font-size:2rem;font-weight:900;color:var(--d)" id="editBmiValue"></div>
+        <div style="font-size:.85rem;color:var(--m)" id="editBmiStatus"></div>
+      </div>
+    </div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn btn-o" onclick="closeMo('editBmiMo')">انصراف</button>
+      <button class="btn btn-p" onclick="savePatientBmi()">ذخیره BMI</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Modal -->
+<div class="mo" id="viewMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3 id="viewTitle">بیمار</h3><button class="mo-x" onclick="closeMo('viewMo')">✕</button></div>
+    <div class="mo-b" id="viewBody"></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head"><div class="sb-logo"><img src="images/logo.png" alt="لوگو">کلینیک <b>دکتر ظهرابی</b></div></div>
+    <nav class="sb-nav">
+      <div class="sb-section">منو</div>
+      <div class="sb-link active" onclick="go('dash',this)">🏠 داشبورد</div>
+      <div class="sb-link" onclick="go('pats',this)">👥 بیماران <span id="patCount">۰</span></div>
+      <div class="sb-link" onclick="go('apts',this)">📅 نوبت‌ها <span id="aptBadge">۰</span></div>
+      <div class="sb-section">برنامه‌ها</div>
+      <div class="sb-link" onclick="go('mealplans',this)">🍽️ برنامه غذایی</div>
+      <div class="sb-link" onclick="go('explans',this)">🏃 برنامه ورزشی</div>
+      <div class="sb-link" onclick="go('progress',this)">📊 پیشرفت بیماران</div>
+      <div class="sb-link" onclick="go('msgs',this)">💬 پیام‌ها <span id="msgBadge" style="display:none;background:var(--p);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-link" onclick="go('tests',this)">🔬 آزمایشات بیماران <span id="testBadge" style="display:none;background:var(--gold);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-link" onclick="logout()">🚪 خروج</div>
+    </nav>
+    <div class="sb-foot"><div class="sb-user"><div class="sb-av">د</div><div><div class="sb-name" id="sbName">دکتر ظهرابی</div><div class="sb-role">متخصص تغذیه</div></div></div></div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div><h1 id="pageTitle">داشبورد مدیریت</h1><div class="topbar-date" id="todayDate"></div></div>
+      <div class="topbar-left">
+        <div style="position:relative">
+          <button class="topbar-btn" onclick="toggleNotifPanel()">🔔<span class="b" id="notifBadge" style="display:none">۰</span></button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-panel-header"><span>📬 اعلان‌ها</span><button onclick="clearDoctorNotifications()" style="background:none;border:none;color:var(--m);font-size:.78rem;cursor:pointer;font-family:inherit">پاک کردن همه</button></div>
+            <div id="notifList"></div>
+          </div>
+        </div>
+        <button class="btn btn-p" onclick="openMo('addMo')">+ بیمار</button>
+        <a href="index.html" class="btn btn-o">🌐 سایت</a>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="content" id="p-dash">
+      <div class="stats">
+        <div class="stat"><div class="stat-top"><div class="stat-ic g">👥</div></div><div class="stat-v" id="statPats">۰</div><div class="stat-l">کل بیماران</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic b">🍽️</div></div><div class="stat-v" id="statMeals">۰</div><div class="stat-l">برنامه غذایی</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic a">🏃</div></div><div class="stat-v" id="statExs">۰</div><div class="stat-l">برنامه ورزشی</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic r">💬</div></div><div class="stat-v" id="statMsgs">۰</div><div class="stat-l">پیام جدید</div></div>
+      </div>
+
+      <div class="g2">
+        <div class="card"><div class="card-h"><h3>📊 نمودار هفتگی</h3></div><div class="card-b"><div class="ch"><div class="ch-b g" style="height:60%" data-v="۸"></div><div class="ch-b g" style="height:80%" data-v="۱۲"></div><div class="ch-b g" style="height:45%" data-v="۶"></div><div class="ch-b g" style="height:90%" data-v="۱۴"></div><div class="ch-b g" style="height:70%" data-v="۱۰"></div><div class="ch-b g" style="height:55%" data-v="۷"></div><div class="ch-b b" style="height:100%" data-v="۱۵"></div></div><div class="ch-l"><span>شنبه</span><span>یکشنبه</span><span>دوشنبه</span><span>سه‌شنبه</span><span>چهارشنبه</span><span>پنجشنبه</span><span>جمعه</span></div></div></div>
+        <div class="card"><div class="card-h"><h3>⚡ عملیات سریع</h3></div><div class="card-b"><div class="qg">
+          <div class="qc" onclick="openMo('addMo')"><div class="qc-i">👤</div><div class="qc-t">بیمار جدید</div></div>
+          <div class="qc" onclick="openMo('mealMo')"><div class="qc-i">🍽️</div><div class="qc-t">برنامه غذایی</div></div>
+          <div class="qc" onclick="openMo('exMo')"><div class="qc-i">🏃</div><div class="qc-t">برنامه ورزشی</div></div>
+        </div></div></div>
+      </div>
+
+      <div class="card"><div class="card-h"><h3>👥 آخرین بیماران</h3><button class="btn btn-o" onclick="go('pats',document.querySelectorAll('.sb-link')[1])" style="font-size:.75rem;padding:.35rem .7rem">همه ←</button></div><div class="tw"><table><thead><tr><th>بیمار</th><th>شماره</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="recentPats"></tbody></table></div></div>
+
+      <div class="card"><div class="card-h"><h3>💬 آخرین پیام‌ها</h3><button class="btn btn-o" onclick="go('msgs',document.querySelectorAll('.sb-link')[6])" style="font-size:.75rem;padding:.35rem .7rem">همه ←</button></div><div class="card-b" id="recentMsgs"><div style="text-align:center;padding:1rem;color:var(--m);font-size:.85rem">هنوز پیامی نیست</div></div></div>
+    </div>
+
+    <!-- PATIENTS -->
+    <div class="content" id="p-pats" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>👥 لیست بیماران</h3><div class="sbox"><input class="sinput" placeholder="🔍 جستجو..." id="search" oninput="filterPats()"><button class="btn btn-p" onclick="openMo('addMo')">+ جدید</button></div></div>
+        <div class="tw"><table><thead><tr><th>#</th><th>بیمار</th><th>شماره</th><th>سن</th><th>وزن</th><th>مشکل</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="patsBody"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div class="content" id="p-apts" style="display:none">
+      <div class="card"><div class="card-h"><h3>📅 نوبت‌ها</h3></div><div class="card-b" id="aptsList"><div style="text-align:center;padding:2rem;color:var(--m)">هنوز نوبتی ثبت نشده</div></div></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="content" id="p-msgs" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>💬 پیام‌ها</h3>
+          <div class="sbox">
+            <div class="patient-search-wrap">
+              <input class="fi" id="msgSearchInput" placeholder="🔍 جستجوی بیمار..." oninput="filterPatientSearch('msgSearchInput','msgSearchResults')" onfocus="filterPatientSearch('msgSearchInput','msgSearchResults')" style="width:250px">
+              <div class="patient-search-results" id="msgSearchResults"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-b">
+          <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap">
+            <input class="fi" id="msgText" placeholder="پیام خود را بنویسید..." style="flex:2;min-width:250px" onkeydown="if(event.key==='Enter')sendMsg()">
+            <button class="btn btn-p" onclick="sendMsg()">ارسال</button>
+          </div>
+          <div id="msgsList" style="max-height:400px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTS -->
+    <div class="content" id="p-tests" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🔬 آزمایشات بیماران</h3>
+          <div class="sbox">
+            <div class="patient-search-wrap">
+              <input class="fi" id="testSearchInput" placeholder="🔍 جستجوی بیمار..." oninput="filterPatientSearch('testSearchInput','testSearchResults')" onfocus="filterPatientSearch('testSearchInput','testSearchResults')" style="width:250px">
+              <div class="patient-search-results" id="testSearchResults"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-b">
+          <div id="testsList"><div style="text-align:center;padding:2rem;color:var(--m)">بیماری را انتخاب کنید</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEAL PLANS -->
+    <div class="content" id="p-mealplans" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🍽️ برنامه غذایی بیماران</h3>
+          <div class="sbox">
+            <div class="patient-search-wrap">
+              <input class="fi" id="mealSearchInput" placeholder="🔍 جستجوی بیمار..." oninput="filterPatientSearch('mealSearchInput','mealSearchResults')" onfocus="filterPatientSearch('mealSearchInput','mealSearchResults')" style="width:250px">
+              <div class="patient-search-results" id="mealSearchResults"></div>
+            </div>
+            <button class="btn btn-p" onclick="openMo('mealMo')">+ برنامه جدید</button>
+          </div>
+        </div>
+        <div class="card-b" id="mealPlansList"></div>
+      </div>
+    </div>
+
+    <!-- EXERCISE PLANS -->
+    <div class="content" id="p-explans" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🏃 برنامه ورزشی بیماران</h3>
+          <div class="sbox">
+            <div class="patient-search-wrap">
+              <input class="fi" id="exSearchInput" placeholder="🔍 جستجوی بیمار..." oninput="filterPatientSearch('exSearchInput','exSearchResults')" onfocus="filterPatientSearch('exSearchInput','exSearchResults')" style="width:250px">
+              <div class="patient-search-results" id="exSearchResults"></div>
+            </div>
+            <button class="btn btn-p" onclick="openMo('exMo')">+ برنامه جدید</button>
+          </div>
+        </div>
+        <div class="card-b" id="exPlansList"></div>
+      </div>
+    </div>
+
+    <!-- PATIENT PROGRESS -->
+    <div class="content" id="p-progress" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>📊 پیشرفت بیماران</h3>
+          <div class="sbox">
+            <div class="patient-search-wrap">
+              <input class="fi" id="progressSearchInput" placeholder="🔍 جستجوی بیمار..." oninput="filterPatientSearch('progressSearchInput','progressSearchResults')" onfocus="filterPatientSearch('progressSearchInput','progressSearchResults')" style="width:250px">
+              <div class="patient-search-results" id="progressSearchResults"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-b">
+          <select class="fi" id="progressPatient" onchange="loadPatientProgress()" style="width:100%;padding:.4rem .75rem;font-size:.8rem;margin-bottom:1rem;display:none"></select>
+          <div id="patientProgress">
+            <div style="text-align:center;padding:2rem;color:var(--m)">بیماری را انتخاب کنید</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Test Image Lightbox -->
+<div class="mo" id="testLightbox" onclick="closeTestLightbox()" style="cursor:zoom-out">
+  <button class="mo-x" onclick="closeTestLightbox()" style="position:absolute;top:1rem;left:1rem;z-index:201">✕</button>
+  <div onclick="event.stopPropagation()" style="max-width:90vw;max-height:90vh;overflow:auto">
+    <img id="testLbImg" src="" style="max-width:100%;max-height:85vh;border-radius:var(--rr);box-shadow:0 20px 60px rgba(0,0,0,.5)">
+    <div id="testLbInfo" style="text-align:center;color:var(--m);font-size:.85rem;margin-top:1rem"></div>
+  </div>
+</div>
+
+<!-- Add Meal Plan Modal -->
+<div class="mo" id="mealMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3>🍽️ افزودن برنامه غذایی</h3><button class="mo-x" onclick="closeMo('mealMo')">✕</button></div>
+    <div class="mo-b">
+      <form id="mealForm" onsubmit="addMealPlan(event)">
+        <div class="fg"><label>انتخاب بیمار</label>
+          <div class="patient-search-wrap">
+            <input class="fi" id="mpPatientSearch" placeholder="جستجوی بیمار..." oninput="filterPatientSearch('mpPatientSearch','mpPatientResults')" onfocus="filterPatientSearch('mpPatientSearch','mpPatientResults')">
+            <div class="patient-search-results" id="mpPatientResults"></div>
+          </div>
+          <input type="hidden" id="mpPatientId">
+          <div id="mpSelectedPatient" style="margin-top:.3rem;font-size:.82rem;color:var(--p);font-weight:600"></div>
+        </div>
+        <div class="fg"><label>عنوان برنامه</label><input class="fi" id="mpTitle" placeholder="مثال: برنامه لاغری ۴ هفته‌ای" required></div>
+        <div class="fg"><label>توضیحات</label><textarea class="fi" id="mpDesc" rows="2" placeholder="توضیح کلی برنامه..."></textarea></div>
+        <div class="fg"><label>صبحانه</label><input class="fi" id="mpBreakfast" placeholder="صبحانه..." required></div>
+        <div class="fg"><label>میان‌وعده صبح</label><input class="fi" id="mpSnack1" placeholder="میان‌وعده..."></div>
+        <div class="fg"><label>ناهار</label><input class="fi" id="mpLunch" placeholder="ناهار..." required></div>
+        <div class="fg"><label>میان‌وعده عصر</label><input class="fi" id="mpSnack2" placeholder="میان‌وعده..."></div>
+        <div class="fg"><label>شام</label><input class="fi" id="mpDinner" placeholder="شام..." required></div>
+        <div class="fr"><div class="fg"><label>کالری روزانه</label><input class="fi" id="mpCalories" type="number" placeholder="کالری"></div><div class="fg"><label>مدت (روز)</label><input class="fi" id="mpDuration" type="number" placeholder="روز" value="7"></div></div>
+      </form>
+    </div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn btn-o" onclick="closeMo('mealMo')">انصراف</button>
+      <button class="btn btn-p" onclick="document.getElementById('mealForm').requestSubmit()">ذخیره</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Exercise Plan Modal -->
+<div class="mo" id="exMo">
+  <div class="mo-box">
+    <div class="mo-h"><h3>🏃 افزودن برنامه ورزشی</h3><button class="mo-x" onclick="closeMo('exMo')">✕</button></div>
+    <div class="mo-b">
+      <form id="exForm" onsubmit="addExPlan(event)">
+        <div class="fg"><label>انتخاب بیمار</label>
+          <div class="patient-search-wrap">
+            <input class="fi" id="epPatientSearch" placeholder="جستجوی بیمار..." oninput="filterPatientSearch('epPatientSearch','epPatientResults')" onfocus="filterPatientSearch('epPatientSearch','epPatientResults')">
+            <div class="patient-search-results" id="epPatientResults"></div>
+          </div>
+          <input type="hidden" id="epPatientId">
+          <div id="epSelectedPatient" style="margin-top:.3rem;font-size:.82rem;color:var(--p);font-weight:600"></div>
+        </div>
+        <div class="fg"><label>عنوان برنامه</label><input class="fi" id="epTitle" placeholder="مثال: برنامه ورزشی ۳ روزه" required></div>
+        <div class="fg"><label>توضیحات</label><textarea class="fi" id="epDesc" rows="2" placeholder="توضیح کلی..."></textarea></div>
+        <div class="fg"><label>شنبه</label><input class="fi" id="epSat" placeholder="فعالیت..."></div>
+        <div class="fg"><label>یکشنبه</label><input class="fi" id="epSun" placeholder="فعالیت..."></div>
+        <div class="fg"><label>دوشنبه</label><input class="fi" id="epMon" placeholder="فعالیت..."></div>
+        <div class="fg"><label>سه‌شنبه</label><input class="fi" id="epTue" placeholder="فعالیت..."></div>
+        <div class="fg"><label>چهارشنبه</label><input class="fi" id="epWed" placeholder="فعالیت..."></div>
+        <div class="fg"><label>پنجشنبه</label><input class="fi" id="epThu" placeholder="فعالیت..."></div>
+        <div class="fr"><div class="fg"><label>کالری تقریبی</label><input class="fi" id="epCalories" type="number" placeholder="کالری"></div><div class="fg"><label>مدت (هفته)</label><input class="fi" id="epWeeks" type="number" placeholder="هفته" value="4"></div></div>
+      </form>
+    </div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn btn-o" onclick="closeMo('exMo')">انصراف</button>
+      <button class="btn btn-p" onclick="document.getElementById('exForm').requestSubmit()">ذخیره</button>
+    </div>
+  </div>
+</div>
+
+<script src="api-sync.js?v=4"></script>
+<script>
+var user=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!user||user.role!=='doctor'){window.location.href='login.html';throw 'not logged in';}
+var DOCTOR_PHONE=user.phone||'09120000000';
+function guardDoctor(){if(!user||!user.phone){try{user=JSON.parse(localStorage.getItem('zohra_user')||'null');}catch(e){user=null;}if(!user||!user.phone){window.location.href='login.html';return false;}DOCTOR_PHONE=user.phone;}return true;}
+function currentDoctorPhone(){return (user&&user.phone)||DOCTOR_PHONE;}
+
+document.getElementById('todayDate').textContent='📅 '+new Intl.DateTimeFormat('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+
+function getDoctorSeenIds() {
+  try {
+    return JSON.parse(localStorage.getItem('zohra_doctor_seen_' + currentDoctorPhone()) || '[]');
+  } catch(e) {
+    return [];
+  }
+}
+
+function addDoctorSeenIds(ids) {
+  if(!guardDoctor())return;
+  const existing = getDoctorSeenIds();
+  const newIds = [...new Set([...existing, ...ids])];
+  localStorage.setItem('zohra_doctor_seen_' + currentDoctorPhone(), JSON.stringify(newIds));
+}
+
+function isDoctorNotifSeen(id) {
+  const seenIds = getDoctorSeenIds();
+  return seenIds.includes(id);
+}
+
+// ============================================================
+// جمع‌آوری اعلان‌های پزشک
+// ============================================================
+
+function getDoctorNotifications() {
+  const notifs = [];
+  const allUsers = JSON.parse(localStorage.getItem('zohra_users') || '[]');
+  const patients = allUsers.filter(u => u.role === 'user');
+  
+  const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+  patients.forEach(p => {
+    const id = 'newpatient_' + p.phone;
+    if (!isDoctorNotifSeen(id)) {
+      const createdAt = p.createdAt || 0;
+      if (createdAt > oneDayAgo) {
+        notifs.push({
+          id: id,
+          type: 'newpatient',
+          icon: '👤',
+          title: 'بیمار جدید ثبت نام کرد',
+          text: p.name + ' (' + p.phone + ')',
+          date: new Intl.DateTimeFormat('fa-IR', {hour:'2-digit', minute:'2-digit', day:'numeric', month:'short'}).format(createdAt),
+          link: 'pats',
+          unread: true
+        });
+      }
+    }
+  });
+
+  const allMsgs = JSON.parse(localStorage.getItem('zohra_msgs') || '[]');
+  const patientMsgs = allMsgs.filter(m => m.from !== 'doctor' && m.to === 'doctor');
+  patientMsgs.forEach(m => {
+    const id = 'msg_' + (m.id || m.createdAtTime || Date.now());
+    if (!isDoctorNotifSeen(id)) {
+      const pname = patients.find(p => p.phone === m.from)?.name || 'بیمار';
+      notifs.push({
+        id: id,
+        type: 'message',
+        icon: '💬',
+        title: 'پیام جدید از ' + pname,
+        text: m.text.substring(0, 60) + (m.text.length > 60 ? '...' : ''),
+        date: m.date || new Intl.DateTimeFormat('fa-IR', {hour:'2-digit', minute:'2-digit', day:'numeric', month:'short'}).format(Date.now()),
+        link: 'msgs',
+        unread: true
+      });
+    }
+  });
+
+  patients.forEach(p => {
+    const tests = JSON.parse(localStorage.getItem('zohra_tests_' + p.phone) || '[]');
+    tests.forEach(t => {
+      const id = 'test_' + (t.id || Date.now());
+      if (!isDoctorNotifSeen(id) && t.status !== 'reviewed') {
+        notifs.push({
+          id: id,
+          type: 'test',
+          icon: '🔬',
+          title: 'آزمایش جدید از ' + p.name,
+          text: t.title + (t.desc ? ' — ' + t.desc : ''),
+          date: t.date || new Intl.DateTimeFormat('fa-IR', {hour:'2-digit', minute:'2-digit', day:'numeric', month:'short'}).format(Date.now()),
+          link: 'tests',
+          unread: true
+        });
+      }
+    });
+  });
+
+  patients.forEach(p => {
+    const progress = JSON.parse(localStorage.getItem('zohra_progress_' + p.phone) || '[]');
+    if (progress.length > 0) {
+      const latest = progress[0];
+      const id = 'weight_' + (latest.id || Date.now());
+      if (!isDoctorNotifSeen(id)) {
+        const createdAt = latest.createdAt ? new Date(latest.createdAt).getTime() : Date.now();
+        if (Date.now() - createdAt < 24 * 60 * 60 * 1000) {
+          notifs.push({
+            id: id,
+            type: 'weight',
+            icon: '⚖️',
+            title: 'ثبت وزن جدید از ' + p.name,
+            text: 'وزن: ' + latest.weight + ' کیلوگرم' + (latest.waist ? ' — دور کمر: ' + latest.waist + ' سانتی' : ''),
+            date: latest.date || new Intl.DateTimeFormat('fa-IR', {hour:'2-digit', minute:'2-digit', day:'numeric', month:'short'}).format(Date.now()),
+            link: 'progress',
+            unread: true
+          });
+        }
+      }
+    }
+  });
+
+  return notifs.sort((a, b) => {
+    const dateA = new Date(a.date.split(' ').reverse().join(' '));
+    const dateB = new Date(b.date.split(' ').reverse().join(' '));
+    return dateB - dateA;
+  });
+}
+
+// ============================================================
+// نمایش اعلان‌ها
+// ============================================================
+
+function loadDoctorNotifications() {
+  const notifs = getDoctorNotifications();
+  const list = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  
+  if (notifs.length === 0) {
+    list.innerHTML = '<div class="notif-empty">✅ همه اعلان‌ها خوانده شد</div>';
+    badge.style.display = 'none';
+    return;
+  }
+  
+  badge.textContent = notifs.length;
+  badge.style.display = 'flex';
+  
+  list.innerHTML = notifs.slice(0, 15).map(n => {
+    const bgColors = {
+      newpatient: 'var(--s)',
+      message: '#dbeafe',
+      test: '#fef3c7',
+      weight: '#fce7f3'
+    };
+    return `<div class="notif-item unread" onclick="go('${n.link}', document.querySelectorAll('.sb-link')[${getDoctorLinkIndex(n.link)}]); document.getElementById('notifPanel').style.display='none'">
+      <div class="ni-icon" style="background:${bgColors[n.type] || 'var(--g)'}">${n.icon}</div>
+      <div class="ni-text">
+        <strong>${n.title}</strong>
+        ${n.text}
+      </div>
+      <div class="ni-date">${n.date}</div>
+    </div>`;
+  }).join('');
+}
+
+function getDoctorLinkIndex(link) {
+  const links = ['dash', 'pats', 'apts', 'mealplans', 'explans', 'progress', 'msgs', 'tests'];
+  return links.indexOf(link);
+}
+
+function clearDoctorNotifications() {
+  const notifs = getDoctorNotifications();
+  const ids = notifs.map(n => n.id);
+  if (ids.length > 0) {
+    addDoctorSeenIds(ids);
+  }
+  document.getElementById('notifBadge').style.display = 'none';
+  document.getElementById('notifList').innerHTML = '<div class="notif-empty">✅ همه اعلان‌ها پاک شد</div>';
+  document.getElementById('notifPanel').style.display = 'none';
+  updateDoctorBadges();
+}
+
+function updateDoctorBadges() {
+  const notifs = getDoctorNotifications();
+  const msgCount = notifs.filter(n => n.type === 'message').length;
+  const testCount = notifs.filter(n => n.type === 'test').length;
+  
+  if (msgCount > 0) {
+    document.getElementById('msgBadge').style.display = 'inline';
+    document.getElementById('msgBadge').textContent = msgCount;
+  } else {
+    document.getElementById('msgBadge').style.display = 'none';
+  }
+  
+  if (testCount > 0) {
+    document.getElementById('testBadge').style.display = 'inline';
+    document.getElementById('testBadge').textContent = testCount;
+  } else {
+    document.getElementById('testBadge').style.display = 'none';
+  }
+}
+
+function toggleNotifPanel() {
+  const panel = document.getElementById('notifPanel');
+  if (panel.style.display === 'block') {
+    panel.style.display = 'none';
+  } else {
+    panel.style.display = 'block';
+    loadDoctorNotifications();
+  }
+}
+
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('notifPanel');
+  const btn = document.querySelector('.topbar-btn');
+  if (panel && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.style.display = 'none';
+  }
+});
+
+// ============================================================
+// توابع اصلی پنل پزشک
+// ============================================================
+
+function go(id,el){
+  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('p-'+id).style.display='block';
+  if(el)el.classList.add('active');
+  const t={dash:'داشبورد مدیریت',pats:'مدیریت بیماران',apts:'نوبت‌ها',mealplans:'برنامه غذایی',explans:'برنامه ورزشی',progress:'پیشرفت بیماران',msgs:'پیام‌ها',tests:'آزمایشات بیماران'};
+  document.getElementById('pageTitle').textContent=t[id]||'داشبورد';
+  if(window.innerWidth<=900)toggleSidebar();
+  document.getElementById('notifPanel').style.display = 'none';
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+function openMo(id){document.getElementById(id).classList.add('show');}
+function closeMo(id){document.getElementById(id).classList.remove('show');}
+
+// ============================================================
+// سیستم جستجوی بیماران
+// ============================================================
+
+function getPatientsList() {
+  return JSON.parse(localStorage.getItem('zohra_users')||'[]').filter(u=>u.role==='user').map(u=>({
+    id: u.id || Date.now(),
+    name: u.name,
+    phone: u.phone,
+    raw: u.phone,
+    age: u.age || 0,
+    gender: u.gender || '',
+    weight: u.weight || 0,
+    height: u.height || 0
+  }));
+}
+
+function filterPatientSearch(inputId, resultsId) {
+  const input = document.getElementById(inputId);
+  const results = document.getElementById(resultsId);
+  const query = input.value.trim().toLowerCase();
+  
+  if (!query) {
+    results.style.display = 'none';
+    return;
+  }
+  
+  const allPatients = getPatientsList();
+  const filtered = allPatients.filter(p => 
+    p.name.toLowerCase().includes(query) || 
+    p.phone.includes(query)
+  ).slice(0, 10);
+  
+  if (filtered.length === 0) {
+    results.innerHTML = '<div class="ps-empty">بیماری یافت نشد</div>';
+    results.style.display = 'block';
+    return;
+  }
+  
+  results.innerHTML = filtered.map(p => `
+    <div class="ps-item" onclick="selectPatient('${inputId}','${resultsId}','${p.id}','${p.name}','${p.phone}')">
+      <div>
+        <div class="ps-name">${p.name}</div>
+        <div class="ps-phone">${p.phone}</div>
+      </div>
+      <div style="font-size:.7rem;color:var(--m)">${p.age || ''} سال</div>
+    </div>
+  `).join('');
+  results.style.display = 'block';
+}
+
+function selectPatient(inputId, resultsId, patientId, name, phone) {
+  const input = document.getElementById(inputId);
+  const results = document.getElementById(resultsId);
+  input.value = name + ' (' + phone + ')';
+  results.style.display = 'none';
+  
+  input.dataset.patientId = patientId;
+  input.dataset.patientName = name;
+  input.dataset.patientPhone = phone;
+  
+  if (inputId === 'mpPatientSearch') {
+    document.getElementById('mpPatientId').value = patientId;
+    document.getElementById('mpSelectedPatient').textContent = '✅ ' + name + ' (' + phone + ')';
+  } else if (inputId === 'epPatientSearch') {
+    document.getElementById('epPatientId').value = patientId;
+    document.getElementById('epSelectedPatient').textContent = '✅ ' + name + ' (' + phone + ')';
+  }
+  
+  if (inputId === 'msgSearchInput') {
+    // بارگذاری مستقیم پیام‌ها بعد از انتخاب بیمار
+    loadMsgsForPatient(patientId, name);
+  } else if (inputId === 'testSearchInput') {
+    loadPatientTests(phone);
+  } else if (inputId === 'mealSearchInput') {
+    filterMealPlansByPatient(name);
+  } else if (inputId === 'exSearchInput') {
+    filterExPlansByPatient(name);
+  } else if (inputId === 'progressSearchInput') {
+    loadPatientProgress(phone);
+  }
+}
+
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.patient-search-results').forEach(el => {
+    if (!el.contains(e.target) && !el.previousElementSibling?.contains(e.target)) {
+      el.style.display = 'none';
+    }
+  });
+});
+
+// ============================================================
+// بیماران
+// ============================================================
+
+var patients=[];
+var mealPlans=[];
+const colors=['g','b','a','r'];
+
+function renderPats(list){
+  document.getElementById('patsBody').innerHTML=list.map((p,i)=>'<tr><td style="font-weight:700;color:var(--m)">'+(i+1)+'</td><td><div class="pc"><div class="pa '+colors[i%4]+'">'+p.name[0]+'</div><div><div class="pn">'+p.name+'</div><div style="font-size:.68rem;color:var(--m)">'+(p.age?p.age+' سال':'')+'</div></div></div></td><td class="pp">'+p.phone+'</td><td>'+(p.age||'—')+'</td><td>'+(p.weight||'—')+'</td><td>'+p.issue+'</td><td><span class="sb '+p.status+'">'+(p.status==='ok'?'🟢 فعال':p.status==='nw'?'🔵 جدید':'🔴 فوری')+'</span></td><td><div class="ab"><button class="call" onclick="callP(\''+p.raw+'\')" title="تماس">📞</button><button class="view" onclick="viewP(\''+p.raw+'\')" title="مشاهده">👁️</button><button class="del" onclick="delP(\''+p.raw+'\')" title="حذف" style="color:#dc2626">🗑️</button></div></td></tr>').join('');
+  document.getElementById('recentPats').innerHTML=list.slice(0,4).map((p,i)=>'<tr><td><div class="pc"><div class="pa '+colors[i%4]+'">'+p.name[0]+'</div><span class="pn">'+p.name+'</span></div></td><td class="pp">'+p.phone+'</td><td>'+p.issue+'</td><td><span class="sb '+p.status+'">'+(p.status==='ok'?'فعال':'جدید')+'</span></td><td><div class="ab"><button class="call" onclick="callP(\''+p.raw+'\')">📞</button><button class="view" onclick="viewP(\''+p.raw+'\')">👁️</button></div></td></tr>').join('');
+  document.getElementById('patCount').textContent=list.length.toLocaleString('fa-IR');
+}
+
+function filterPats(){const q=(document.getElementById('search').value||'').trim();renderPats(q?patients.filter(p=>p.name.includes(q)||p.phone.includes(q)||p.raw.includes(q)):patients);}
+function callP(phone){window.open('tel:'+phone);}
+
+function viewP(rawPhone){
+  const p=patients.find(x=>x.raw===rawPhone);if(!p)return;
+  const progress=JSON.parse(localStorage.getItem('zohra_progress_'+p.raw)||'[]');
+  const latest=progress.length?progress[0]:null;
+  let bmi='—',bmiStatus='—';
+  if(latest&&p.height){bmi=(latest.weight/((p.height/100)**2)).toFixed(1);if(bmi<18.5)bmiStatus='کمبود وزن';else if(bmi<25)bmiStatus='نرمال';else if(bmi<30)bmiStatus='اضافه وزن';else bmiStatus='چاقی';}
+
+  document.getElementById('viewTitle').textContent='👤 '+p.name;
+  document.getElementById('viewBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+      <div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">شماره</div><div style="font-weight:700;direction:ltr;text-align:right">${p.phone}</div></div>
+      <div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">سن</div><div style="font-weight:700">${p.age||'—'} سال</div></div>
+      <div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">جنسیت</div><div style="font-weight:700">${p.gender==='female'?'👩 زن':p.gender==='male'?'👨 مرد':'—'}</div></div>
+      <div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">مشکل</div><div style="font-weight:600">${p.issue}</div></div>
+      ${latest?`<div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">وزن فعلی</div><div style="font-weight:700">${latest.weight} کیلو</div></div>`:''}
+      ${bmi!=='—'?`<div style="padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">BMI</div><div style="font-weight:700">${bmi} — ${bmiStatus}</div></div>`:''}
+    </div>
+    <div style="margin-top:.75rem;padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">توضیحات</div><div style="font-size:.85rem">${p.notes}</div></div>
+    ${latest?`<div style="margin-top:.75rem;padding:.75rem;background:var(--g);border-radius:var(--r)"><div style="font-size:.7rem;color:var(--m)">سابقه وزن</div><div style="font-size:.85rem">${progress.slice(0,5).map(x=>x.weight+' کیلو — '+x.date).join(' • ')}</div></div>`:''}
+    <div style="margin-top:.75rem;display:flex;gap:.5rem"><a href="tel:${p.raw}" class="btn btn-p" style="flex:1;justify-content:center">📞 تماس</a><button class="btn btn-o" style="flex:1" onclick="editBmi('${p.raw}','${p.name}')">📐 ویرایش BMI</button><button class="btn btn-o" style="flex:1" onclick="closeMo('viewMo')">بستن</button></div>`;
+  openMo('viewMo');
+}
+
+let currentEditPhone='';
+
+function editBmi(phone,name){
+  currentEditPhone=phone;
+  document.getElementById('editBmiName').textContent='بیمار: '+name;
+  const regUsers=JSON.parse(localStorage.getItem('zohra_users')||'[]');
+  const user=regUsers.find(u=>u.phone===phone);
+  const progress=JSON.parse(localStorage.getItem('zohra_progress_'+phone)||'[]');
+  const latest=progress.length?progress[0]:null;
+  document.getElementById('editWeight').value=latest?latest.weight:(user?.weight||'');
+  document.getElementById('editHeight').value=user?.height||'';
+  calcEditBmi();
+  openMo('editBmiMo');
+}
+
+function calcEditBmi(){
+  const w=parseFloat(document.getElementById('editWeight').value);
+  const h=parseFloat(document.getElementById('editHeight').value);
+  if(w&&h){
+    const bmi=(w/((h/100)**2)).toFixed(1);
+    let status='نرمال',color='var(--p)';
+    if(bmi<18.5){status='کمبود وزن';color='var(--mid)';}
+    else if(bmi>=25){status='اضافه وزن';color='#d97706';}
+    else if(bmi>=30){status='چاقی';color='var(--berry)';}
+    document.getElementById('editBmiValue').textContent=bmi;
+    document.getElementById('editBmiStatus').textContent=status;
+    document.getElementById('editBmiResult').style.display='block';
+  }else{
+    document.getElementById('editBmiResult').style.display='none';
+  }
+}
+
+function savePatientBmi(){
+  const phone=currentEditPhone;
+  const weight=parseFloat(document.getElementById('editWeight').value);
+  const height=parseFloat(document.getElementById('editHeight').value);
+  if(!weight||!height){alert('لطفاً وزن و قد را وارد کنید');return;}
+  const regUsers=JSON.parse(localStorage.getItem('zohra_users')||'[]');
+  const userIdx=regUsers.findIndex(u=>u.phone===phone);
+  if(userIdx>=0){
+    regUsers[userIdx].weight=weight;
+    regUsers[userIdx].height=height;
+    localStorage.setItem('zohra_users',JSON.stringify(regUsers));
+  }
+  const progress=JSON.parse(localStorage.getItem('zohra_progress_'+phone)||'[]');
+  progress.unshift({id:Date.now(),date:new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'long',day:'numeric'}).format(new Date()),weight:weight,waist:null,note:'ثبت توسط پزشک',createdAt:new Date().toISOString()});
+  localStorage.setItem('zohra_progress_'+phone,JSON.stringify(progress));
+  patients=JSON.parse(localStorage.getItem('zohra_users')||'[]').filter(u=>u.role==='user').map(u=>({id:u.id||Date.now(),name:u.name,phone:u.phone.replace(/0/g,'۰').replace(/1/g,'۱').replace(/2/g,'۲').replace(/3/g,'۳').replace(/4/g,'۴').replace(/5/g,'۵').replace(/6/g,'۶').replace(/7/g,'۷').replace(/8/g,'۸').replace(/9/g,'۹'),raw:u.phone,age:u.age||0,gender:u.gender||'',issue:'تغذیه عمومی',status:'ok',notes:'بیمار فعال',weight:u.weight||0,height:u.height||0}));
+  renderPats(patients);
+  updateStats();
+  closeMo('editBmiMo');
+  closeMo('viewMo');
+}
+
+function delP(rawPhone){
+  if(!guardDoctor())return;
+  if(!confirm('آیا از حذف این بیمار مطمئن هستید؟ تمام اطلاعات او حذف خواهد شد.'))return;
+  const phone=rawPhone;
+  const hit=patients.find(p=>p.raw===rawPhone);
+  const name=hit?hit.name:'';
+  // POST fallback endpoint (some hosts strip DELETE bodies) + DELETE for good measure
+  try{
+    var xhr2=new XMLHttpRequest();
+    xhr2.open('POST','/api/index.php?action=patients/delete',true);
+    xhr2.withCredentials=true;
+    xhr2.setRequestHeader('Content-Type','application/json');
+    xhr2.send(JSON.stringify({phone:phone}));
+  }catch(e){}
+  try{
+    var xhr=new XMLHttpRequest();
+    xhr.open('DELETE','/api/index.php?action=patients&phone='+encodeURIComponent(phone),true);
+    xhr.withCredentials=true;
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.send(JSON.stringify({phone:phone}));
+  }catch(e){}
+  const users=JSON.parse(localStorage.getItem('zohra_users')||'[]');
+  const updated=users.filter(u=>u.phone!==phone);
+  localStorage.setItem('zohra_users',JSON.stringify(updated));
+  localStorage.removeItem('zohra_progress_'+phone);
+  localStorage.removeItem('zohra_tests_'+phone);
+  for(var k=localStorage.length-1;k>=0;k--){var lk=localStorage.key(k);if(lk&&lk.indexOf('zohra_water_'+phone+'_')===0){localStorage.removeItem(lk);}}
+  const apts=JSON.parse(localStorage.getItem('zohra_appointments')||'[]');
+  localStorage.setItem('zohra_appointments',JSON.stringify(apts.filter(a=>a.patientPhone!==phone)));
+  const msgs=JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  localStorage.setItem('zohra_msgs',JSON.stringify(msgs.filter(m=>m.from!==phone&&m.to!==phone)));
+  const meals=JSON.parse(localStorage.getItem('zohra_mealplans')||'[]');
+  localStorage.setItem('zohra_mealplans',JSON.stringify(meals.filter(m=>(m.patientPhone||'')!==phone&&m.patientName!==name)));
+  const exs=JSON.parse(localStorage.getItem('zohra_explans')||'[]');
+  localStorage.setItem('zohra_explans',JSON.stringify(exs.filter(e=>(e.patientPhone||'')!==phone&&e.patientName!==name)));
+  patients=updated.filter(u=>u.role==='user').map(u=>({id:u.id||Date.now(),name:u.name,phone:u.phone.replace(/0/g,'۰').replace(/1/g,'۱').replace(/2/g,'۲').replace(/3/g,'۳').replace(/4/g,'۴').replace(/5/g,'۵').replace(/6/g,'۶').replace(/7/g,'۷').replace(/8/g,'۸').replace(/9/g,'۹'),raw:u.phone,age:u.age||0,gender:u.gender||'',issue:'تغذیه عمومی',status:'ok',notes:'بیمار فعال',weight:u.weight||0,height:u.height||0}));
+  renderPats(patients);
+  updateStats();
+}
+
+function addPatient(e){
+  e.preventDefault();
+  const n=document.getElementById('pName').value,ph=document.getElementById('pPhone').value,a=document.getElementById('pAge').value,w=document.getElementById('pWeight').value,h=document.getElementById('pHeight').value,issue=document.getElementById('pIssue').value,notes=document.getElementById('pNotes').value;
+  const fp=ph.replace(/0/g,'۰').replace(/1/g,'۱').replace(/2/g,'۲').replace(/3/g,'۳').replace(/4/g,'۴').replace(/5/g,'۵').replace(/6/g,'۶').replace(/7/g,'۷').replace(/8/g,'۸').replace(/9/g,'۹');
+  patients.unshift({id:Date.now(),name:n,phone:fp,raw:ph,age:parseInt(a)||0,weight:parseFloat(w)||0,height:parseInt(h)||0,issue,status:'nw',notes});
+  const users=JSON.parse(localStorage.getItem('zohra_users')||'[]');
+  users.unshift({id:Date.now(),name:n,phone:ph,first_name:n,last_name:'',age:parseInt(a)||0,gender:'',height:parseInt(h)||0,weight:parseFloat(w)||0,role:'user',verified:true,created_at:new Date().toISOString()});
+  localStorage.setItem('zohra_users',JSON.stringify(users));
+  renderPats(patients);closeMo('addMo');document.getElementById('addForm').reset();
+  updateStats();
+  loadDoctorNotifications();
+  updateDoctorBadges();
+}
+
+// ============================================================
+// برنامه‌های غذایی
+// ============================================================
+
+function populatePatientSelects(){
+  const opts=patients.map(p=>'<option value="'+p.id+'">'+p.name+' ('+p.phone+')</option>').join('');
+  document.getElementById('progressPatient').innerHTML='<option value="">انتخاب بیمار...</option>'+patients.map(p=>'<option value="'+p.raw+'">'+p.name+'</option>').join('');
+}
+
+function renderMealPlans(list = mealPlans){
+  document.getElementById('mealPlansList').innerHTML=list.length?list.map(p=>'<div style="padding:1rem;background:var(--g);border-radius:var(--r);margin-bottom:.75rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d)">'+p.title+'</strong><div style="font-size:.75rem;color:var(--m)">برای: '+p.patientName+' • '+p.createdAt+'</div></div><div style="display:flex;gap:.3rem"><button class="btn btn-o" style="font-size:.7rem;padding:.3rem .6rem" onclick="deleteMealPlan('+p.id+')">🗑️ حذف</button></div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;font-size:.8rem">'+(p.breakfast?'<div style="padding:.5rem;background:var(--w);border-radius:8px"><strong>🌅 صبحانه:</strong> '+p.breakfast+'</div>':'')+(p.snack1?'<div style="padding:.5rem;background:var(--w);border-radius:8px"><strong>🍎 میان‌وعده:</strong> '+p.snack1+'</div>':'')+(p.lunch?'<div style="padding:.5rem;background:var(--w);border-radius:8px"><strong>☀️ ناهار:</strong> '+p.lunch+'</div>':'')+(p.snack2?'<div style="padding:.5rem;background:var(--w);border-radius:8px"><strong>🥤 میان‌وعده:</strong> '+p.snack2+'</div>':'')+(p.dinner?'<div style="padding:.5rem;background:var(--w);border-radius:8px"><strong>🌙 شام:</strong> '+p.dinner+'</div>':'')+'</div>'+(p.calories?'<div style="margin-top:.5rem;font-size:.75rem;color:var(--m)">🔥 '+p.calories+' کالری روزانه • ⏱ '+p.duration+' روز</div>':'')+'</div>').join(''):'<div style="text-align:center;padding:2rem;color:var(--m)">هنوز برنامه‌ای ثبت نشده</div>';
+}
+
+function filterMealPlansByPatient(name) {
+  const filtered = mealPlans.filter(p => p.patientName === name);
+  renderMealPlans(filtered);
+}
+
+function addMealPlan(e){
+  e.preventDefault();
+  const pid = parseInt(document.getElementById('mpPatientId').value);
+  if (!pid) { alert('لطفاً ابتدا بیمار را انتخاب کنید'); return; }
+  const foundPatient=patients.find(p=>p.id===pid);
+  const pname=foundPatient?.name||'';
+  const plan={id:Date.now(),patientId:pid,patientName:pname,patientPhone:foundPatient?foundPatient.raw:'',title:document.getElementById('mpTitle').value,desc:document.getElementById('mpDesc').value,breakfast:document.getElementById('mpBreakfast').value,snack1:document.getElementById('mpSnack1').value,lunch:document.getElementById('mpLunch').value,snack2:document.getElementById('mpSnack2').value,dinner:document.getElementById('mpDinner').value,calories:parseInt(document.getElementById('mpCalories').value)||0,duration:parseInt(document.getElementById('mpDuration').value)||7,createdAt:new Intl.DateTimeFormat('fa-IR',{day:'numeric',month:'long'}).format(new Date()),createdAtTime:Date.now()};
+  mealPlans.unshift(plan);
+  localStorage.setItem('zohra_mealplans',JSON.stringify(mealPlans));
+  renderMealPlans();
+  closeMo('mealMo');
+  document.getElementById('mealForm').reset();
+  document.getElementById('mpSelectedPatient').textContent = '';
+  document.getElementById('mpPatientId').value = '';
+  updateStats();
+}
+
+function deleteMealPlan(id){if(!guardDoctor())return;if(!confirm('حذف شود؟'))return;try{var x=new XMLHttpRequest();x.open('POST','/api/index.php?action=mealplans/delete',true);x.withCredentials=true;x.setRequestHeader('Content-Type','application/json');x.send(JSON.stringify({id:id}));}catch(e){}mealPlans=mealPlans.filter(p=>p.id!==id);localStorage.setItem('zohra_mealplans',JSON.stringify(mealPlans));renderMealPlans();}
+
+// ============================================================
+// برنامه‌های ورزشی
+// ============================================================
+
+let exPlans=JSON.parse(localStorage.getItem('zohra_explans')||'[]');
+
+function renderExPlans(list = exPlans){
+  document.getElementById('exPlansList').innerHTML=list.length?list.map(p=>'<div style="padding:1rem;background:var(--g);border-radius:var(--r);margin-bottom:.75rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d)">'+p.title+'</strong><div style="font-size:.75rem;color:var(--m)">برای: '+p.patientName+' • '+p.createdAt+'</div></div><button class="btn btn-o" style="font-size:.7rem;padding:.3rem .6rem" onclick="deleteExPlan('+p.id+')">🗑️ حذف</button></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.4rem;font-size:.78rem">'+(p.sat?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>شنبه:</strong> '+p.sat+'</div>':'')+(p.sun?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>یکشنبه:</strong> '+p.sun+'</div>':'')+(p.mon?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>دوشنبه:</strong> '+p.mon+'</div>':'')+(p.tue?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>سه‌شنبه:</strong> '+p.tue+'</div>':'')+(p.wed?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>چهارشنبه:</strong> '+p.wed+'</div>':'')+(p.thu?'<div style="padding:.4rem;background:var(--w);border-radius:6px"><strong>پنجشنبه:</strong> '+p.thu+'</div>':'')+'</div>'+(p.calories?'<div style="margin-top:.5rem;font-size:.73rem;color:var(--m)">🔥 '+p.calories+' کالری/هفته • ⏱ '+p.weeks+' هفته</div>':'')+'</div>').join(''):'<div style="text-align:center;padding:2rem;color:var(--m)">هنوز برنامه‌ای ثبت نشده</div>';
+}
+
+function filterExPlansByPatient(name) {
+  const filtered = exPlans.filter(p => p.patientName === name);
+  renderExPlans(filtered);
+}
+
+function addExPlan(e){
+  e.preventDefault();
+  const pid = parseInt(document.getElementById('epPatientId').value);
+  if (!pid) { alert('لطفاً ابتدا بیمار را انتخاب کنید'); return; }
+  const foundPatient=patients.find(p=>p.id===pid);
+  const pname=foundPatient?.name||'';
+  const plan={id:Date.now(),patientId:pid,patientName:pname,patientPhone:foundPatient?foundPatient.raw:'',title:document.getElementById('epTitle').value,desc:document.getElementById('epDesc').value,sat:document.getElementById('epSat').value,sun:document.getElementById('epSun').value,mon:document.getElementById('epMon').value,tue:document.getElementById('epTue').value,wed:document.getElementById('epWed').value,thu:document.getElementById('epThu').value,calories:parseInt(document.getElementById('epCalories').value)||0,weeks:parseInt(document.getElementById('epWeeks').value)||4,createdAt:new Intl.DateTimeFormat('fa-IR',{day:'numeric',month:'long'}).format(new Date()),createdAtTime:Date.now()};
+  exPlans.unshift(plan);
+  localStorage.setItem('zohra_explans',JSON.stringify(exPlans));
+  renderExPlans();
+  closeMo('exMo');
+  document.getElementById('exForm').reset();
+  document.getElementById('epSelectedPatient').textContent = '';
+  document.getElementById('epPatientId').value = '';
+  updateStats();
+}
+
+function deleteExPlan(id){if(!guardDoctor())return;if(!confirm('حذف شود؟'))return;try{var x=new XMLHttpRequest();x.open('POST','/api/index.php?action=plans/delete',true);x.withCredentials=true;x.setRequestHeader('Content-Type','application/json');x.send(JSON.stringify({id:id}));}catch(e){}exPlans=exPlans.filter(p=>p.id!==id);localStorage.setItem('zohra_explans',JSON.stringify(exPlans));renderExPlans();}
+
+// ============================================================
+// پیام‌ها - نسخه اصلاح شده
+// ============================================================
+
+function loadMsgsForPatient(patientId, patientName) {
+  const patient = patients.find(p => p.id == patientId);
+  if (!patient) {
+    document.getElementById('msgsList').innerHTML = '<div style="text-align:center;padding:2rem;color:var(--m)">بیمار یافت نشد</div>';
+    return;
+  }
+  
+  const phone = patient.raw;
+  const container = document.getElementById('msgsList');
+  const allMsgs = JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  
+  // پیدا کردن تمام پیام‌های بین پزشک و این بیمار
+  const chat = allMsgs.filter(m => 
+    (m.from === phone && m.to === 'doctor') || 
+    (m.from === 'doctor' && m.to === phone)
+  ).sort((a, b) => {
+    // مرتب‌سازی بر اساس زمان (قدیمی‌ترین اول)
+    return (a.createdAtTime || a.id || 0) - (b.createdAtTime || b.id || 0);
+  });
+  
+  // نشان‌گذاری پیام‌های جدید به عنوان خوانده شده
+  let updated = false;
+  const updatedMsgs = allMsgs.map(m => {
+    if (m.from === phone && m.to === 'doctor' && !m.read) {
+      updated = true;
+      return {...m, read: true};
+    }
+    return m;
+  });
+  if (updated) {
+    localStorage.setItem('zohra_msgs', JSON.stringify(updatedMsgs));
+  }
+  
+  if(chat.length === 0){
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--m)">هنوز پیامی بین شما و این بیمار نیست</div>';
+    return;
+  }
+  
+  // نمایش پیام‌ها (جدیدترین در پایین)
+  container.innerHTML = chat.map(m => {
+    const isDoctor = m.from === 'doctor';
+    return `<div style="display:flex;${isDoctor ? 'justify-content:flex-start' : 'justify-content:flex-end'};margin-bottom:.5rem">
+      <div style="max-width:70%;padding:.6rem 1rem;border-radius:12px;font-size:.85rem;${isDoctor ? 'background:var(--p);color:var(--w);border-bottom-right-radius:4px' : 'background:var(--g2);color:var(--e);border-bottom-left-radius:4px'}">
+        ${m.text}
+        <div style="font-size:.65rem;opacity:.7;margin-top:.2rem;text-align:${isDoctor ? 'right' : 'left'}">${m.date || ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  
+  // اسکرول به پایین
+  container.scrollTop = container.scrollHeight;
+  
+  // به‌روزرسانی نشانگرها
+  updateDoctorBadges();
+  loadRecentMsgs();
+}
+
+function sendMsg(){
+  const input = document.getElementById('msgSearchInput');
+  const phone = input.dataset.patientPhone;
+  const patientId = input.dataset.patientId;
+  const patientName = input.dataset.patientName;
+  const text = document.getElementById('msgText').value.trim();
+  
+  if(!phone || !text){
+    alert('لطفاً بیمار را انتخاب کنید و پیام را بنویسید');
+    return;
+  }
+  
+  const msgs = JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  const newMsg = {
+    id: Date.now(),
+    from: 'doctor',
+    to: phone,
+    text: text,
+    date: new Intl.DateTimeFormat('fa-IR', {hour:'2-digit', minute:'2-digit', day:'numeric', month:'short'}).format(new Date()),
+    createdAtTime: Date.now(),
+    read: true
+  };
+  
+  msgs.unshift(newMsg);
+  localStorage.setItem('zohra_msgs', JSON.stringify(msgs));
+  document.getElementById('msgText').value = '';
+  
+  // بارگذاری مجدد پیام‌ها
+  loadMsgsForPatient(patientId, patientName);
+  loadRecentMsgs();
+  updateStats();
+}
+
+function loadRecentMsgs(){
+  const allMsgs = JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  const doctorMsgs = allMsgs.filter(m => m.to === 'doctor' && m.from !== 'doctor').slice(0, 5);
+  const container = document.getElementById('recentMsgs');
+  
+  if(!doctorMsgs.length){
+    container.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--m);font-size:.85rem">هنوز پیامی نیست</div>';
+    return;
+  }
+  
+  container.innerHTML = doctorMsgs.map(m => {
+    const pname = patients.find(p => p.raw === m.from)?.name || 'ناشناس';
+    const patientId = patients.find(p => p.raw === m.from)?.id;
+    const unread = !m.read ? '🔴 ' : '';
+    return `<div style="display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--br);cursor:pointer" 
+            onclick="go('msgs',document.querySelectorAll('.sb-link')[6]); 
+                     document.getElementById('msgSearchInput').value='${pname} (${m.from})'; 
+                     selectPatient('msgSearchInput','msgSearchResults','${patientId}','${pname}','${m.from}');">
+      <div class="pa g" style="width:32px;height:32px;font-size:.7rem">${pname[0]}</div>
+      <div style="flex:1">
+        <div style="font-size:.82rem;font-weight:600">${unread}${pname}</div>
+        <div style="font-size:.78rem;color:var(--m)">${m.text.substring(0,50)}${m.text.length > 50 ? '...' : ''}</div>
+      </div>
+      <div style="font-size:.65rem;color:var(--m)">${m.date}</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// آزمایشات
+// ============================================================
+
+function loadPatientTests(phone){
+  const container = document.getElementById('testsList');
+  if(!phone){container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">بیماری را انتخاب کنید</div>';return;}
+
+  const tests=JSON.parse(localStorage.getItem('zohra_tests_'+phone)||'[]');
+  if(!tests.length){
+    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)"><div style="font-size:2rem;margin-bottom:.5rem">🔬</div><div>این بیمار هنوز آزمایشی آپلود نکرده.</div></div>';
+    return;
+  }
+
+  container.innerHTML=tests.map(t=>'<div style="padding:1rem;background:var(--g);border-radius:var(--r);margin-bottom:.75rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d)">'+t.title+'</strong><div style="font-size:.75rem;color:var(--m)">'+t.date+'</div></div><span class="sb '+(t.status==='reviewed'?'ok':'nw')+'">'+(t.status==='reviewed'?'بررسی شده':'در انتظار')+'</span></div>'+(t.desc?'<div style="font-size:.82rem;color:var(--m);margin-bottom:.5rem">'+t.desc+'</div>':'')+(t.image?'<img src="'+t.image+'" style="max-width:100%;max-height:300px;border-radius:var(--r);border:1px solid var(--br);margin-bottom:.5rem;cursor:pointer" onclick="openTestImage(\''+t.image+'\',\''+t.title+'\')">':'')+'<div style="margin-top:.5rem"><textarea class="fi" id="note_'+t.id+'" rows="2" placeholder="نظر پزشک..." style="font-size:.82rem">'+(t.doctorNote||'')+'</textarea><div style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn btn-p" style="font-size:.75rem;padding:.35rem .7rem" onclick="saveTestNote(\''+phone+'\','+t.id+')">ذخیره نظر</button><button class="btn btn-o" style="font-size:.75rem;padding:.35rem .7rem" onclick="markTestReviewed(\''+phone+'\','+t.id+')">✓ بررسی شده</button></div></div></div>').join('');
+}
+
+function openTestImage(imageData, title){
+  document.getElementById('testLbImg').src = imageData;
+  document.getElementById('testLbInfo').textContent = title;
+  document.getElementById('testLightbox').classList.add('show');
+}
+
+function closeTestLightbox(){
+  document.getElementById('testLightbox').classList.remove('show');
+}
+
+function saveTestNote(phone,testId){
+  const note=document.getElementById('note_'+testId).value;
+  const tests=JSON.parse(localStorage.getItem('zohra_tests_'+phone)||'[]');
+  const test=tests.find(t=>t.id===testId);
+  if(test){test.doctorNote=note;}
+  localStorage.setItem('zohra_tests_'+phone,JSON.stringify(tests));
+  alert('نظر ذخیره شد');
+}
+
+function markTestReviewed(phone,testId){
+  const tests=JSON.parse(localStorage.getItem('zohra_tests_'+phone)||'[]');
+  const test=tests.find(t=>t.id===testId);
+  if(test){test.status='reviewed';}
+  localStorage.setItem('zohra_tests_'+phone,JSON.stringify(tests));
+  loadPatientTests(phone);
+  const id = 'test_' + testId;
+  addDoctorSeenIds([id]);
+  updateDoctorBadges();
+}
+
+// ============================================================
+// پیشرفت بیماران
+// ============================================================
+
+function loadPatientProgress(phone){
+  const container=document.getElementById('patientProgress');
+  if(!phone){container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">بیماری را انتخاب کنید</div>';return;}
+
+  const progress=JSON.parse(localStorage.getItem('zohra_progress_'+phone)||'[]');
+  const pname=patients.find(p=>p.raw===phone)?.name||'';
+
+  if(!progress.length){
+    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)"><div style="font-size:2rem;margin-bottom:.5rem">📊</div><div>'+pname+' هنوز داده‌ای ثبت نکرده.</div></div>';
+    return;
+  }
+
+  const latest=progress[0];
+  const first=progress[progress.length-1];
+  const weightChange=latest.weight-first.weight;
+  const waistChange=latest.waist&&first.waist?latest.waist-first.waist:null;
+
+  container.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem">
+      <div style="padding:1rem;background:var(--g);border-radius:var(--r);text-align:center"><div style="font-size:.7rem;color:var(--m)">وزن فعلی</div><div style="font-size:1.5rem;font-weight:900;color:var(--d)">${latest.weight} کیلو</div></div>
+      <div style="padding:1rem;background:var(--g);border-radius:var(--r);text-align:center"><div style="font-size:.7rem;color:var(--m)">تغییر وزن</div><div style="font-size:1.5rem;font-weight:900;color:${weightChange<=0?'var(--p)':'var(--berry)'}">${weightChange>0?'+':''}${weightChange.toFixed(1)} کیلو</div></div>
+      ${waistChange!==null?`<div style="padding:1rem;background:var(--g);border-radius:var(--r);text-align:center"><div style="font-size:.7rem;color:var(--m)">تغییر دور کمر</div><div style="font-size:1.5rem;font-weight:900;color:${waistChange<=0?'var(--p)':'var(--berry)'}">${waistChange>0?'+':''}${waistChange.toFixed(1)} سانتی</div></div>`:''}
+      <div style="padding:1rem;background:var(--g);border-radius:var(--r);text-align:center"><div style="font-size:.7rem;color:var(--m)">تعداد ثبت‌ها</div><div style="font-size:1.5rem;font-weight:900;color:var(--d)">${progress.length}</div></div>
+    </div>
+    <div style="margin-bottom:1.5rem">
+      <h4 style="font-size:.9rem;font-weight:700;color:var(--d);margin-bottom:.75rem">📈 نمودار وزن</h4>
+      <div class="ch" style="height:150px">${progress.slice(0,10).reverse().map(w=>{const weights=progress.map(p=>p.weight);const max=Math.max(...weights);const min=Math.min(...weights);const range=max-min||1;const h=30+((w.weight-min)/range)*70;return '<div class="ch-b g" style="height:'+h+'%" data-v="'+w.weight+'"></div>';}).join('')}</div>
+      <div class="ch-l">${progress.slice(0,10).reverse().map(w=>'<span>'+w.date.split(' ')[0]+'</span>').join('')}</div>
+    </div>
+    <div>
+      <h4 style="font-size:.9rem;font-weight:700;color:var(--d);margin-bottom:.75rem">📋 سابقه</h4>
+      ${progress.slice(0,10).map(p=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--br)"><div><strong style="color:var(--d)">'+p.weight+' کیلو</strong>'+(p.waist?' — دور کمر: '+p.waist+' سانتی':'')+(p.note?' <span style="color:var(--m);font-size:.8rem">— '+p.note+'</span>':'')+'</div><div style="font-size:.72rem;color:var(--m)">'+p.date+'</div></div>').join('')}
+    </div>
+  `;
+}
+
+// ============================================================
+// آمار
+// ============================================================
+
+function updateStats(){
+  document.getElementById('statPats').textContent=patients.length.toLocaleString('fa-IR');
+  document.getElementById('statMeals').textContent=mealPlans.length.toLocaleString('fa-IR');
+  document.getElementById('statExs').textContent=exPlans.length.toLocaleString('fa-IR');
+  const unread=JSON.parse(localStorage.getItem('zohra_msgs')||'[]').filter(m=>m.to==='doctor'&&m.from!=='doctor'&&!m.read).length;
+  document.getElementById('statMsgs').textContent=unread.toLocaleString('fa-IR');
+}
+
+// ============================================================
+// خروج
+// ============================================================
+
+function logout(){fetch('/api/index.php?action=auth/logout',{credentials:'include'}).finally(()=>{localStorage.removeItem('zohra_user');window.location.href='login.html';});}
+
+// ============================================================
+// اجرای اولیه — فقط بعد از آماده شدن داده‌ها از API
+// ============================================================
+
+window.__apiSyncReady(function(){
+const u=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!u||u.role!=='doctor'||!u.verified){localStorage.removeItem('zohra_user');window.location.href='login.html';return;}
+user=u;
+DOCTOR_PHONE=user.phone||'09120000000';
+document.getElementById('sbName').textContent=user.name||'دکتر ظهرابی';
+
+patients=JSON.parse(localStorage.getItem('zohra_users')||'[]').filter(u=>u.role==='user').map(u=>({id:u.id||Date.now(),name:u.name,phone:u.phone.replace(/0/g,'۰').replace(/1/g,'۱').replace(/2/g,'۲').replace(/3/g,'۳').replace(/4/g,'۴').replace(/5/g,'۵').replace(/6/g,'۶').replace(/7/g,'۷').replace(/8/g,'۸').replace(/9/g,'۹'),raw:u.phone,age:u.age||0,gender:u.gender||'',issue:'تغذیه عمومی',status:'ok',notes:'بیمار فعال',weight: u.weight || 0, height: u.height || 0}));
+mealPlans=JSON.parse(localStorage.getItem('zohra_mealplans')||'[]');
+
+populatePatientSelects();
+renderPats(patients);
+renderMealPlans();
+renderExPlans();
+updateStats();
+loadRecentMsgs();
+loadDoctorNotifications();
+updateDoctorBadges();
+
+setInterval(() => {
+  window.__apiSyncRefresh(function() {
+    patients=JSON.parse(localStorage.getItem('zohra_users')||'[]').filter(u=>u.role==='user').map(u=>({id:u.id||Date.now(),name:u.name,phone:u.phone.replace(/0/g,'۰').replace(/1/g,'۱').replace(/2/g,'۲').replace(/3/g,'۳').replace(/4/g,'۴').replace(/5/g,'۵').replace(/6/g,'۶').replace(/7/g,'۷').replace(/8/g,'۸').replace(/9/g,'۹'),raw:u.phone,age:u.age||0,gender:u.gender||'',issue:'تغذیه عمومی',status:'ok',notes:'بیمار فعال',weight:u.weight||0,height:u.height||0}));
+    mealPlans=JSON.parse(localStorage.getItem('zohra_mealplans')||'[]');
+    exPlans=JSON.parse(localStorage.getItem('zohra_explans')||'[]');
+    populatePatientSelects();
+    renderPats(patients);
+    renderMealPlans();
+    renderExPlans();
+    loadDoctorNotifications();
+    updateDoctorBadges();
+    updateStats();
+    loadRecentMsgs();
+    // Re-render the currently open patient views so other-device updates appear live
+    try {
+      var msgIn=document.getElementById('msgSearchInput');
+      if(msgIn&&msgIn.dataset&&msgIn.dataset.patientId){loadMsgsForPatient(msgIn.dataset.patientId,msgIn.dataset.patientName||'');}
+      var testIn=document.getElementById('testSearchInput');
+      if(testIn&&testIn.dataset&&testIn.dataset.patientPhone){loadPatientTests(testIn.dataset.patientPhone);}
+      var progIn=document.getElementById('progressSearchInput');
+      if(progIn&&progIn.dataset&&progIn.dataset.patientPhone){loadPatientProgress(progIn.dataset.patientPhone);}
+    } catch(e){}
+  });
+}, 10000);
+});
+</script>
+</body>
+</html>

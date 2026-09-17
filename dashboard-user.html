@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل بیمار — کلینیک دکتر ظهرابی</title>
+<link rel="icon" href="/images/logo-rel.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--d:#0f172a;--d2:#1e293b;--p:#16a34a;--p2:#15803d;--p3:#22c55e;--s:#dcfce7;--mid:#2e86c1;--w:#fff;--g:#f8fafc;--g2:#f1f5f9;--e:#334155;--m:#64748b;--br:#e2e8f0;--r:12px;--rr:16px;--rrr:20px;--sh2:0 4px 16px rgba(0,0,0,.08)}
+body{font-family:'Vazirmatn',system-ui,sans-serif;background:var(--g);color:var(--e);direction:rtl}
+
+/* ===== LAYOUT ===== */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;min-width:280px;background:linear-gradient(180deg,var(--d),var(--d2));color:var(--w);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{flex:1;min-width:0}
+
+/* ===== SIDEBAR ===== */
+.sb-head{padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo{font-size:1.3rem;font-weight:900;display:flex;align-items:center;gap:.7rem}
+.sb-logo img{width:42px;height:42px;border-radius:12px;object-fit:cover}
+.sb-logo b{color:var(--p3)}
+.sb-nav{flex:1;padding:1rem}
+.sb-section{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1px;margin:1.25rem 0 .5rem;padding:0 .75rem}
+.sb-link{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;border-radius:var(--r);font-size:.88rem;font-weight:500;color:rgba(255,255,255,.5);transition:all .2s;cursor:pointer;margin-bottom:2px}
+.sb-link:hover{background:rgba(255,255,255,.06);color:var(--w)}
+.sb-link.active{background:rgba(22,163,74,.12);color:var(--p3)}
+.sb-link span{margin-right:auto;background:var(--p);color:var(--w);font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:100px}
+.sb-foot{padding:1rem;border-top:1px solid rgba(255,255,255,.06)}
+.sb-user{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:rgba(255,255,255,.04);border-radius:var(--r)}
+.sb-av{width:40px;height:40px;background:linear-gradient(135deg,var(--p),var(--p3));border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.sb-name{font-size:.85rem;font-weight:700}
+.sb-role{font-size:.7rem;color:rgba(255,255,255,.4)}
+
+/* ===== TOPBAR ===== */
+.topbar{background:var(--w);border-bottom:1px solid var(--br);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:1.3rem;font-weight:800;color:var(--d)}
+.topbar-date{font-size:.8rem;color:var(--m)}
+.topbar-left{display:flex;gap:.5rem;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:var(--r);font-size:.82rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-p{background:var(--p);color:var(--w)}
+.btn-p:hover{background:var(--p2)}
+.btn-o{background:var(--w);color:var(--e);border:1px solid var(--br)}
+.btn-o:hover{background:var(--g2)}
+.topbar-btn{width:38px;height:38px;border-radius:var(--r);border:1px solid var(--br);background:var(--w);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;position:relative}
+.topbar-btn .b{position:absolute;top:-3px;left:-3px;width:16px;height:16px;background:var(--p);color:var(--w);font-size:.55rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--w)}
+
+/* ===== CONTENT ===== */
+.content{padding:1.5rem 2rem}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--w);border-radius:var(--rrr);padding:1.25rem;border:1px solid var(--br);transition:all .3s}
+.stat:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.stat-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.stat-ic.g{background:var(--s);color:var(--p)}
+.stat-ic.b{background:#dbeafe;color:var(--mid)}
+.stat-ic.a{background:#fef3c7;color:#d97706}
+.stat-ic.r{background:#ffe4e6;color:#e11d48}
+.stat-ch{font-size:.68rem;font-weight:600;padding:.15rem .45rem;border-radius:100px;background:var(--s);color:var(--p)}
+.stat-v{font-size:1.8rem;font-weight:900;color:var(--d);line-height:1;margin-bottom:.2rem}
+.stat-l{font-size:.78rem;color:var(--m)}
+
+/* Grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.card{background:var(--w);border-radius:var(--rrr);border:1px solid var(--br);overflow:hidden}
+.card-h{padding:1.15rem 1.25rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.card-h h3{font-size:.95rem;font-weight:700;color:var(--d)}
+.card-b{padding:1.25rem}
+
+/* Meals */
+.ml{display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--br)}
+.ml:last-child{border:none}
+.ml-t{flex-shrink:0;width:52px;text-align:center;padding:.5rem;background:var(--s);border-radius:var(--r);font-size:.7rem;font-weight:700;color:var(--p);line-height:1.4}
+.ml-i h4{font-size:.88rem;font-weight:600;color:var(--d);margin-bottom:.15rem}
+.ml-i p{font-size:.78rem;color:var(--m)}
+.ml-tags{display:flex;gap:.35rem;margin-top:.35rem;flex-wrap:wrap}
+.ml-tag{font-size:.65rem;padding:.15rem .45rem;border-radius:100px;font-weight:600}
+.ml-tag.c{background:#fef3c7;color:#d97706}
+.ml-tag.p{background:#dbeafe;color:var(--mid)}
+.ml-tag.f{background:var(--s);color:var(--p)}
+
+/* BMI */
+.bmi{text-align:center;padding:1rem 0}
+.bmi-c{width:120px;height:120px;border-radius:50%;border:7px solid var(--s);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem}
+.bmi-v{font-size:1.8rem;font-weight:900;color:var(--d)}
+.bmi-l{font-size:.7rem;color:var(--m)}
+.bmi-s{display:inline-block;padding:.3rem .8rem;border-radius:100px;font-size:.78rem;font-weight:600;background:var(--s);color:var(--p)}
+
+/* Progress */
+.pr{margin-bottom:1rem}
+.pr:last-child{margin-bottom:0}
+.pr-h{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.35rem}
+.pr-h span:first-child{font-weight:600}
+.pr-bar{height:9px;background:var(--g2);border-radius:9px;overflow:hidden}
+.pr-fill{height:100%;border-radius:9px;transition:width .6s}
+.pr-fill.g{background:linear-gradient(90deg,var(--p),var(--p3))}
+.pr-fill.b{background:linear-gradient(90deg,var(--mid),#3b82f6)}
+.pr-fill.a{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+
+/* Apt */
+.apt{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--br)}
+.apt:last-child{border:none}
+.apt-d{flex-shrink:0;width:52px;height:52px;background:linear-gradient(135deg,var(--p),var(--p3));border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--w)}
+.apt-day{font-size:1.1rem;font-weight:900;line-height:1}
+.apt-mo{font-size:.55rem;font-weight:600;opacity:.8}
+.apt-i h4{font-size:.85rem;font-weight:600;color:var(--d)}
+.apt-i p{font-size:.75rem;color:var(--m)}
+.apt-s{margin-right:auto;padding:.25rem .6rem;border-radius:100px;font-size:.68rem;font-weight:600}
+.apt-s.ok{background:var(--s);color:var(--p)}
+.apt-s.w{background:#fef3c7;color:#d97706}
+
+/* Water */
+.wg{display:grid;grid-template-columns:repeat(8,1fr);gap:.5rem}
+.wg-g{aspect-ratio:1;border-radius:var(--r);border:2px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:all .2s;background:var(--w)}
+.wg-g.on{background:linear-gradient(135deg,#dbeafe,#93c5fd);border-color:var(--mid);transform:scale(1.05)}
+.wg-g:hover{border-color:var(--mid)}
+.wg-c{text-align:center;margin-top:.75rem;font-size:.82rem;color:var(--m)}
+.wg-c b{color:var(--mid);font-size:1.1rem}
+
+/* Exercise */
+.ex{display:flex;align-items:center;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--br)}
+.ex:last-child{border:none}
+.ex-ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.ex-ic.w{background:#dbeafe;color:var(--mid)}
+.ex-ic.r{background:#fee2e2;color:#dc2626}
+.ex-ic.y{background:#f3e8ff;color:#9333ea}
+.ex-ic.s{background:#fef3c7;color:#d97706}
+.ex-i{flex:1}
+.ex-i h4{font-size:.82rem;font-weight:600;color:var(--d)}
+.ex-i p{font-size:.7rem;color:var(--m)}
+.ex-cal{font-size:.75rem;font-weight:700;color:var(--p)}
+
+/* Tips */
+.tp{display:flex;gap:.65rem;padding:.75rem 0;border-bottom:1px solid var(--br)}
+.tp:last-child{border:none}
+.tp-n{flex-shrink:0;width:30px;height:30px;background:var(--s);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--p)}
+.tp-t{font-size:.82rem;color:var(--e);line-height:1.7}
+
+/* Quick */
+.qg{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}
+.qc{padding:1.1rem;background:var(--g);border-radius:var(--rr);text-align:center;cursor:pointer;transition:all .3s;border:1.5px solid transparent}
+.qc:hover{background:var(--w);border-color:var(--p);box-shadow:var(--sh2);transform:translateY(-2px)}
+.qc-i{font-size:1.6rem;margin-bottom:.4rem}
+.qc-t{font-size:.8rem;font-weight:700;color:var(--d)}
+
+/* Chart */
+.ch{height:160px;display:flex;align-items:flex-end;justify-content:space-around;padding:.75rem;gap:.4rem;background:linear-gradient(180deg,var(--s),var(--w));border-radius:var(--r)}
+.ch-b{flex:1;border-radius:5px 5px 0 0;min-height:12px;position:relative;transition:height .5s}
+.ch-b:hover{opacity:.85}
+.ch-b.g{background:linear-gradient(180deg,var(--p),var(--p2))}
+.ch-b.b{background:linear-gradient(180deg,var(--mid),#3b82f6)}
+.ch-b::after{content:attr(data-v);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:700;color:var(--m);white-space:nowrap}
+.ch-l{display:flex;justify-content:space-around;padding:.4rem 0;font-size:.65rem;color:var(--m)}
+
+/* Mobile toggle */
+.mob{display:none;position:fixed;top:.75rem;right:.75rem;z-index:200;width:42px;height:42px;background:var(--d);border:none;border-radius:var(--r);color:var(--w);font-size:1.1rem;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--sh2)}
+
+/* ===== MOBILE ===== */
+/* Confetti Animation */
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+@keyframes celebBounce {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@media(max-width:900px){
+  .sidebar{position:fixed;right:-290px;top:0;z-index:150;transition:right .3s ease;width:280px;min-width:280px}
+  .sidebar.open{right:0}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:140}
+  .overlay.show{display:block}
+  .main{margin-right:0}
+  .mob{display:flex}
+  .topbar{padding:.75rem 1rem}
+  .content{padding:1rem}
+  .stats{grid-template-columns:1fr 1fr;gap:.75rem}
+  .stat{padding:1rem}
+  .stat-v{font-size:1.4rem}
+  .g2,.g21{grid-template-columns:1fr}
+  .qg{grid-template-columns:1fr 1fr}
+  .wg{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<button class="mob" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <div class="sb-logo"><img src="images/logo.png" alt="لوگو">کلینیک <b>دکتر ظهرابی</b></div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">منوی اصلی</div>
+      <div class="sb-link active" onclick="go('dash',this)">🏠 داشبورد</div>
+      <div class="sb-link" onclick="go('apt',this)">📅 نوبت‌ها <span id="aptBadge" style="display:none;background:var(--gold);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-link" onclick="go('prog',this)">📊 پیشرفت</div>
+      <div class="sb-section">برنامه پزشک</div>
+      <div class="sb-link" onclick="go('myplan',this)">🍽️ برنامه غذایی من <span id="mealBadge" style="display:none;background:var(--p);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-link" onclick="go('myexercise',this)">🏃 برنامه ورزشی من <span id="exBadge" style="display:none;background:var(--mid);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-section">ابزارها</div>
+      <div class="sb-link" onclick="go('water',this)">💧 ردیاب آب</div>
+      <div class="sb-link" onclick="go('mymsg',this)">💬 پیام به پزشک <span id="userMsgBadge" style="display:none;background:var(--mid);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-link" onclick="go('mytests',this)">🔬 آزمایشات من <span id="testBadge" style="display:none;background:var(--gold);color:var(--w);font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px">جدید</span></div>
+      <div class="sb-link" onclick="go('tips',this)">💡 نکات</div>
+      <div style="height:1px;background:rgba(255,255,255,.06);margin:.75rem 0"></div>
+      <div class="sb-link" onclick="logout()">🚪 خروج</div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-av" id="sbAv">ب</div>
+        <div><div class="sb-name" id="sbName">کاربر</div><div class="sb-role">بیمار</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="pageTitle">داشبورد من</h1>
+        <div class="topbar-date" id="todayDate"></div>
+      </div>
+      <div class="topbar-left">
+        <div style="position:relative">
+          <button class="topbar-btn" onclick="toggleNotifPanel()">🔔<span class="b" id="notifBadge" style="display:none">۰</span></button>
+          <div id="notifPanel" style="display:none;position:absolute;top:100%;left:0;width:320px;background:var(--w);border-radius:var(--r);box-shadow:0 10px 40px rgba(0,0,0,.15);border:1px solid var(--br);z-index:50;margin-top:.5rem;max-height:400px;overflow-y:auto">
+            <div style="padding:1rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700;color:var(--d)">اعلان‌ها</span><button onclick="clearNotifications()" style="background:none;border:none;color:var(--m);font-size:.78rem;cursor:pointer;font-family:inherit">پاک کردن همه</button></div>
+            <div id="notifList"></div>
+          </div>
+        </div>
+        <a href="index.html" class="btn btn-o">🌐 سایت</a>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="content" id="p-dash">
+      <!-- Doctor Plans Notification -->
+      <div id="plansNotify" style="display:none;background:linear-gradient(135deg,var(--s),#d1fae5);border:1px solid #86efac;border-radius:var(--rrr);padding:1.25rem;margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+          <div style="width:42px;height:42px;background:var(--p);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">📋</div>
+          <div><strong style="color:var(--d)">برنامه جدید از پزشک!</strong><div style="font-size:.82rem;color:var(--m)">پزشک شما برنامه جدیدی برایتان نوشته است</div></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap" id="notifyButtons"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-top"><div class="stat-ic g">⚖️</div></div><div class="stat-v" id="statWeight">—</div><div class="stat-l">وزن فعلی (کیلو)</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic b">📐</div></div><div class="stat-v" id="statBMI">—</div><div class="stat-l">شاخص BMI</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic a">💧</div></div><div class="stat-v" id="statW">۰/۸</div><div class="stat-l">لیوان آب امروز</div></div>
+        <div class="stat"><div class="stat-top"><div class="stat-ic r">📋</div></div><div class="stat-v" id="statPlans">۰</div><div class="stat-l">برنامه فعال</div></div>
+      </div>
+
+      <!-- Upcoming Appointments Notification -->
+      <div id="aptNotify" style="display:none;background:linear-gradient(135deg,#dbeafe,#eff6ff);border:1px solid #93c5fd;border-radius:var(--rrr);padding:1.25rem;margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+          <div style="width:42px;height:42px;background:var(--mid);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">📅</div>
+          <div><strong style="color:var(--d)">نوبت آینده شما</strong><div style="font-size:.82rem;color:var(--m)" id="aptNotifyText"></div></div>
+        </div>
+        <button class="btn btn-o" style="background:var(--mid);color:var(--w);border:none;font-size:.8rem" onclick="go('apt',document.querySelectorAll('.sb-link')[1])">مشاهده نوبت‌ها</button>
+      </div>
+
+      <div class="g21">
+        <div class="card">
+          <div class="card-h"><h3>🍽️ برنامه غذایی اختصاصی من</h3></div>
+          <div class="card-b" id="dashMealPlan">
+            <div style="text-align:center;padding:2rem;color:var(--m)">
+              <div style="font-size:2rem;margin-bottom:.5rem">📋</div>
+              <div>هنوز برنامه غذایی از پزشک دریافت نکرده‌اید.</div>
+              <div style="font-size:.82rem;margin-top:.5rem">با پزشک خود تماس بگیرید.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1.25rem">
+          <div class="card">
+            <div class="card-h"><h3>📐 BMI من</h3></div>
+            <div class="card-b" id="dashBMI">
+              <div style="text-align:center;padding:1rem;color:var(--m);font-size:.85rem">وزن خود را ثبت کنید تا BMI نمایش داده شود</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:1.25rem">
+        <div class="card-h"><h3>⚡ دسترسی سریع</h3></div>
+        <div class="card-b"><div class="qg">
+          <div class="qc" onclick="go('apt',document.querySelectorAll('.sb-link')[1])"><div class="qc-i">📅</div><div class="qc-t">نوبت‌های من</div></div>
+          <div class="qc" onclick="go('myplan',document.querySelectorAll('.sb-link')[3])"><div class="qc-i">🍽️</div><div class="qc-t">برنامه غذایی من</div></div>
+          <div class="qc" onclick="go('myexercise',document.querySelectorAll('.sb-link')[4])"><div class="qc-i">🏃</div><div class="qc-t">برنامه ورزشی من</div></div>
+          <div class="qc" onclick="go('prog',document.querySelectorAll('.sb-link')[2])"><div class="qc-i">📊</div><div class="qc-t">پیشرفت</div></div>
+        </div></div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-h"><h3>📈 نمودار وزن</h3></div>
+          <div class="card-b"><div class="ch" id="dashChart">
+            <div style="text-align:center;width:100%;color:var(--m);font-size:.85rem;padding:2rem">هنوز داده‌ای ثبت نشده</div>
+          </div><div class="ch-l" id="dashChartLabels"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>🎯 پیشرفت</h3></div>
+          <div class="card-b" id="dashProgress">
+            <div style="text-align:center;color:var(--m);font-size:.85rem;padding:1rem">وزن خود را ثبت کنید</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div class="content" id="p-apt" style="display:none"><div class="card"><div class="card-h"><h3>📅 نوبت‌های من</h3></div><div class="card-b" id="myApts"><div style="text-align:center;padding:2rem;color:var(--m)">هنوز نوبتی ثبت نشده</div></div></div></div>
+
+    <!-- PROGRESS -->
+    <div class="content" id="p-prog" style="display:none">
+      <div class="card" style="margin-bottom:1.25rem">
+        <div class="card-h"><h3>📝 ثبت وزن جدید</h3></div>
+        <div class="card-b">
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end">
+            <div class="fg" style="margin:0;flex:1;min-width:150px"><label>وزن (کیلوگرم)</label><input class="fi" id="newWeight" type="number" step="0.1" placeholder="مثال: ۷۲.۵"></div>
+            <div class="fg" style="margin:0;flex:1;min-width:150px"><label>دور کمر (سانتی‌متر)</label><input class="fi" id="newWaist" type="number" step="0.1" placeholder="مثال: ۸۵"></div>
+            <div class="fg" style="margin:0;flex:1;min-width:150px"><label>توضیحات</label><input class="fi" id="newNote" placeholder="اختیاری"></div>
+            <button class="btn btn-p" onclick="addProgress()" style="height:42px">ثبت</button>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="card-h"><h3>📈 نمودار وزن</h3></div><div class="card-b"><div class="ch" id="weightChart"></div><div class="ch-l" id="weightLabels"></div></div></div>
+        <div class="card"><div class="card-h"><h3>🎯 اهداف</h3></div><div class="card-b" id="goalsSection"></div></div>
+      </div>
+      <div class="card"><div class="card-h"><h3>📋 تاریخچه پیشرفت</h3></div><div class="card-b" id="progressHistory"></div></div>
+    </div>
+
+    <!-- WATER -->
+    <div class="content" id="p-water" style="display:none"><div class="card"><div class="card-h"><h3>💧 ردیاب آب امروز</h3><button class="btn btn-o" onclick="resetWater()" style="font-size:.75rem;padding:.35rem .7rem">بازنشانی</button></div><div class="card-b"><div class="wg" id="wg"></div><div class="wg-c">امروز <b id="wc">۰</b> از ۸ لیوان</div></div></div></div>
+
+    <!-- TIPS -->
+    <div class="content" id="p-tips" style="display:none"><div class="card"><div class="card-h"><h3>💡 نکات تغذیه‌ای</h3></div><div class="card-b">
+      <div class="tp"><div class="tp-n">۱</div><div class="tp-t">حداقل ۸ لیوان آب در روز بنوشید.</div></div>
+      <div class="tp"><div class="tp-n">۲</div><div class="tp-t">غذا را آرام بخورید و کاملاً بجوید.</div></div>
+      <div class="tp"><div class="tp-n">۳</div><div class="tp-t">سبزیجات رنگارنگ بخورید.</div></div>
+      <div class="tp"><div class="tp-n">۴</div><div class="tp-t">شب‌ها زود بخوابید.</div></div>
+      <div class="tp"><div class="tp-n">۵</div><div class="tp-t">میوه تازه جایگزین تنقلات شود.</div></div>
+      <div class="tp"><div class="tp-n">۶</div><div class="tp-t">صبحانه را حذف نکنید.</div></div>
+    </div></div></div>
+
+    <!-- MY MEAL PLAN -->
+    <div class="content" id="p-myplan" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🍽️ برنامه غذایی اختصاصی من</h3></div>
+        <div class="card-b" id="myMealPlan"></div>
+      </div>
+    </div>
+
+    <!-- MY EXERCISE PLAN -->
+    <div class="content" id="p-myexercise" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>🏃 برنامه ورزشی اختصاصی من</h3></div>
+        <div class="card-b" id="myExPlan"></div>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="content" id="p-mymsg" style="display:none">
+      <div class="card">
+        <div class="card-h"><h3>💬 پیام به پزشک</h3></div>
+        <div class="card-b">
+          <div style="display:flex;gap:.75rem;margin-bottom:1.25rem">
+            <input class="fi" id="userMsgText" placeholder="پیام خود را بنویسید..." style="flex:1" onkeydown="if(event.key==='Enter')sendUserMsg()">
+            <button class="btn btn-p" onclick="sendUserMsg()">ارسال</button>
+          </div>
+          <div id="userMsgsList" style="max-height:400px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY TESTS -->
+    <div class="content" id="p-mytests" style="display:none">
+      <div class="card" style="margin-bottom:1.25rem">
+        <div class="card-h"><h3>🔬 آپلود آزمایش جدید</h3></div>
+        <div class="card-b">
+          <div class="fg"><label>عنوان آزمایش</label><input class="fi" id="testTitle" placeholder="مثال: آزمایش خون، آزمایش ادرار..."></div>
+          <div class="fg"><label>توضیحات</label><textarea class="fi" id="testDesc" rows="2" placeholder="توضیحات اختیاری..."></textarea></div>
+          <div class="fg"><label>فایل آزمایش (تصویر - اختیاری)</label><input type="file" class="fi" id="testFile" accept="image/*"></div>
+          <button class="btn btn-p" style="margin-top:.5rem" onclick="uploadTest()">آپلود آزمایش</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3>📋 آزمایشات قبلی</h3></div>
+        <div class="card-b" id="myTestsList"><div style="text-align:center;padding:2rem;color:var(--m)">هنوز آزمایشی آپلود نشده</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="api-sync.js?v=4"></script>
+<script>
+var user=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!user||user.role!=='user'){window.location.href='login.html';throw 'not logged in';}
+function guardUser(){if(!user||!user.phone){user=JSON.parse(localStorage.getItem('zohra_user')||'null');if(!user||!user.phone){window.location.href='login.html';return false;}}return true;}
+function isMyPlan(p){if(!user||!p)return false;if(p.patientPhone&&user.phone)return p.patientPhone===user.phone;return (p.patientName||'')===(user.name||'');}
+
+document.getElementById('todayDate').textContent='📅 '+new Intl.DateTimeFormat('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+
+// ============================================================
+// توابع کمکی برای اعلان‌ها
+// ============================================================
+
+function getSeenIds() {
+  try {
+    return JSON.parse(localStorage.getItem('zohra_seen_notifications_' + user.phone) || '[]');
+  } catch(e) {
+    return [];
+  }
+}
+
+function addToSeenIds(ids) {
+  const existing = getSeenIds();
+  const newIds = [...new Set([...existing, ...ids])];
+  localStorage.setItem('zohra_seen_notifications_' + user.phone, JSON.stringify(newIds));
+}
+
+function isNotificationSeen(id, createdAtTime) {
+  const seenIds = getSeenIds();
+  if (seenIds.includes(id)) return true;
+  
+  // برای سازگاری با نسخه قبلی
+  const clearedData = JSON.parse(localStorage.getItem('zohra_cleared_' + user.phone) || '{}');
+  if (clearedData.meal && createdAtTime && createdAtTime < clearedData.meal) return true;
+  if (clearedData.exercise && createdAtTime && createdAtTime < clearedData.exercise) return true;
+  if (clearedData.appointment && createdAtTime && createdAtTime < clearedData.appointment) return true;
+  if (clearedData.message && createdAtTime && createdAtTime < clearedData.message) return true;
+  
+  return false;
+}
+
+// ============================================================
+// تابع پاک کردن همه اعلان‌ها
+// ============================================================
+
+function clearNotifications(){
+  if(!guardUser())return;
+  const myName = user.name || '';
+  const myPhone = user.phone;
+  const seenIds = [];
+  
+  // جمع‌آوری شناسه‌های برنامه‌های غذایی
+  const mealPlans = JSON.parse(localStorage.getItem('zohra_mealplans') || '[]');
+  const myMeal = mealPlans.filter(isMyPlan);
+  myMeal.forEach(p => {
+    const id = 'meal_' + (p.id || p.createdAtTime || Date.now());
+    seenIds.push(id);
+  });
+  
+  // جمع‌آوری شناسه‌های برنامه‌های ورزشی
+  const exPlans = JSON.parse(localStorage.getItem('zohra_explans') || '[]');
+  const myEx = exPlans.filter(isMyPlan);
+  myEx.forEach(p => {
+    const id = 'ex_' + (p.id || p.createdAtTime || Date.now());
+    seenIds.push(id);
+  });
+  
+  // جمع‌آوری شناسه‌های نوبت‌ها
+  const apts = JSON.parse(localStorage.getItem('zohra_appointments') || '[]');
+  const myApts = apts.filter(a => a.patientPhone === myPhone && a.status !== 'cancelled');
+  myApts.forEach(a => {
+    const id = 'apt_' + (a.id || a.createdAtTime || Date.now());
+    seenIds.push(id);
+  });
+  
+  // جمع‌آوری شناسه‌های پیام‌ها
+  const msgs = JSON.parse(localStorage.getItem('zohra_msgs') || '[]');
+  const myMsgs = msgs.filter(m => m.to === myPhone && m.from === 'doctor');
+  myMsgs.forEach(m => {
+    const id = 'msg_' + (m.id || m.createdAtTime || Date.now());
+    seenIds.push(id);
+  });
+  
+  // ذخیره شناسه‌های دیده شده
+  if (seenIds.length > 0) {
+    addToSeenIds(seenIds);
+  }
+  
+  // همچنین برای سازگاری با نسخه قبلی، زمان پاک‌سازی رو ذخیره می‌کنیم
+  const now = Date.now();
+  localStorage.setItem('zohra_cleared_' + user.phone, JSON.stringify({
+    meal: now,
+    exercise: now,
+    appointment: now,
+    message: now
+  }));
+  
+  // مخفی کردن همه نشانگرها و اعلان‌ها
+  document.getElementById('mealBadge').style.display = 'none';
+  document.getElementById('exBadge').style.display = 'none';
+  document.getElementById('aptBadge').style.display = 'none';
+  document.getElementById('userMsgBadge').style.display = 'none';
+  document.getElementById('notifBadge').style.display = 'none';
+  document.getElementById('plansNotify').style.display = 'none';
+  document.getElementById('aptNotify').style.display = 'none';
+  document.getElementById('notifList').innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--m);font-size:.85rem">همه اعلان‌ها پاک شد ✅</div>';
+  document.getElementById('notifPanel').style.display = 'none';
+}
+
+// ============================================================
+// بارگذاری اعلان‌ها
+// ============================================================
+
+function loadNotifications(){
+  if(!guardUser())return;
+  const myName = user.name || '';
+  const myPhone = user.phone;
+  const notifs = [];
+
+  // بررسی برنامه‌های غذایی
+  const mealPlans = JSON.parse(localStorage.getItem('zohra_mealplans') || '[]');
+  const myMeal = mealPlans.filter(isMyPlan);
+  myMeal.forEach(p => {
+    const id = 'meal_' + (p.id || p.createdAtTime || Date.now());
+    if (!isNotificationSeen(id, p.createdAtTime)) {
+      notifs.push({type:'meal', icon:'🍽️', text:'برنامه غذایی جدید: '+p.title, date:p.createdAt, link:'myplan'});
+    }
+  });
+
+  // بررسی برنامه‌های ورزشی
+  const exPlans = JSON.parse(localStorage.getItem('zohra_explans') || '[]');
+  const myEx = exPlans.filter(isMyPlan);
+  myEx.forEach(p => {
+    const id = 'ex_' + (p.id || p.createdAtTime || Date.now());
+    if (!isNotificationSeen(id, p.createdAtTime)) {
+      notifs.push({type:'exercise', icon:'🏃', text:'برنامه ورزشی جدید: '+p.title, date:p.createdAt, link:'myexercise'});
+    }
+  });
+
+  // بررسی نوبت‌ها
+  const apts = JSON.parse(localStorage.getItem('zohra_appointments') || '[]');
+  const myApts = apts.filter(a => a.patientPhone === myPhone && a.status !== 'cancelled');
+  myApts.forEach(a => {
+    const id = 'apt_' + (a.id || a.createdAtTime || Date.now());
+    if (!isNotificationSeen(id, a.createdAtTime)) {
+      const parts = a.date.split('-');
+      let dateStr = a.date;
+      if(parts.length === 3){
+        dateStr = parseInt(parts[2]).toLocaleString('fa-IR') + ' ' + persianMonthNames[parseInt(parts[1])-1];
+      }
+      notifs.push({type:'appointment', icon:'📅', text:'نوبت جدید: '+dateStr+' — ساعت '+a.time+' — '+a.type, date:dateStr, link:'apt'});
+    }
+  });
+
+  // بررسی پیام‌ها
+  const msgs = JSON.parse(localStorage.getItem('zohra_msgs') || '[]');
+  const myMsgs = msgs.filter(m => m.to === myPhone && m.from === 'doctor');
+  myMsgs.forEach(m => {
+    const id = 'msg_' + (m.id || m.createdAtTime || Date.now());
+    if (!isNotificationSeen(id, m.createdAtTime)) {
+      notifs.push({type:'message', icon:'💬', text:'پیام جدید از پزشک: '+m.text.substring(0,40)+'...', date:m.date, link:'mymsg'});
+    }
+  });
+
+  // به‌روزرسانی نشانگر تعداد
+  const badge = document.getElementById('notifBadge');
+  if(notifs.length > 0){
+    badge.textContent = notifs.length;
+    badge.style.display = 'flex';
+  }else{
+    badge.style.display = 'none';
+  }
+
+  // نمایش اعلان‌ها
+  const list = document.getElementById('notifList');
+  if(!notifs.length){
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--m);font-size:.85rem">اعلان جدیدی نیست</div>';
+    return;
+  }
+
+  list.innerHTML = notifs.slice(0,10).map(n => {
+    const bgColor = n.type==='meal'?'var(--s)':n.type==='exercise'?'#dbeafe':n.type==='appointment'?'#fef3c7':'#fce7f3';
+    return '<div style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-bottom:1px solid var(--br);cursor:pointer;transition:background .2s" onmouseover="this.style.background=\'var(--g)\'" onmouseout="this.style.background=\'transparent\'" onclick="go(\''+n.link+'\',document.querySelectorAll(\'.sb-link\')['+getLinkIndex(n.link)+']);document.getElementById(\'notifPanel\').style.display=\'none\'"><div style="width:36px;height:36px;border-radius:10px;background:'+bgColor+';display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">'+n.icon+'</div><div style="flex:1;min-width:0"><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+n.text+'</div><div style="font-size:.7rem;color:var(--m)">'+n.date+'</div></div></div>';
+  }).join('');
+}
+
+function getLinkIndex(link){
+  const links = ['dash', 'apt', 'prog', 'myplan', 'myexercise', 'water', 'mymsg', 'mytests', 'tips'];
+  return links.indexOf(link);
+}
+
+// ============================================================
+// بررسی برنامه‌های پزشک (اصلاح‌شده)
+// ============================================================
+
+function checkForPlans(){
+  if(!guardUser())return;
+  const myName = user.name || '';
+  const myPhone = user.phone;
+  
+  const mealPlans = JSON.parse(localStorage.getItem('zohra_mealplans') || '[]');
+  const exPlans = JSON.parse(localStorage.getItem('zohra_explans') || '[]');
+  const myMeal = mealPlans.filter(isMyPlan);
+  const myEx = exPlans.filter(isMyPlan);
+
+  // بررسی اعلان‌های غذایی دیده نشده
+  const hasUnclearedMeal = myMeal.some(p => {
+    const id = 'meal_' + (p.id || p.createdAtTime || Date.now());
+    return !isNotificationSeen(id, p.createdAtTime);
+  });
+  
+  const hasUnclearedEx = myEx.some(p => {
+    const id = 'ex_' + (p.id || p.createdAtTime || Date.now());
+    return !isNotificationSeen(id, p.createdAtTime);
+  });
+
+  // به‌روزرسانی نشانگرها
+  if(hasUnclearedMeal){
+    document.getElementById('mealBadge').style.display = 'inline';
+  }else{
+    document.getElementById('mealBadge').style.display = 'none';
+  }
+  
+  if(hasUnclearedEx){
+    document.getElementById('exBadge').style.display = 'inline';
+  }else{
+    document.getElementById('exBadge').style.display = 'none';
+  }
+
+  // نمایش اعلان فقط در صورت وجود اعلان دیده نشده
+  if(hasUnclearedMeal || hasUnclearedEx){
+    document.getElementById('plansNotify').style.display = 'block';
+    let btns = '';
+    if(hasUnclearedMeal){btns += '<button class="btn btn-p" onclick="go(\'myplan\',document.querySelectorAll(\'.sb-link\')[3])">🍽️ مشاهده برنامه غذایی</button>';}
+    if(hasUnclearedEx){btns += '<button class="btn btn-o" style="background:var(--mid);color:var(--w);border:none" onclick="go(\'myexercise\',document.querySelectorAll(\'.sb-link\')[4])">🏃 مشاهده برنامه ورزشی</button>';}
+    document.getElementById('notifyButtons').innerHTML = btns;
+  }else{
+    document.getElementById('plansNotify').style.display = 'none';
+  }
+
+  // بارگذاری آخرین برنامه غذایی در داشبورد
+  if(myMeal.length){
+    const latest = myMeal[0];
+    document.getElementById('dashMealPlan').innerHTML = renderMealPlanCard(latest);
+  }
+
+  // بررسی نوبت‌های آینده
+  try{
+    const allApts = JSON.parse(localStorage.getItem('zohra_appointments') || '[]');
+    const myApts = allApts.filter(a => a.patientPhone === user.phone && a.status !== 'cancelled');
+    
+    const hasUnclearedApt = myApts.some(a => {
+      const id = 'apt_' + (a.id || a.createdAtTime || Date.now());
+      return !isNotificationSeen(id, a.createdAtTime);
+    });
+
+    if(hasUnclearedApt && myApts.length > 0){
+      const next = myApts[0];
+      const parts = next.date.split('-');
+      let dateStr = next.date;
+      if(parts.length === 3){
+        dateStr = parseInt(parts[2]).toLocaleString('fa-IR')+' '+persianMonthNames[parseInt(parts[1])-1];
+      }
+      document.getElementById('aptNotify').style.display = 'block';
+      document.getElementById('aptNotifyText').textContent = dateStr+' — ساعت '+next.time+' — '+next.type;
+      document.getElementById('aptBadge').style.display = 'inline';
+      document.getElementById('aptBadge').textContent = myApts.length;
+    }else{
+      document.getElementById('aptNotify').style.display = 'none';
+      document.getElementById('aptBadge').style.display = 'none';
+    }
+  }catch(e){}
+
+  // به‌روزرسانی آمار
+  document.getElementById('statPlans').textContent = (myMeal.length + myEx.length).toLocaleString('fa-IR');
+
+  // به‌روزرسانی وزن و BMI
+  const progress = JSON.parse(localStorage.getItem('zohra_progress_'+user.phone)||'[]');
+  if(progress.length > 0){
+    const latest = progress[0];
+    document.getElementById('statWeight').textContent = latest.weight;
+    const regUsers = JSON.parse(localStorage.getItem('zohra_users')||'[]');
+    const me = regUsers.find(u=>u.phone===user.phone);
+    if(me && me.height){
+      const bmi = (latest.weight/((me.height/100)**2)).toFixed(1);
+      document.getElementById('statBMI').textContent = bmi;
+      let bmiStatus = 'نرمال';
+      let bmiColor = 'var(--p)';
+      if(bmi < 18.5){bmiStatus = 'کمبود وزن';bmiColor = 'var(--mid)';}
+      else if(bmi >= 25){bmiStatus = 'اضافه وزن';bmiColor = '#d97706';}
+      else if(bmi >= 30){bmiStatus = 'چاقی';bmiColor = 'var(--berry)';}
+      document.getElementById('dashBMI').innerHTML = '<div class="bmi"><div class="bmi-c"><div><div class="bmi-v">'+bmi+'</div><div class="bmi-l">BMI</div></div></div><div class="bmi-s" style="background:'+bmiColor+'15;color:'+bmiColor+'">'+bmiStatus+'</div></div>';
+    }else{
+      document.getElementById('dashBMI').innerHTML = '<div style="text-align:center;padding:1rem;color:var(--m);font-size:.85rem"> قد شما ثبت نشده — در پروفایل خود قد را وارد کنید</div>';
+    }
+    // به‌روزرسانی نمودار
+    const chartData = progress.slice(0,7).reverse();
+    const weights = chartData.map(w=>w.weight);
+    const maxW = Math.max(...weights);
+    const minW = Math.min(...weights);
+    const range = maxW-minW||1;
+    document.getElementById('dashChart').innerHTML = chartData.map(w=>{const h=30+((w.weight-minW)/range)*70;return '<div class="ch-b g" style="height:'+h+'%" data-v="'+w.weight+'"></div>';}).join('');
+    document.getElementById('dashChartLabels').innerHTML = chartData.map(w=>'<span>'+w.date.split(' ')[0]+'</span>').join('');
+    // به‌روزرسانی پیشرفت
+    const goalWeight = 68;
+    const startWeight = progress[progress.length-1].weight;
+    const weightProg = Math.max(0,Math.min(100,((startWeight-latest.weight)/(startWeight-goalWeight))*100));
+    document.getElementById('dashProgress').innerHTML = '<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+latest.weight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProg)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div>';
+  }
+}
+
+function renderMealPlanCard(p){
+  return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d);font-size:1rem">'+p.title+'</strong><div style="font-size:.78rem;color:var(--m)">'+p.desc+'</div></div><span style="font-size:.72rem;color:var(--m)">📅 '+p.createdAt+'</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.5rem">'+(p.breakfast?'<div style="padding:.6rem;background:var(--g);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.68rem;color:var(--m);margin-bottom:.2rem;font-weight:600">🌅 صبحانه</div><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+p.breakfast+'</div></div>':'')+(p.snack1?'<div style="padding:.6rem;background:var(--g);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.68rem;color:var(--m);margin-bottom:.2rem;font-weight:600">🍎 میان‌وعده</div><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+p.snack1+'</div></div>':'')+(p.lunch?'<div style="padding:.6rem;background:var(--g);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.68rem;color:var(--m);margin-bottom:.2rem;font-weight:600">☀️ ناهار</div><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+p.lunch+'</div></div>':'')+(p.snack2?'<div style="padding:.6rem;background:var(--g);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.68rem;color:var(--m);margin-bottom:.2rem;font-weight:600">🥤 میان‌وعده</div><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+p.snack2+'</div></div>':'')+(p.dinner?'<div style="padding:.6rem;background:var(--g);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.68rem;color:var(--m);margin-bottom:.2rem;font-weight:600">🌙 شام</div><div style="font-size:.82rem;font-weight:600;color:var(--d)">'+p.dinner+'</div></div>':'')+'</div>'+(p.calories?'<div style="margin-top:.5rem;display:flex;gap:1rem;font-size:.75rem;color:var(--m)"><span>🔥 '+p.calories+' کالری روزانه</span><span>⏱ '+p.duration+' روز</span></div>':'')+'</div>';
+}
+
+// ============================================================
+// توابع اصلی
+// ============================================================
+
+function go(id,el){
+  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('p-'+id).style.display='block';
+  if(el)el.classList.add('active');
+  const t={dash:'داشبورد من',apt:'نوبت‌ها',prog:'پیشرفت',water:'ردیاب آب',tips:'نکات',myplan:'برنامه غذایی من',myexercise:'برنامه ورزشی من',mymsg:'پیام به پزشک',mytests:'آزمایشات من'};
+  document.getElementById('pageTitle').textContent=t[id]||'داشبورد';
+  if(id==='myplan')loadMyMealPlan();
+  if(id==='myexercise')loadMyExPlan();
+  if(id==='prog')renderProgress();
+  if(id==='mymsg')loadUserMsgs();
+  if(id==='apt')loadMyAppointments();
+  if(id==='mytests')renderMyTests();
+  if(window.innerWidth<=900)toggleSidebar();
+}
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+
+// ============================================================
+// پیشرفت
+// ============================================================
+
+var progressData=[];
+
+function addProgress(){
+  if(!guardUser())return;
+  const weight=parseFloat(document.getElementById('newWeight').value);
+  const waist=parseFloat(document.getElementById('newWaist').value);
+  const note=document.getElementById('newNote').value;
+  if(!weight){alert('لطفاً وزن را وارد کنید');return;}
+  progressData.unshift({
+    id:Date.now(),
+    date:new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'long',day:'numeric'}).format(new Date()),
+    weight:weight,
+    waist:waist||null,
+    note:note||'',
+    createdAt:new Date().toISOString()
+  });
+  localStorage.setItem('zohra_progress_'+user.phone,JSON.stringify(progressData));
+  document.getElementById('newWeight').value='';
+  document.getElementById('newWaist').value='';
+  document.getElementById('newNote').value='';
+  renderProgress();
+}
+
+function renderProgress(){
+  const chart=document.getElementById('weightChart');
+  const labels=document.getElementById('weightLabels');
+  if(progressData.length>0){
+    const weights=progressData.slice(0,7).reverse();
+    const maxW=Math.max(...weights.map(w=>w.weight));
+    const minW=Math.min(...weights.map(w=>w.weight));
+    const range=maxW-minW||1;
+    chart.innerHTML=weights.map(w=>{
+      const h=30+((w.weight-minW)/range)*70;
+      return '<div class="ch-b g" style="height:'+h+'%" data-v="'+w.weight+'"></div>';
+    }).join('');
+    labels.innerHTML=weights.map(w=>'<span>'+w.date.split(' ')[0]+'</span>').join('');
+  }else{
+    chart.innerHTML='<div style="text-align:center;width:100%;color:var(--m);font-size:.85rem;padding:2rem">هنوز داده‌ای ثبت نشده</div>';
+    labels.innerHTML='';
+  }
+
+  const goals=document.getElementById('goalsSection');
+  const latest=progressData[0];
+  if(latest){
+    const startWeight=progressData[progressData.length-1].weight;
+    const currentWeight=latest.weight;
+    const goalWeight=68;
+    const weightProgress=Math.max(0,Math.min(100,((startWeight-currentWeight)/(startWeight-goalWeight))*100));
+    goals.innerHTML='<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+currentWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProgress)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div>';
+  }else{
+    goals.innerHTML='<div style="text-align:center;color:var(--m);font-size:.85rem;padding:1rem">وزن خود را ثبت کنید</div>';
+  }
+
+  const history=document.getElementById('progressHistory');
+  if(progressData.length>0){
+    history.innerHTML=progressData.slice(0,10).map(p=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--br)"><div><strong style="color:var(--d)">'+p.weight+' کیلو</strong>'+(p.waist?' <span style="color:var(--m);font-size:.82rem">— دور کمر: '+p.waist+' سانتی</span>':'')+(p.note?'<div style="font-size:.78rem;color:var(--m);margin-top:.2rem">'+p.note+'</div>':'')+'</div><div style="font-size:.75rem;color:var(--m)">'+p.date+'</div></div>').join('');
+  }else{
+    history.innerHTML='<div style="text-align:center;color:var(--m);font-size:.85rem;padding:1.5rem">هنوز سابقه‌ای ثبت نشده</div>';
+  }
+
+  if(latest){
+    document.getElementById('statWeight').textContent=latest.weight;
+  }
+}
+
+// ============================================================
+// تاریخ فارسی
+// ============================================================
+
+const persianMonthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+// ============================================================
+// نوبت‌ها
+// ============================================================
+
+function loadMyAppointments(){
+  if(!guardUser())return;
+  const allApts=JSON.parse(localStorage.getItem('zohra_appointments')||'[]');
+  const myApts=allApts.filter(a=>a.patientPhone===user.phone);
+  const container=document.getElementById('myApts');
+
+  const upcoming=myApts.filter(a=>a.status!=='cancelled');
+  if(upcoming.length){document.getElementById('aptBadge').style.display='inline';document.getElementById('aptBadge').textContent=upcoming.length;}
+  else{document.getElementById('aptBadge').style.display='none';}
+
+  if(!myApts.length){
+    container.innerHTML='<div style="text-align:center;padding:3rem;color:var(--m)"><div style="font-size:2rem;margin-bottom:.75rem">📅</div><div>هنوز نوبتی ثبت نشده</div><div style="font-size:.82rem;margin-top:.5rem">با منشی کلینیک تماس بگیرید.</div></div>';
+    return;
+  }
+
+  container.innerHTML=myApts.map(a=>{
+    const parts=a.date.split('-');
+    let day=parts[2]||'', month='';
+    if(parts.length===3){
+      day=parseInt(parts[2]).toLocaleString('fa-IR');
+      month=persianMonthNames[parseInt(parts[1])-1]||'';
+    }
+    const statusClass=a.status==='confirmed'?'ok':a.status==='cancelled'?'dn':'w';
+    const statusText=a.status==='confirmed'?'تأیید شده':a.status==='cancelled'?'لغو شده':'در انتظار';
+    return '<div class="apt"><div class="apt-d"><div class="apt-day">'+day+'</div><div class="apt-mo">'+month+'</div></div><div class="apt-i"><h4>'+a.type+'</h4><p>ساعت '+a.time+(a.notes?' — '+a.notes:'')+'</p></div><div class="apt-s '+statusClass+'">'+statusText+'</div></div>';
+  }).join('');
+}
+
+// ============================================================
+// پنل اعلان‌ها
+// ============================================================
+
+function toggleNotifPanel(){
+  const panel=document.getElementById('notifPanel');
+  panel.style.display=panel.style.display==='none'?'block':'none';
+  if(panel.style.display==='block')loadNotifications();
+}
+
+function closeNotifPanel(e){
+  const panel=document.getElementById('notifPanel');
+  const btn=document.querySelector('.topbar-btn');
+  if(!panel.contains(e.target)&&!btn.contains(e.target)){
+    panel.style.display='none';
+  }
+}
+document.addEventListener('click',closeNotifPanel);
+
+// ============================================================
+// آب
+// ============================================================
+
+let wc=0;
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+const today=todayStr();
+var waterKey='';
+function refreshWaterKey(){if(user&&user.phone){waterKey='zohra_water_'+user.phone+'_'+todayStr();}}
+
+function celebrateWater(){
+  const celeb=document.createElement('div');
+  celeb.style.cssText='position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;';
+  document.body.appendChild(celeb);
+
+  const colors=['#5DADE2','#2E86C1','#F7B731','#16a34a','#E74C3C','#9B59B6','#FF6B6B','#4ECDC4'];
+  for(let i=0;i<60;i++){
+    const conf=document.createElement('div');
+    const size=Math.random()*10+5;
+    const x=Math.random()*100;
+    const delay=Math.random()*0.5;
+    const duration=Math.random()*2+2;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const rotation=Math.random()*360;
+    conf.style.cssText='position:absolute;top:-20px;width:'+size+'px;height:'+size+'px;background:'+color+';border-radius:'+(Math.random()>.5?'50%':'2px')+';left:'+x+'%;animation:confettiFall '+duration+'s ease-in '+delay+'s forwards;transform:rotate('+rotation+'deg);';
+    celeb.appendChild(conf);
+  }
+
+  const msg=document.createElement('div');
+  msg.style.cssText='position:relative;z-index:10;text-align:center;animation:celebBounce .6s cubic-bezier(.68,-.55,.27,1.55) forwards;opacity:0;';
+  msg.innerHTML='<div style="font-size:4rem;margin-bottom:.5rem">🎉</div><div style="background:linear-gradient(135deg,var(--p),#22c55e);color:white;padding:1.5rem 3rem;border-radius:20px;font-size:1.3rem;font-weight:800;box-shadow:0 10px 40px rgba(22,163,74,.4)">آفرین! ۸ لیوان آب نوشیدید! 💧</div>';
+  celeb.appendChild(msg);
+
+  setTimeout(()=>{celeb.style.opacity='0';celeb.style.transition='opacity .5s';setTimeout(()=>celeb.remove(),500);},3500);
+}
+
+function initWater(){
+  const saved=JSON.parse(localStorage.getItem(waterKey)||'{"count":0,"glasses":[]}');
+  wc=saved.count||0;
+  const glasses=saved.glasses||[];
+
+  const g=document.getElementById('wg');
+  g.innerHTML='';
+  for(let i=0;i<8;i++){
+    const d=document.createElement('div');
+    d.className='wg-g';
+    d.textContent='💧';
+    if(glasses.includes(i)){d.classList.add('on');}
+    d.onclick=()=>{
+      if(!guardUser())return;
+      d.classList.toggle('on');
+      const activeGlasses=[];
+      document.querySelectorAll('.wg-g').forEach((g,idx)=>{if(g.classList.contains('on'))activeGlasses.push(idx);});
+      wc=activeGlasses.length;
+      localStorage.setItem(waterKey,JSON.stringify({count:wc,glasses:activeGlasses}));
+      document.getElementById('wc').textContent=wc.toLocaleString('fa-IR');
+      document.getElementById('statW').textContent=wc+'/۸';
+      if(wc>=8){celebrateWater();}
+    };
+    g.appendChild(d);
+  }
+  document.getElementById('wc').textContent=wc.toLocaleString('fa-IR');
+  document.getElementById('statW').textContent=wc+'/۸';
+}
+
+function resetWater(){
+  wc=0;
+  document.querySelectorAll('.wg-g').forEach(g=>g.classList.remove('on'));
+  localStorage.setItem(waterKey,JSON.stringify({count:0,glasses:[]}));
+  document.getElementById('wc').textContent='۰';
+  document.getElementById('statW').textContent='۰/۸';
+}
+
+// ============================================================
+// برنامه غذایی من
+// ============================================================
+
+function loadMyMealPlan(){
+  if(!guardUser())return;
+  const allPlans=JSON.parse(localStorage.getItem('zohra_mealplans')||'[]');
+  const myName=user.name||'';
+  const myPlans=allPlans.filter(p=>(p.patientPhone&&user.phone)?p.patientPhone===user.phone:p.patientName===myName);
+  const container=document.getElementById('myMealPlan');
+  if(!myPlans.length){
+    container.innerHTML='<div style="text-align:center;padding:3rem;color:var(--m)"><div style="font-size:2rem;margin-bottom:.75rem">📋</div><div>هنوز برنامه غذایی اختصاصی برای شما ثبت نشده.</div><div style="font-size:.82rem;margin-top:.5rem">با پزشک خود تماس بگیرید.</div></div>';
+    return;
+  }
+  container.innerHTML=myPlans.map(p=>'<div style="padding:1.25rem;background:var(--g);border-radius:var(--rr);margin-bottom:1rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d);font-size:1.05rem">'+p.title+'</strong><div style="font-size:.78rem;color:var(--m)">'+p.desc+'</div></div><span style="font-size:.72rem;color:var(--m)">📅 '+p.createdAt+' • ⏱ '+p.duration+' روز</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.5rem">'+(p.breakfast?'<div style="padding:.65rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--m);margin-bottom:.2rem">🌅 صبحانه</div><div style="font-size:.85rem;font-weight:600">'+p.breakfast+'</div></div>':'')+(p.snack1?'<div style="padding:.65rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--m);margin-bottom:.2rem">🍎 میان‌وعده</div><div style="font-size:.85rem;font-weight:600">'+p.snack1+'</div></div>':'')+(p.lunch?'<div style="padding:.65rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--m);margin-bottom:.2rem">☀️ ناهار</div><div style="font-size:.85rem;font-weight:600">'+p.lunch+'</div></div>':'')+(p.snack2?'<div style="padding:.65rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--m);margin-bottom:.2rem">🥤 میان‌وعده</div><div style="font-size:.85rem;font-weight:600">'+p.snack2+'</div></div>':'')+(p.dinner?'<div style="padding:.65rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--m);margin-bottom:.2rem">🌙 شام</div><div style="font-size:.85rem;font-weight:600">'+p.dinner+'</div></div>':'')+'</div>'+(p.calories?'<div style="margin-top:.75rem;display:flex;gap:1rem;font-size:.8rem;color:var(--m)"><span>🔥 '+p.calories+' کالری روزانه</span><span>⏱ '+p.duration+' روز</span></div>':'')+'</div>').join('');
+}
+
+// ============================================================
+// برنامه ورزشی من
+// ============================================================
+
+function loadMyExPlan(){
+  if(!guardUser())return;
+  const allPlans=JSON.parse(localStorage.getItem('zohra_explans')||'[]');
+  const myName=user.name||'';
+  const myPlans=allPlans.filter(p=>(p.patientPhone&&user.phone)?p.patientPhone===user.phone:p.patientName===myName);
+  const container=document.getElementById('myExPlan');
+  if(!myPlans.length){
+    container.innerHTML='<div style="text-align:center;padding:3rem;color:var(--m)"><div style="font-size:2rem;margin-bottom:.75rem">🏃</div><div>هنوز برنامه ورزشی اختصاصی برای شما ثبت نشده.</div><div style="font-size:.82rem;margin-top:.5rem">با پزشک خود تماس بگیرید.</div></div>';
+    return;
+  }
+  container.innerHTML=myPlans.map(p=>'<div style="padding:1.25rem;background:var(--g);border-radius:var(--rr);margin-bottom:1rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d);font-size:1.05rem">'+p.title+'</strong><div style="font-size:.78rem;color:var(--m)">'+p.desc+'</div></div><span style="font-size:.72rem;color:var(--m)">📅 '+p.createdAt+' • ⏱ '+p.weeks+' هفته</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem">'+(p.sat?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--p);font-weight:700;margin-bottom:.15rem">شنبه</div><div style="font-size:.82rem">'+p.sat+'</div></div>':'')+(p.sun?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--mid);font-weight:700;margin-bottom:.15rem">یکشنبه</div><div style="font-size:.82rem">'+p.sun+'</div></div>':'')+(p.mon?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--p);font-weight:700;margin-bottom:.15rem">دوشنبه</div><div style="font-size:.82rem">'+p.mon+'</div></div>':'')+(p.tue?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--mid);font-weight:700;margin-bottom:.15rem">سه‌شنبه</div><div style="font-size:.82rem">'+p.tue+'</div></div>':'')+(p.wed?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--p);font-weight:700;margin-bottom:.15rem">چهارشنبه</div><div style="font-size:.82rem">'+p.wed+'</div></div>':'')+(p.thu?'<div style="padding:.6rem;background:var(--w);border-radius:var(--r);border:1px solid var(--br)"><div style="font-size:.7rem;color:var(--mid);font-weight:700;margin-bottom:.15rem">پنجشنبه</div><div style="font-size:.82rem">'+p.thu+'</div></div>':'')+'</div>'+(p.calories?'<div style="margin-top:.75rem;display:flex;gap:1rem;font-size:.8rem;color:var(--m)"><span>🔥 '+p.calories+' کالری/هفته</span><span>⏱ '+p.weeks+' هفته</span></div>':'')+'</div>').join('');
+}
+
+// ============================================================
+// آپلود آزمایش
+// ============================================================
+
+function uploadTest(){
+  if(!guardUser())return;
+  const title=document.getElementById('testTitle').value.trim();
+  const desc=document.getElementById('testDesc').value.trim();
+  if(!title){alert('لطفاً عنوان آزمایش را وارد کنید');return;}
+
+  const fileInput=document.getElementById('testFile');
+  const file=fileInput.files[0];
+
+  if(file){
+    const reader=new FileReader();
+    reader.onload=function(e){
+      const img=new Image();
+      img.onload=function(){
+        const canvas=document.createElement('canvas');
+        const maxSize=400;
+        let w=img.width,h=img.height;
+        if(w>maxSize||h>maxSize){
+          if(w>h){h=Math.round(h*maxSize/w);w=maxSize;}
+          else{w=Math.round(w*maxSize/h);h=maxSize;}
+        }
+        canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        const imageData=canvas.toDataURL('image/jpeg',0.7);
+        saveTest(title,desc,imageData);
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }else{
+    saveTest(title,desc,'');
+  }
+}
+
+function saveTest(title,desc,imageData){
+  const tests=JSON.parse(localStorage.getItem('zohra_tests_'+user.phone)||'[]');
+  tests.unshift({
+    id:Date.now(),
+    title:title,
+    desc:desc,
+    image:imageData,
+    date:new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date()),
+    status:'pending',
+    doctorNote:''
+  });
+  try{
+    localStorage.setItem('zohra_tests_'+user.phone,JSON.stringify(tests));
+  }catch(e){
+    while(tests.length>3){tests.pop();}
+    localStorage.setItem('zohra_tests_'+user.phone,JSON.stringify(tests));
+  }
+  document.getElementById('testTitle').value='';
+  document.getElementById('testDesc').value='';
+  document.getElementById('testFile').value='';
+  renderMyTests();
+}
+
+function renderMyTests(){
+  if(!guardUser())return;
+  const tests=JSON.parse(localStorage.getItem('zohra_tests_'+user.phone)||'[]');
+  const container=document.getElementById('myTestsList');
+  if(!tests.length){
+    container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">هنوز آزمایشی آپلود نشده</div>';
+    return;
+  }
+  container.innerHTML=tests.map(t=>'<div style="padding:1rem;background:var(--g);border-radius:var(--r);margin-bottom:.75rem;border:1px solid var(--br)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem"><div><strong style="color:var(--d)">'+t.title+'</strong><div style="font-size:.75rem;color:var(--m)">'+t.date+'</div></div><span class="sb '+(t.status==='reviewed'?'ok':'nw')+'">'+(t.status==='reviewed'?'بررسی شده':'در انتظار')+'</span></div>'+(t.desc?'<div style="font-size:.82rem;color:var(--m);margin-bottom:.5rem">'+t.desc+'</div>':'')+(t.image?'<img src="'+t.image+'" style="max-width:100%;max-height:200px;border-radius:var(--r);border:1px solid var(--br);margin-bottom:.5rem;cursor:pointer" onclick="window.open(this.src)">':'')+(t.doctorNote?'<div style="padding:.5rem;background:var(--s);border-radius:var(--r);font-size:.82rem;margin-top:.5rem"><strong>📝 نظر پزشک:</strong> '+t.doctorNote+'</div>':'')+'</div>').join('');
+}
+
+// ============================================================
+// پیام‌ها
+// ============================================================
+
+function sendUserMsg(){
+  if(!guardUser())return;
+  const text=document.getElementById('userMsgText').value.trim();
+  if(!text){return;}
+  const msgs=JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  msgs.unshift({id:Date.now(),from:user.phone,to:'doctor',text:text,date:new Intl.DateTimeFormat('fa-IR',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}).format(new Date())});
+  localStorage.setItem('zohra_msgs',JSON.stringify(msgs));
+  document.getElementById('userMsgText').value='';
+  loadUserMsgs();
+  const allMsgs=JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  const unread=allMsgs.filter(m=>m.to==='doctor').length;
+}
+
+function loadUserMsgs(){
+  if(!guardUser())return;
+  const allMsgs=JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  const chat=allMsgs.filter(m=>(m.from===user.phone&&m.to==='doctor')||(m.from==='doctor'&&m.to===user.phone)).reverse();
+  const container=document.getElementById('userMsgsList');
+  if(!chat.length){container.innerHTML='<div style="text-align:center;padding:2rem;color:var(--m)">هنوز پیامی نیست</div>';return;}
+  container.innerHTML=chat.map(m=>'<div style="display:flex;'+(m.from===user.phone?'justify-content:flex-start':'justify-content:flex-end')+';margin-bottom:.5rem"><div style="max-width:70%;padding:.6rem 1rem;border-radius:12px;font-size:.85rem;'+(m.from===user.phone?'background:var(--p);color:var(--w);border-bottom-right-radius:4px':'background:var(--g2);color:var(--e);border-bottom-left-radius:4px')+'">'+m.text+'<div style="font-size:.65rem;opacity:.7;margin-top:.2rem;text-align:left">'+m.date+'</div></div></div>').join('');
+  container.scrollTop=container.scrollHeight;
+}
+
+function checkUserMsgs(){
+  if(!guardUser())return;
+  const allMsgs=JSON.parse(localStorage.getItem('zohra_msgs')||'[]');
+  const myPhone = user.phone;
+  const myMsgs = allMsgs.filter(m => m.to === myPhone && m.from === 'doctor');
+  const hasUnread = myMsgs.some(m => {
+    const id = 'msg_' + (m.id || m.createdAtTime || Date.now());
+    return !isNotificationSeen(id, m.createdAtTime);
+  });
+  if(hasUnread){document.getElementById('userMsgBadge').style.display='inline';}
+}
+
+function logout(){fetch('/api/index.php?action=auth/logout',{credentials:'include'}).finally(()=>{localStorage.removeItem('zohra_user');window.location.href='login.html';});}
+
+// ============================================================
+// اجرای اولیه
+// ============================================================
+
+window.__apiSyncReady(function(){
+const u=JSON.parse(localStorage.getItem('zohra_user')||'null');
+if(!u||u.role!=='user'){window.location.href='login.html';return;}
+user=u;
+waterKey='zohra_water_'+user.phone+'_'+today;
+progressData=JSON.parse(localStorage.getItem('zohra_progress_'+user.phone)||'[]');
+document.getElementById('sbName').textContent=user.name||'کاربر';
+document.getElementById('sbAv').textContent=(user.name||'کاربر')[0];
+initWater();
+checkForPlans();
+loadNotifications();
+renderMyTests();
+checkUserMsgs();
+renderProgress();
+
+setInterval(function(){
+  if(!user||!user.phone)return;
+  window.__apiSyncRefresh(function(){
+    progressData=JSON.parse(localStorage.getItem('zohra_progress_'+user.phone)||'[]');
+    checkForPlans();
+    loadNotifications();
+    renderMyTests();
+    checkUserMsgs();
+    renderProgress();
+    refreshWaterKey();
+    if(document.getElementById('wg')){initWater();}
+  });
+}, 10000);
+});
+</script>
+</body>
+</html>

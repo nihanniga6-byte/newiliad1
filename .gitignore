@@ -1,0 +1,16 @@
+# ============ Secrets — NEVER commit these ============
+.env
+.env.*
+!.env.example
+
+# ============ Runtime artifacts ============
+*.log
+v2/logs/
+v2/cache/
+v2/uploads/
+install.lock
+v2/config/install.lock
+
+# ============ OS / editor noise ============
+.DS_Store
+Thumbs.db

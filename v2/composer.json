@@ -1,0 +1,14 @@
+{
+    "name": "zohrabi-clinic",
+    "description": "Dr. Zohrabi Nutrition Clinic",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*"
+    },
+    "scripts": {
+        "post-root-package-install": []
+    }
+}
