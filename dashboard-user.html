@@ -407,6 +407,37 @@ if(!user||user.role!=='user'){window.location.href='login.html';throw 'not logge
 function guardUser(){if(!user||!user.phone){user=JSON.parse(localStorage.getItem('zohra_user')||'null');if(!user||!user.phone){window.location.href='login.html';return false;}}return true;}
 function isMyPlan(p){if(!user||!p)return false;if(p.patientPhone&&user.phone)return p.patientPhone===user.phone;return (p.patientName||'')===(user.name||'');}
 
+// ============================================================
+// وزن هدف شخصی‌سازی‌شده بر اساس محدوده نرمال BMI (18.5 تا 24.9)
+// فرمول: وزن = BMI * (قد به متر)^2
+// هدف = BMI ایده‌آل 22 (وسط محدوده نرمال)
+// ============================================================
+function getUserHeightCm(){
+  if(user&&user.height&&parseFloat(user.height)>0)return parseFloat(user.height);
+  try{
+    var regUsers=JSON.parse(localStorage.getItem('zohra_users')||'[]');
+    var me=regUsers.find(function(u){return u.phone===user.phone;});
+    if(me&&me.height&&parseFloat(me.height)>0)return parseFloat(me.height);
+  }catch(e){}
+  return 0;
+}
+function getHealthyWeights(){
+  var h=getUserHeightCm();
+  if(!h||h<50||h>250)return null;
+  var hm=h/100;
+  return {
+    height:h,
+    min:+(18.5*hm*hm).toFixed(1),
+    max:+(24.9*hm*hm).toFixed(1),
+    ideal:+(22*hm*hm).toFixed(1)
+  };
+}
+function calcWeightProgress(start,current,goal){
+  if(!goal)return 0;
+  if(start===goal)return current===goal?100:0;
+  return Math.max(0,Math.min(100,((start-current)/(start-goal))*100));
+}
+
 document.getElementById('todayDate').textContent='📅 '+new Intl.DateTimeFormat('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
 
 // ============================================================
@@ -681,16 +712,16 @@ function checkForPlans(){
   if(progress.length > 0){
     const latest = progress[0];
     document.getElementById('statWeight').textContent = latest.weight;
-    const regUsers = JSON.parse(localStorage.getItem('zohra_users')||'[]');
-    const me = regUsers.find(u=>u.phone===user.phone);
-    if(me && me.height){
-      const bmi = (latest.weight/((me.height/100)**2)).toFixed(1);
+    var _h=getUserHeightCm();
+    if(_h){
+      const bmi = (latest.weight/((_h/100)**2)).toFixed(1);
       document.getElementById('statBMI').textContent = bmi;
       let bmiStatus = 'نرمال';
       let bmiColor = 'var(--p)';
       if(bmi < 18.5){bmiStatus = 'کمبود وزن';bmiColor = 'var(--mid)';}
-      else if(bmi >= 25){bmiStatus = 'اضافه وزن';bmiColor = '#d97706';}
-      else if(bmi >= 30){bmiStatus = 'چاقی';bmiColor = 'var(--berry)';}
+      else if(bmi < 25){bmiStatus = 'نرمال';bmiColor = 'var(--p)';}
+      else if(bmi < 30){bmiStatus = 'اضافه وزن';bmiColor = '#d97706';}
+      else{bmiStatus = 'چاقی';bmiColor = '#e11d48';}
       document.getElementById('dashBMI').innerHTML = '<div class="bmi"><div class="bmi-c"><div><div class="bmi-v">'+bmi+'</div><div class="bmi-l">BMI</div></div></div><div class="bmi-s" style="background:'+bmiColor+'15;color:'+bmiColor+'">'+bmiStatus+'</div></div>';
     }else{
       document.getElementById('dashBMI').innerHTML = '<div style="text-align:center;padding:1rem;color:var(--m);font-size:.85rem"> قد شما ثبت نشده — در پروفایل خود قد را وارد کنید</div>';
@@ -703,11 +734,16 @@ function checkForPlans(){
     const range = maxW-minW||1;
     document.getElementById('dashChart').innerHTML = chartData.map(w=>{const h=30+((w.weight-minW)/range)*70;return '<div class="ch-b g" style="height:'+h+'%" data-v="'+w.weight+'"></div>';}).join('');
     document.getElementById('dashChartLabels').innerHTML = chartData.map(w=>'<span>'+w.date.split(' ')[0]+'</span>').join('');
-    // به‌روزرسانی پیشرفت
-    const goalWeight = 68;
-    const startWeight = progress[progress.length-1].weight;
-    const weightProg = Math.max(0,Math.min(100,((startWeight-latest.weight)/(startWeight-goalWeight))*100));
-    document.getElementById('dashProgress').innerHTML = '<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+latest.weight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProg)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div>';
+    // به‌روزرسانی پیشرفت — وزن هدف شخصی‌سازی‌شده از BMI نرمال
+    var hw=getHealthyWeights();
+    if(hw){
+      var goalWeight=hw.ideal;
+      var startWeight=progress[progress.length-1].weight;
+      var weightProg=calcWeightProgress(startWeight,latest.weight,goalWeight);
+      document.getElementById('dashProgress').innerHTML='<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+latest.weight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن (BMI ایده‌آل ۲۲)</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProg)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProg+'%"></div></div></div><div style="font-size:.72rem;color:var(--m);margin-top:.5rem;text-align:center">محدوده سالم برای قد '+hw.height+' سانتی‌متر: '+hw.min+' تا '+hw.max+' کیلو</div>';
+    }else{
+      document.getElementById('dashProgress').innerHTML='<div style="text-align:center;color:var(--m);font-size:.85rem;padding:1rem">برای محاسبه وزن هدف، قد شما باید ثبت شود</div>';
+    }
   }
 }
 
@@ -790,9 +826,14 @@ function renderProgress(){
   if(latest){
     const startWeight=progressData[progressData.length-1].weight;
     const currentWeight=latest.weight;
-    const goalWeight=68;
-    const weightProgress=Math.max(0,Math.min(100,((startWeight-currentWeight)/(startWeight-goalWeight))*100));
-    goals.innerHTML='<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+currentWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProgress)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div>';
+    var hw2=getHealthyWeights();
+    if(hw2){
+      const goalWeight=hw2.ideal;
+      const weightProgress=calcWeightProgress(startWeight,currentWeight,goalWeight);
+      goals.innerHTML='<div class="pr"><div class="pr-h"><span>وزن فعلی</span><span style="color:var(--p)">'+currentWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div><div class="pr"><div class="pr-h"><span>هدف وزن (BMI ایده‌آل ۲۲)</span><span style="color:var(--mid)">'+goalWeight+' کیلو</span></div><div class="pr-bar"><div class="pr-fill b" style="width:100%"></div></div></div><div class="pr"><div class="pr-h"><span>پیشرفت</span><span style="color:var(--p)">'+Math.round(weightProgress)+'٪</span></div><div class="pr-bar"><div class="pr-fill g" style="width:'+weightProgress+'%"></div></div></div><div style="font-size:.72rem;color:var(--m);margin-top:.5rem;text-align:center">محدوده سالم برای قد '+hw2.height+' سانتی‌متر: '+hw2.min+' تا '+hw2.max+' کیلو</div>';
+    }else{
+      goals.innerHTML='<div style="text-align:center;color:var(--m);font-size:.85rem;padding:1rem">برای محاسبه وزن هدف، قد شما باید ثبت شود</div>';
+    }
   }else{
     goals.innerHTML='<div style="text-align:center;color:var(--m);font-size:.85rem;padding:1rem">وزن خود را ثبت کنید</div>';
   }
